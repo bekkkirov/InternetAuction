@@ -5,6 +5,8 @@ VisualStudioVersion = 17.1.32414.318
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InternetAuction.API", "InternetAuction.API\InternetAuction.API.csproj", "{209F4EF5-B9C0-4436-9A66-3CF29D04C028}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InternetAuction.DAL", "InternetAuction.DAL\InternetAuction.DAL.csproj", "{96BD5BC9-D69D-495D-925B-21D8D3A82263}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{209F4EF5-B9C0-4436-9A66-3CF29D04C028}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{209F4EF5-B9C0-4436-9A66-3CF29D04C028}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{209F4EF5-B9C0-4436-9A66-3CF29D04C028}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96BD5BC9-D69D-495D-925B-21D8D3A82263}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96BD5BC9-D69D-495D-925B-21D8D3A82263}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96BD5BC9-D69D-495D-925B-21D8D3A82263}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96BD5BC9-D69D-495D-925B-21D8D3A82263}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
