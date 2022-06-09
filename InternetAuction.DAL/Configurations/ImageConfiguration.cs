@@ -16,10 +16,6 @@ namespace InternetAuction.DAL.Configurations
             builder.Property(i => i.Url)
                    .IsRequired();
 
-            builder.HasOne(i => i.User)
-                   .WithOne(u => u.ProfileImage)
-                   .HasForeignKey<AppUser>(u => u.ProfileImageId);
-
             builder.HasOne(i => i.Lot)
                    .WithMany(l => l.Images)
                    .HasForeignKey(i => i.LotId);
