@@ -4,7 +4,7 @@ using InternetAuction.DAL.Entities;
 
 namespace InternetAuction.DAL.Interfaces
 {
-    public interface IUserRepository : IReadWriteRepository<AppUser>
+    public interface IUserRepository : ICrudRepository<AppUser>
     {
         Task<IEnumerable<AppUser>> GetAllWithDetailsAsync();
 

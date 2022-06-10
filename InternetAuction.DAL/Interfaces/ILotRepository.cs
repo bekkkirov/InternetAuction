@@ -4,12 +4,12 @@ using InternetAuction.DAL.Entities;
 
 namespace InternetAuction.DAL.Interfaces
 {
-    public interface ILotRepository : IReadWriteRepository<Lot>
+    public interface ILotRepository : ICrudRepository<Lot>
     {
         Task<IEnumerable<Lot>> GetAllWithDetailsAsync();
 
         Task<Lot> GetByIdWithDetailsAsync(int lotId);
 
-        Task<IEnumerable<Lot>> Search(string searchValue);
+        Task<IEnumerable<Lot>> SearchAsync(string searchValue);
     }
 }

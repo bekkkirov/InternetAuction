@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace InternetAuction.DAL.Repositories
 {
-    public class BaseRepository<TEntity> : IReadWriteRepository<TEntity> where TEntity : class, IEntity
+    public class BaseRepository<TEntity> : ICrudRepository<TEntity> where TEntity : class, IEntity
     {
         private protected readonly AuctionContext _context;
         private protected readonly DbSet<TEntity> _dbSet;

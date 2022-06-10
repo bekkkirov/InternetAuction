@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace InternetAuction.DAL.Interfaces
 {
-    public interface IReadWriteRepository<TEntity> where TEntity : IEntity
+    public interface ICrudRepository<TEntity> where TEntity : IEntity
     {
         Task<IEnumerable<TEntity>> GetAsync();
 
