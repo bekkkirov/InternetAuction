@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32414.318
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InternetAuction.API", "InternetAuction.API\InternetAuction.API.csproj", "{209F4EF5-B9C0-4436-9A66-3CF29D04C028}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InternetAuction.API", "InternetAuction.API\InternetAuction.API.csproj", "{209F4EF5-B9C0-4436-9A66-3CF29D04C028}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InternetAuction.DAL", "InternetAuction.DAL\InternetAuction.DAL.csproj", "{96BD5BC9-D69D-495D-925B-21D8D3A82263}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InternetAuction.DAL", "InternetAuction.DAL\InternetAuction.DAL.csproj", "{96BD5BC9-D69D-495D-925B-21D8D3A82263}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InternetAuction.BLL", "InternetAuction.BLL\InternetAuction.BLL.csproj", "{CA80DC6B-67C2-43ED-B575-A7F85E0EF5A8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{96BD5BC9-D69D-495D-925B-21D8D3A82263}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96BD5BC9-D69D-495D-925B-21D8D3A82263}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96BD5BC9-D69D-495D-925B-21D8D3A82263}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA80DC6B-67C2-43ED-B575-A7F85E0EF5A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA80DC6B-67C2-43ED-B575-A7F85E0EF5A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA80DC6B-67C2-43ED-B575-A7F85E0EF5A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA80DC6B-67C2-43ED-B575-A7F85E0EF5A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
