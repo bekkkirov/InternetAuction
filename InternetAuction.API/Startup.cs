@@ -38,6 +38,7 @@ namespace InternetAuction.API
 
             services.AddDbContext<IdentityContext>(options => options.UseSqlServer(Configuration.GetConnectionString("IdentityDb")));
             services.AddDbContext<AuctionContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("MainDb")));
+            services.AddIdentity();
             services.AddRepositories();
             services.AddAutoMapper(typeof(Startup).Assembly);
         }
