@@ -13,6 +13,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using InternetAuction.API.Extensions;
 using InternetAuction.DAL;
+using InternetAuction.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace InternetAuction.API
@@ -35,6 +36,7 @@ namespace InternetAuction.API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "InternetAuction.API", Version = "v1" });
             });
 
+            services.AddDbContext<IdentityContext>(options => options.UseSqlServer(Configuration.GetConnectionString("IdentityDb")));
             services.AddDbContext<AuctionContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("MainDb")));
             services.AddRepositories();
             services.AddAutoMapper(typeof(Startup).Assembly);

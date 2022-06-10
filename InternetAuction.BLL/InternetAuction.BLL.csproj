@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\InternetAuction.DAL\InternetAuction.DAL.csproj" />
+    <ProjectReference Include="..\InternetAuction.Identity\InternetAuction.Identity.csproj" />
   </ItemGroup>
 
   <ItemGroup>

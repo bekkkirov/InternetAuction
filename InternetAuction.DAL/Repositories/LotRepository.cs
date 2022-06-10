@@ -31,7 +31,7 @@ namespace InternetAuction.DAL.Repositories
                                .Include(l => l.Bids).FirstOrDefaultAsync(l => l.Id == lotId);
         }
 
-        public async Task<IEnumerable<Lot>> Search(string searchValue)
+        public async Task<IEnumerable<Lot>> SearchAsync(string searchValue)
         {
             return await _dbSet.Where(l => EF.Functions.Like(l.Name, $"%{searchValue}%"))
                                .ToListAsync();
