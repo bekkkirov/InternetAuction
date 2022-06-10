@@ -4,7 +4,7 @@ using InternetAuction.DAL.Entities;
 
 namespace InternetAuction.DAL.Interfaces
 {
-    public interface IBidRepository : IRepository<Bid>
+    public interface IBidRepository : IReadWriteRepository<Bid>
     {
         Task<IEnumerable<Bid>> GetAllWithDetailsAsync();
 

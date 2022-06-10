@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace InternetAuction.DAL.Interfaces
 {
-    public interface IRepository<TEntity> where TEntity : IEntity
+    public interface IReadWriteRepository<TEntity> where TEntity : IEntity
     {
         Task<IEnumerable<TEntity>> GetAsync();
 
@@ -12,6 +12,8 @@ namespace InternetAuction.DAL.Interfaces
         void Add(TEntity entity);
 
         void Delete(TEntity entity);
+
+        Task DeleteByIdAsync(int entityId);
 
         void Update(TEntity entity);
     }
