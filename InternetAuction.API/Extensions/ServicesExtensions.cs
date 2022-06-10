@@ -27,7 +27,7 @@ namespace InternetAuction.API.Extensions
 
         public static void AddIdentity(this IServiceCollection services)
         {
-            services.AddIdentityCore<AppUser>(opt =>
+            services.AddIdentityCore<User>(opt =>
                     {
                         opt.User.RequireUniqueEmail = true;
                         opt.Password.RequireUppercase = false;
