@@ -1,11 +1,15 @@
-﻿using InternetAuction.DAL.Entities;
+﻿using System;
+using System.Text;
+using InternetAuction.DAL.Entities;
 using InternetAuction.DAL.Interfaces;
 using InternetAuction.DAL.Repositories;
 using InternetAuction.Identity;
 using InternetAuction.Identity.Entities;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 
 namespace InternetAuction.API.Extensions
 {
@@ -37,6 +41,25 @@ namespace InternetAuction.API.Extensions
                     .AddSignInManager<SignInManager<User>>()
                     .AddRoleValidator<RoleValidator<UserRole>>()
                     .AddEntityFrameworkStores<IdentityContext>();
+        }
+
+        public static void AddJwtAuthentication(this IServiceCollection services, string key)
+        {
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                    .AddJwtBearer(opt =>
+                    {
+                        opt.RequireHttpsMetadata = false;
+                        opt.TokenValidationParameters = new TokenValidationParameters()
+                        {
+                            ValidateIssuer = false,
+                            ValidateAudience = false,
+                            ValidateLifetime = true,
+                            ClockSkew = TimeSpan.Zero,
+                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)),
+                            ValidateIssuerSigningKey = true
+                        };
+                    });
+
         }
     }
 }

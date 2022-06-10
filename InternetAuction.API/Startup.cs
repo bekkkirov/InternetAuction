@@ -29,7 +29,6 @@ namespace InternetAuction.API
 
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -38,6 +37,7 @@ namespace InternetAuction.API
 
             services.AddDbContext<IdentityContext>(options => options.UseSqlServer(Configuration.GetConnectionString("IdentityDb")));
             services.AddDbContext<AuctionContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("MainDb")));
+            services.AddJwtAuthentication(Configuration["Jwt:Key"]);
             services.AddIdentity();
             services.AddRepositories();
             services.AddAutoMapper(typeof(Startup).Assembly);
@@ -56,6 +56,7 @@ namespace InternetAuction.API
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
