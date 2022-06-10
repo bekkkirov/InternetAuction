@@ -12,6 +12,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using InternetAuction.API.Extensions;
+using InternetAuction.DAL;
+using Microsoft.EntityFrameworkCore;
 
 namespace InternetAuction.API
 {
@@ -33,6 +35,7 @@ namespace InternetAuction.API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "InternetAuction.API", Version = "v1" });
             });
 
+            services.AddDbContext<AuctionContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("MainDb")));
             services.AddRepositories();
         }
 

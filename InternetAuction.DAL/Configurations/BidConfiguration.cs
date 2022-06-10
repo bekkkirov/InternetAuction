@@ -19,10 +19,12 @@ namespace InternetAuction.DAL.Configurations
             builder.HasOne(b => b.Lot)
                    .WithMany(l => l.Bids)
                    .HasForeignKey(b => b.LotId);
+                   
 
             builder.HasOne(b => b.Bidder)
                    .WithMany(bidder => bidder.Bids)
-                   .HasForeignKey(b => b.BidderId);
+                   .HasForeignKey(b => b.BidderId)
+                   .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }
