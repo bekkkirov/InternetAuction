@@ -5,6 +5,6 @@
         Active,
         Ended,
         CanceledByUser,
-        CanceledByAdministrator
+        CanceledByModerator
     }
 }
