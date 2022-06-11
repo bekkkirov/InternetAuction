@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FluentValidation.AspNetCore;
 using InternetAuction.API.Extensions;
 using InternetAuction.DAL;
 using InternetAuction.Identity;
@@ -29,7 +30,7 @@ namespace InternetAuction.API
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddFluentValidation(opt => opt.RegisterValidatorsFromAssembly(typeof(Startup).Assembly));
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "InternetAuction.API", Version = "v1" });
