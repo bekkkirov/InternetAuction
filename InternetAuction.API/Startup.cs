@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using FluentValidation.AspNetCore;
 using InternetAuction.API.Extensions;
 using InternetAuction.BLL.Interfaces;
+using InternetAuction.BLL.MapperConfigurations;
 using InternetAuction.BLL.Services;
 using InternetAuction.BLL.Validators;
 using InternetAuction.DAL;
@@ -44,7 +45,7 @@ namespace InternetAuction.API
             services.AddJwtAuthentication(Configuration["Jwt:Key"]);
             services.AddIdentity();
             services.AddRepositories();
-            services.AddAutoMapper(typeof(Startup).Assembly);
+            services.AddAutoMapper(typeof(MapperProfile).Assembly);
 
 
             services.AddScoped<ITokenService, TokenService>();

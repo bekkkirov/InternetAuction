@@ -1,0 +1,96 @@
+[
+  {
+    "UserName": "bekirov",
+    "FirstName": "Vladislav",
+    "LastName": "Bekirov",
+    "Email": "admin@mail.com",
+    "Password": "admin12345"
+  },
+
+  {
+    "UserName": "moder",
+    "FirstName": "Moder",
+    "LastName": "Moderov",
+    "Email": "moder@mail.com",
+    "Password": "moder12345"
+  },
+
+  {
+    "UserName": "user1",
+    "FirstName": "User",
+    "LastName": "Userov",
+    "Email": "user@mail.com",
+    "Password": "user12345"
+  },
+
+  {
+    "UserName": "Bailey",
+    "FirstName": "Anna",
+    "LastName": "David",
+    "Email": "annadavid@idetica.com",
+    "Password": "ullamcooccaecat"
+  },
+  {
+    "UserName": "Eaton",
+    "FirstName": "Kristin",
+    "LastName": "Ferrell",
+    "Email": "kristinferrell@idetica.com",
+    "Password": "enimoo"
+  },
+  {
+    "UserName": "Fox",
+    "FirstName": "Cox",
+    "LastName": "Martinez",
+    "Email": "coxmartinez@idetica.com",
+    "Password": "adoccaecat"
+  },
+  {
+    "UserName": "Monroe",
+    "FirstName": "Clements",
+    "LastName": "Sullivan",
+    "Email": "clementssullivan@idetica.com",
+    "Password": "excepteurvolu"
+  },
+  {
+    "UserName": "Audra",
+    "FirstName": "Boyd",
+    "LastName": "Armstrong",
+    "Email": "boydarmstrong@idetica.com",
+    "Password": "esse Lorem"
+  },
+  {
+    "UserName": "Lorna",
+    "FirstName": "Klein",
+    "LastName": "Alston",
+    "Email": "kleinalston@idetica.com",
+    "Password": "aliquaaliqua"
+  },
+  {
+    "UserName": "Bonita",
+    "FirstName": "Pauline",
+    "LastName": "Rosa",
+    "Email": "paulinerosa@idetica.com",
+    "Password": "enimgf"
+  },
+  {
+    "UserName": "Lana",
+    "FirstName": "Underwood",
+    "LastName": "Stokes",
+    "Email": "underwoodstokes@idetica.com",
+    "Password": "cupidatatut"
+  },
+  {
+    "UserName": "Sheryl",
+    "FirstName": "Solomon",
+    "LastName": "Wolf",
+    "Email": "solomonwolf@idetica.com",
+    "Password": "esseasas"
+  },
+  {
+    "UserName": "Ellen",
+    "FirstName": "Gibbs",
+    "LastName": "Mayer",
+    "Email": "gibbsmayer@idetica.com",
+    "Password": "eiusmod"
+  }
+]
