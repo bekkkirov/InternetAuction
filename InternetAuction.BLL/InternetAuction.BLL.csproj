@@ -1,27 +1,32 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\InternetAuction.DAL\InternetAuction.DAL.csproj" />
-    <ProjectReference Include="..\InternetAuction.Identity\InternetAuction.Identity.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\InternetAuction.DAL\InternetAuction.DAL.csproj" />
+		<ProjectReference Include="..\InternetAuction.Identity\InternetAuction.Identity.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\" />
-    <Folder Include="MapperConfigurations\" />
-    <Folder Include="Interfaces\" />
-    <Folder Include="Validators\" />
-    <Folder Include="Services\" />
-  </ItemGroup>
+	<ItemGroup>
+		<Folder Include="Models\" />
+		<Folder Include="MapperConfigurations\" />
+		<Folder Include="Interfaces\" />
+		<Folder Include="Validators\" />
+		<Folder Include="Services\" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="11.0.0" />
-    <PackageReference Include="FluentValidation" Version="11.0.3" />
-    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.19.0" />
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.19.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="AutoMapper" Version="11.0.0" />
+		<PackageReference Include="FluentValidation" Version="11.0.3" />
+		<PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.19.0" />
+		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.19.0" />
+	</ItemGroup>
+
 
 </Project>

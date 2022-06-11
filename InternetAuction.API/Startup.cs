@@ -13,6 +13,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using FluentValidation.AspNetCore;
 using InternetAuction.API.Extensions;
+using InternetAuction.BLL.Interfaces;
+using InternetAuction.BLL.Services;
+using InternetAuction.BLL.Validators;
 using InternetAuction.DAL;
 using InternetAuction.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -30,7 +33,7 @@ namespace InternetAuction.API
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers().AddFluentValidation(opt => opt.RegisterValidatorsFromAssembly(typeof(Startup).Assembly));
+            services.AddControllers().AddFluentValidation(opt => opt.RegisterValidatorsFromAssemblyContaining<LoginModelValidator>());
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "InternetAuction.API", Version = "v1" });
@@ -42,6 +45,10 @@ namespace InternetAuction.API
             services.AddIdentity();
             services.AddRepositories();
             services.AddAutoMapper(typeof(Startup).Assembly);
+
+
+            services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IAuthorizationService, AuthorizationService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

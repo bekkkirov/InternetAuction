@@ -8,10 +8,10 @@ namespace InternetAuction.BLL.Validators
         public LoginModelValidator()
         {
             RuleFor(l => l.UserName)
-                .NotEmpty();
+                .NotEmpty().WithMessage("User name is required");
 
             RuleFor(l => l.Password)
-                .NotEmpty();
+                .NotEmpty().WithMessage("Password is required");
         }
     }
 }
