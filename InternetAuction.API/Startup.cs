@@ -13,6 +13,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FluentValidation.AspNetCore;
 using InternetAuction.API.Extensions;
+using InternetAuction.API.Settings;
 using InternetAuction.BLL.Interfaces;
 using InternetAuction.BLL.MapperConfigurations;
 using InternetAuction.BLL.Services;
@@ -48,7 +49,7 @@ namespace InternetAuction.API
             services.AddRepositories();
             services.AddAutoMapper(typeof(MapperProfile).Assembly);
 
-
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IAuthorizationService, AuthorizationService>();
             services.AddScoped<IImageService, ImageService>();
