@@ -15,14 +15,14 @@ namespace InternetAuction.DAL.Repositories
         public async Task<IEnumerable<Image>> GetAllWithDetailsAsync()
         {
             return await _dbSet.Include(i => i.Lot)
-                               .Include(i => i.Lot)
+                               .Include(i => i.User)
                                .ToListAsync();
         }
 
         public async Task<Image> GetByIdWithDetailsAsync(int imageId)
         {
             return await _dbSet.Include(i => i.Lot)
-                               .Include(i => i.Lot)
+                               .Include(i => i.User)
                                .FirstOrDefaultAsync(i => i.Id == imageId);
         }
     }

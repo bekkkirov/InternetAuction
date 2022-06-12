@@ -7,5 +7,9 @@
         public string Url { get; set; }
 
         public string PublicId { get; set; }
+
+        public int? UserId { get; set; }
+
+        public int? LotId { get; set; }
     }
 }

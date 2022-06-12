@@ -51,6 +51,7 @@ namespace InternetAuction.API
 
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IAuthorizationService, AuthorizationService>();
+            services.AddScoped<IImageService, ImageService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -9,12 +9,12 @@ namespace InternetAuction.BLL.Interfaces
 
         Task<TModel> GetByIdAsync(int modelId);
 
-        void Add(TModel model);
+        Task AddAsync(TModel model);
 
-        void Delete(TModel model);
+        Task DeleteAsync(TModel model);
 
         Task DeleteByIdAsync(int modelId);
 
-        void Update(TModel model);
+        Task UpdateAsync(TModel model);
     }
 }
