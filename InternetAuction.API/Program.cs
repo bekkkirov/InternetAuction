@@ -27,6 +27,8 @@ namespace InternetAuction.API
 
                 await DatabaseSeeder.SeedDatabase(userManager, roleManager, authorizationService);
             }
+
+            host.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

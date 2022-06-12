@@ -44,7 +44,7 @@ namespace InternetAuction.BLL.Services
                 throw new ArgumentException("Invalid password");
             }
 
-            return new TokenModel() { Token = _tokenService.GenerateToken(user) };
+            return new TokenModel() { Token = await _tokenService.GenerateTokenAsync(user) };
         }
 
         public async Task<TokenModel> SignUpAsync(RegisterModel model)
@@ -62,7 +62,7 @@ namespace InternetAuction.BLL.Services
 
             var identityUser = await _userManager.FindByNameAsync(model.UserName);
 
-            return new TokenModel() { Token = _tokenService.GenerateToken(identityUser) };
+            return new TokenModel() { Token = await _tokenService.GenerateTokenAsync(identityUser) };
         }
     }
 }
