@@ -1,3 +1,15 @@
+.page-container {
+    min-height: 100%;
+    background: linear-gradient(45deg, #648cf6 23%, #4761d5 59%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: 400%;
+    animation: background 10s ease infinite;
+    flex-direction: column;
+    padding-top: 20px;
+}
+
 .auth-box {
     padding: 30px;
     display: flex;
@@ -47,6 +59,20 @@
 .error-label {
     color: red;
     padding-left: 7px;
+}
+
+@keyframes background {
+    0% {
+        background-position: 0 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0 50%;
+    }
 }
 
 @media screen and (max-width: 768px){
