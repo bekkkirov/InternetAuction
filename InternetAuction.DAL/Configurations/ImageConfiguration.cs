@@ -4,6 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace InternetAuction.DAL.Configurations
 {
+    /// <summary>
+    /// Configuration for the image set in database.
+    /// </summary>
     public class ImageConfiguration : IEntityTypeConfiguration<Image>
     {
         public void Configure(EntityTypeBuilder<Image> builder)

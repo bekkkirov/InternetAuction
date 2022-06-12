@@ -4,6 +4,9 @@ using InternetAuction.DAL.Entities;
 
 namespace InternetAuction.DAL.Interfaces
 {
+    /// <summary>
+    /// Represent a lot repository.
+    /// </summary>
     public interface IUserRepository : ICrudRepository<AppUser>
     {
         Task<IEnumerable<AppUser>> GetAllWithDetailsAsync();

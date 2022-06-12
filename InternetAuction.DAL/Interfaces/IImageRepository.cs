@@ -4,6 +4,9 @@ using InternetAuction.DAL.Entities;
 
 namespace InternetAuction.DAL.Interfaces
 {
+    /// <summary>
+    /// Represents an image repository.
+    /// </summary>
     public interface IImageRepository : ICrudRepository<Image>
     {
         Task<IEnumerable<Image>> GetAllWithDetailsAsync();

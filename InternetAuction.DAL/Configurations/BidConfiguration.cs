@@ -4,6 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace InternetAuction.DAL.Configurations
 {
+    /// <summary>
+    /// Configuration for the bid set in database.
+    /// </summary>
     public class BidConfiguration : IEntityTypeConfiguration<Bid>
     {
         public void Configure(EntityTypeBuilder<Bid> builder)

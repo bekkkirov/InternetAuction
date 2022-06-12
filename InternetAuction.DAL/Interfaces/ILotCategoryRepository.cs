@@ -4,6 +4,9 @@ using InternetAuction.DAL.Entities;
 
 namespace InternetAuction.DAL.Interfaces
 {
+    /// <summary>
+    /// Represents a lot category repository.
+    /// </summary>
     public interface ILotCategoryRepository : ICrudRepository<LotCategory>
     {
         Task<IEnumerable<LotCategory>> GetAllWithDetailsAsync();

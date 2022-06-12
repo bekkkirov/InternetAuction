@@ -4,6 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace InternetAuction.DAL.Configurations
 {
+    /// <summary>
+    /// Configuration for the user set in database.
+    /// </summary>
     public class UserConfiguration : IEntityTypeConfiguration<AppUser>
     {
         public void Configure(EntityTypeBuilder<AppUser> builder)

@@ -5,6 +5,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace InternetAuction.DAL.Configurations
 {
+    /// <summary>
+    /// Configuration for the lot set in database.
+    /// </summary>
     public class LotConfiguration : IEntityTypeConfiguration<Lot>
     {
         public void Configure(EntityTypeBuilder<Lot> builder)
