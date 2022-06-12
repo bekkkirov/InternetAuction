@@ -34,6 +34,7 @@ namespace InternetAuction.API
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             services.AddControllers().AddFluentValidation(opt => opt.RegisterValidatorsFromAssemblyContaining<LoginModelValidator>());
             services.AddSwaggerGen(c =>
             {
@@ -64,6 +65,9 @@ namespace InternetAuction.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseCors(opt => opt.AllowAnyOrigin()
+                                                 .AllowAnyHeader()
+                                                 .AllowAnyMethod());
 
             app.UseAuthentication();
             app.UseAuthorization();
