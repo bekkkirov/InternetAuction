@@ -10,9 +10,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Models\" />
 		<Folder Include="MapperConfigurations\" />
 		<Folder Include="Interfaces\" />
+		<Folder Include="Exceptions\" />
 		<Folder Include="Validators\" />
 		<Folder Include="Services\" />
 	</ItemGroup>

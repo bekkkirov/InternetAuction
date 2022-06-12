@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using InternetAuction.BLL.Exceptions;
 
 namespace InternetAuction.BLL.Services
 {
@@ -28,26 +29,26 @@ namespace InternetAuction.BLL.Services
             _mapper = mapper;
         }
 
-        public async Task<TokenModel> SignInAsync(LoginModel model)
+        public async Task<LoggedInUserModel> SignInAsync(LoginModel model)
         {
             var user = await _userManager.FindByNameAsync(model.UserName);
 
             if (user is null)
             {
-                throw new ArgumentException("User with specified user name doesn't exist");
+                throw new SignInException("Invalid user name");
             }
 
             var result = await _signInManager.CheckPasswordSignInAsync(user, model.Password, false);
 
             if (!result.Succeeded)
             {
-                throw new ArgumentException("Invalid password");
+                throw new SignInException("Invalid password");
             }
 
-            return new TokenModel() { Token = await _tokenService.GenerateTokenAsync(user) };
+            return new LoggedInUserModel() { UserName = user.UserName, Token = await _tokenService.GenerateTokenAsync(user) };
         }
 
-        public async Task<TokenModel> SignUpAsync(RegisterModel model)
+        public async Task<LoggedInUserModel> SignUpAsync(RegisterModel model)
         {
             var result = await _userManager.CreateAsync(new User() { UserName = model.UserName, Email = model.Email }, model.Password);
 
@@ -62,7 +63,7 @@ namespace InternetAuction.BLL.Services
 
             var identityUser = await _userManager.FindByNameAsync(model.UserName);
 
-            return new TokenModel() { Token = await _tokenService.GenerateTokenAsync(identityUser) };
+            return new LoggedInUserModel() { UserName = identityUser.UserName, Token = await _tokenService.GenerateTokenAsync(identityUser) };
         }
     }
 }

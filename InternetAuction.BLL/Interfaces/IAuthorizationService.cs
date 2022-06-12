@@ -5,8 +5,8 @@ namespace InternetAuction.BLL.Interfaces
 {
     public interface IAuthorizationService
     {
-        Task<TokenModel> SignInAsync(LoginModel model);
+        Task<LoggedInUserModel> SignInAsync(LoginModel model);
 
-        Task<TokenModel> SignUpAsync(RegisterModel model);
+        Task<LoggedInUserModel> SignUpAsync(RegisterModel model);
     }
 }
