@@ -5,16 +5,18 @@ import {AppComponent} from './app.component';
 import {SignInComponent} from "./core/components/sign-in/sign-in.component";
 import {ReactiveFormsModule} from "@angular/forms";
 import { SignUpComponent } from './core/components/sign-up/sign-up.component';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
     declarations: [
         AppComponent,
         SignInComponent,
-        SignUpComponent
+        SignUpComponent,
     ],
     imports: [
         BrowserModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        HttpClientModule,
     ],
     providers: [],
     bootstrap: [AppComponent]

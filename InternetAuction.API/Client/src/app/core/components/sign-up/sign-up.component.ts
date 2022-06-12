@@ -1,12 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
+import {AccountService} from "../../services/account.service";
 
 @Component({
     selector: 'app-sign-up',
     templateUrl: './sign-up.component.html',
     styleUrls: ['./sign-up.component.css']
 })
-export class SignUpComponent implements OnInit {
+export class SignUpComponent {
     form: FormGroup = new FormGroup({
         "userName": new FormControl("", this.validateLength(5, 20)),
         "email": new FormControl("", [Validators.required, Validators.email]),
@@ -37,13 +38,16 @@ export class SignUpComponent implements OnInit {
         }
     }
 
-    constructor() {
-    }
-
-    ngOnInit(): void {
+    constructor(private accountService: AccountService) {
     }
 
     register() {
-
+        this.accountService.signUp({
+            userName: this.form.get('userName')?.value.trim(),
+            firstName: this.form.get('firstName')?.value.trim(),
+            lastName: this.form.get('lastName')?.value.trim(),
+            email: this.form.get('email')?.value.trim(),
+            password: this.form.get('passwords.password')?.value.trim(),
+        }).subscribe();
     }
 }
