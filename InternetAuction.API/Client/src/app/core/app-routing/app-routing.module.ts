@@ -5,13 +5,21 @@ import {UserDetailComponent} from "../components/user-detail/user-detail.compone
 import {SignInComponent} from "../components/sign-in/sign-in.component";
 import {SignUpComponent} from "../components/sign-up/sign-up.component";
 import {UserEditComponent} from "../components/nav-bar/user-edit/user-edit.component";
+import {AuthGuard} from "../guards/auth.guard";
 
 const routes: Routes = [
     {path: '', component: LotsListComponent},
+    {
+        path: '',
+        runGuardsAndResolvers: "always",
+        canActivate: [AuthGuard],
+        children: [
+            {path: 'users/:userName', component: UserDetailComponent},
+            {path: 'users/edit', component: UserEditComponent}
+        ]
+    },
     {path: 'auth/sign-in', component: SignInComponent},
     {path: 'auth/sign-up', component: SignUpComponent},
-    {path: 'users/:userName', component: UserDetailComponent},
-    {path: 'users/edit', component: UserEditComponent}
 ];
 
 @NgModule({
