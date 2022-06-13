@@ -21,6 +21,15 @@ namespace InternetAuction.DAL.Repositories
                                .ToListAsync();
         }
 
+        public async Task<AppUser> GetByIdWithDetailsAsync(int userId)
+        {
+            return await _dbSet.Include(u => u.ProfileImage)
+                               .Include(u => u.BoughtLots)
+                               .Include(u => u.RegisteredLots)
+                               .Include(u => u.Bids)
+                               .FirstOrDefaultAsync(u => u.Id == userId);
+        }
+
         public async Task<AppUser> GetByUserNameAsync(string userName)
         {
             return await _dbSet.FirstOrDefaultAsync(u => u.UserName == userName);

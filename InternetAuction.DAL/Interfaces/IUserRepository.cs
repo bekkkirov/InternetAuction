@@ -11,6 +11,8 @@ namespace InternetAuction.DAL.Interfaces
     {
         Task<IEnumerable<AppUser>> GetAllWithDetailsAsync();
 
+        Task<AppUser> GetByIdWithDetailsAsync(int userId);
+
         Task<AppUser> GetByUserNameAsync(string userName);
 
         Task<AppUser> GetByUserNameWithDetailsAsync(string userName);

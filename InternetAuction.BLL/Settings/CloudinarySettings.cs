@@ -1,4 +1,4 @@
-﻿namespace InternetAuction.API.Settings
+﻿namespace InternetAuction.BLL.Settings
 {
     public class CloudinarySettings
     {

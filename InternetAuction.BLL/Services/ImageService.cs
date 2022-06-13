@@ -1,86 +1,94 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
+using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
 using InternetAuction.BLL.Interfaces;
 using InternetAuction.BLL.Models;
-using InternetAuction.DAL.Entities;
+using InternetAuction.BLL.Settings;
 using InternetAuction.DAL.Interfaces;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Options;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using InternetAuction.DAL.Entities;
 
 namespace InternetAuction.BLL.Services
 {
     public class ImageService : IImageService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
+        private readonly Cloudinary _cloudinary;
 
-        public ImageService(IUnitOfWork unitOfWork, IMapper mapper)
+        public ImageService(IUnitOfWork unitOfWork, IOptions<CloudinarySettings> config)
         {
             _unitOfWork = unitOfWork;
-            _mapper = mapper;
+            _cloudinary = new Cloudinary(new Account(config.Value.CloudName, config.Value.ApiKey, config.Value.ApiSecret));
         }
 
-        public async Task<IEnumerable<ImageModel>> GetAsync()
+        public async Task AddAsync(IFormFile file, int? userId, int? lotId)
         {
-            var images = await _unitOfWork.ImageRepository.GetAsync();
-
-            return _mapper.Map<IEnumerable<ImageModel>>(images);
-        }
-
-        public async Task<ImageModel> GetByIdAsync(int modelId)
-        {
-            var image = await _unitOfWork.ImageRepository.GetByIdAsync(modelId);
-
-            if (image is null)
+            if (file.Length == 0)
             {
-                throw new ArgumentException("Image with specified id not found.");
+                throw new ArgumentException("Image can't be empty");
             }
 
-            return _mapper.Map<ImageModel>(image);
+            ImageUploadResult uploadResult;
+
+            await using (var stream = file.OpenReadStream())
+            {
+                var uploadParams = new ImageUploadParams()
+                {
+                    File = new FileDescription(file.FileName, stream)
+                };
+
+                uploadResult = await _cloudinary.UploadAsync(uploadParams);
+            }
+
+            if (uploadResult.Error != null)
+            {
+                throw new ArgumentException($"An error occurred while uploading an image: {uploadResult.Error.Message}");
+            }
+
+            var image = new Image()
+            {
+                Url = uploadResult.SecureUrl.AbsoluteUri,
+                PublicId = uploadResult.PublicId
+            };
+
+            if (userId.HasValue)
+            {
+                var user = await _unitOfWork.UserRepository.GetByIdWithDetailsAsync(userId.Value);
+                user.ProfileImage = image;
+
+                await _unitOfWork.SaveChangesAsync();
+            }
+
+            else if(lotId.HasValue)
+            {
+                var lot = await _unitOfWork.LotRepository.GetByIdWithDetailsAsync(lotId.Value);
+                lot.Images.Add(image);
+
+                await _unitOfWork.SaveChangesAsync();
+            }
         }
 
-        public async Task AddAsync(ImageModel model)
-        {
-            var imageToAdd = _mapper.Map<Image>(model);
 
-            _unitOfWork.ImageRepository.Add(imageToAdd);
+        public async Task DeleteAsync(string publicId)
+        {
+            var deleteParams = new DeletionParams(publicId);
+
+            var deletionResult = await _cloudinary.DestroyAsync(deleteParams);
+
+            if (deletionResult.Error != null)
+            {
+                throw new ArgumentException($"An error occurred while uploading an image: {deletionResult.Error.Message}");
+            }
+
+            var image = (await _unitOfWork.ImageRepository.GetAllWithDetailsAsync()).FirstOrDefault(i => i.PublicId.Equals(publicId));
+
+            _unitOfWork.ImageRepository.Delete(image);
             await _unitOfWork.SaveChangesAsync();
-        }
-
-        public async Task DeleteAsync(ImageModel model)
-        {
-            var imageToDelete = _mapper.Map<Image>(model);
-
-            _unitOfWork.ImageRepository.Delete(imageToDelete);
-            await _unitOfWork.SaveChangesAsync();
-        }
-
-        public async Task DeleteByIdAsync(int modelId)
-        {
-            await _unitOfWork.ImageRepository.DeleteByIdAsync(modelId);
-            await _unitOfWork.SaveChangesAsync();
-        }
-
-        public async Task UpdateAsync(ImageModel model)
-        {
-            var imageToUpdate = _mapper.Map<Image>(model);
-
-            _unitOfWork.ImageRepository.Update(imageToUpdate);
-            await _unitOfWork.SaveChangesAsync();
-        }
-
-        public async Task<IEnumerable<ImageModel>> GetAllWithDetailsAsync()
-        {
-            var images = await _unitOfWork.ImageRepository.GetAllWithDetailsAsync();
-
-            return _mapper.Map<IEnumerable<ImageModel>>(images);
-        }
-
-        public async Task<ImageModel> GetByIdWithDetailsAsync(int imageId)
-        {
-            var image = await _unitOfWork.ImageRepository.GetByIdWithDetailsAsync(imageId);
-
-            return _mapper.Map<ImageModel>(image);
         }
     }
 }
