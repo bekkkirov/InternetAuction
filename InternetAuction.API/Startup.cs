@@ -52,6 +52,7 @@ namespace InternetAuction.API
             services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IAuthorizationService, AuthorizationService>();
+            services.AddScoped<IUserService, UserService>();
             services.AddScoped<IImageService, ImageService>();
         }
 
