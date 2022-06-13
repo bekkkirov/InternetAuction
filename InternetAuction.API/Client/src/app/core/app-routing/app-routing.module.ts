@@ -6,6 +6,7 @@ import {SignInComponent} from "../components/sign-in/sign-in.component";
 import {SignUpComponent} from "../components/sign-up/sign-up.component";
 import {UserEditComponent} from "../components/nav-bar/user-edit/user-edit.component";
 import {AuthGuard} from "../guards/auth.guard";
+import {LoggedInGuard} from "../guards/logged-in.guard";
 
 const routes: Routes = [
     {path: '', component: LotsListComponent},
@@ -18,8 +19,8 @@ const routes: Routes = [
             {path: 'users/edit', component: UserEditComponent}
         ]
     },
-    {path: 'auth/sign-in', component: SignInComponent},
-    {path: 'auth/sign-up', component: SignUpComponent},
+    {path: 'auth/sign-in', component: SignInComponent, canActivate: [LoggedInGuard]},
+    {path: 'auth/sign-up', component: SignUpComponent, canActivate: [LoggedInGuard]},
 ];
 
 @NgModule({

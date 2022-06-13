@@ -14,12 +14,12 @@ export class SignInComponent {
         "password": new FormControl("", [Validators.required]),
     })
 
-    constructor(private accountService: AccountService) {
+    constructor(private accountService: AccountService, private router: Router) {
     }
 
     signIn() {
         this.accountService.signIn(this.form.value).subscribe({
-
-        })
+            complete: () => this.router.navigateByUrl("/")
+        });
     }
 }

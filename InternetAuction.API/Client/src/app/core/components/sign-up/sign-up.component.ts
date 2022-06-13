@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
 import {AccountService} from "../../services/account.service";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-sign-up',
@@ -29,8 +30,7 @@ export class SignUpComponent {
     }
 
     validateLength(minLength: number, maxLength: number) {
-        return (control: AbstractControl): { invalidLength: boolean } | null =>
-        {
+        return (control: AbstractControl): { invalidLength: boolean } | null => {
             if (control?.value.trim().length < minLength || control?.value.trim().length > maxLength) {
                 return {invalidLength: true};
             }
@@ -38,7 +38,7 @@ export class SignUpComponent {
         }
     }
 
-    constructor(private accountService: AccountService) {
+    constructor(private accountService: AccountService, private router: Router) {
     }
 
     register() {
@@ -48,6 +48,9 @@ export class SignUpComponent {
             lastName: this.form.get('lastName')?.value.trim(),
             email: this.form.get('email')?.value.trim(),
             password: this.form.get('passwords.password')?.value.trim(),
-        }).subscribe();
+        }).subscribe(
+            {
+                complete: () => this.router.navigateByUrl("/")
+            });
     }
 }
