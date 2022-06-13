@@ -31,21 +31,23 @@ namespace InternetAuction.BLL.Services
 
         public async Task<LoggedInUserModel> SignInAsync(LoginModel model)
         {
-            var user = await _userManager.FindByNameAsync(model.UserName);
+            var identityUser = await _userManager.FindByNameAsync(model.UserName);
 
-            if (user is null)
+            if (identityUser is null)
             {
                 throw new SignInException("Invalid user name");
             }
 
-            var result = await _signInManager.CheckPasswordSignInAsync(user, model.Password, false);
+            var result = await _signInManager.CheckPasswordSignInAsync(identityUser, model.Password, false);
 
             if (!result.Succeeded)
             {
                 throw new SignInException("Invalid password");
             }
 
-            return new LoggedInUserModel() { UserName = user.UserName, Token = await _tokenService.GenerateTokenAsync(user) };
+            var user = await _unitOfWork.UserRepository.GetByUserNameWithDetailsAsync(model.UserName);
+
+            return new LoggedInUserModel() { UserName = identityUser.UserName, Token = await _tokenService.GenerateTokenAsync(identityUser), ProfileImage = user.ProfileImage.Url };
         }
 
         public async Task<LoggedInUserModel> SignUpAsync(RegisterModel model)
@@ -57,13 +59,14 @@ namespace InternetAuction.BLL.Services
                 throw new ArgumentException(string.Join($"{Environment.NewLine}", result.Errors.Select(e => e.Description)));
             }
 
-            var user = _mapper.Map<AppUser>(model);
-            _unitOfWork.UserRepository.Add(user);
+            var userToAdd = _mapper.Map<AppUser>(model);
+            _unitOfWork.UserRepository.Add(userToAdd);
             await _unitOfWork.SaveChangesAsync();
 
             var identityUser = await _userManager.FindByNameAsync(model.UserName);
+            var user = await _unitOfWork.UserRepository.GetByUserNameWithDetailsAsync(identityUser.UserName);
 
-            return new LoggedInUserModel() { UserName = identityUser.UserName, Token = await _tokenService.GenerateTokenAsync(identityUser) };
+            return new LoggedInUserModel() { UserName = identityUser.UserName, Token = await _tokenService.GenerateTokenAsync(identityUser)};
         }
     }
 }
