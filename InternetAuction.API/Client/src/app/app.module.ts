@@ -10,6 +10,7 @@ import { NavBarComponent } from './core/components/nav-bar/nav-bar.component';
 import { LotsListComponent } from './core/components/lots-list/lots-list.component';
 import { UserDetailComponent } from './core/components/user-detail/user-detail.component';
 import {AppRoutingModule} from "./core/app-routing/app-routing.module";
+import { UserEditComponent } from './core/components/nav-bar/user-edit/user-edit.component';
 
 @NgModule({
     declarations: [
@@ -19,6 +20,7 @@ import {AppRoutingModule} from "./core/app-routing/app-routing.module";
         NavBarComponent,
         LotsListComponent,
         UserDetailComponent,
+        UserEditComponent,
     ],
     imports: [
         BrowserModule,

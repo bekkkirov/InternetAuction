@@ -17,9 +17,14 @@
 }
 
 .nav__search-bar {
-    padding: 10px 15px;
+    padding: 10px 15px 10px 50px;
     width: 50%;
     font-size: 18px;
+    background-image: url('src/assets/images/search.png');
+    background-repeat: no-repeat;
+    background-position: -45px center;
+    background-origin: content-box;
+    background-size: 30px;
 }
 
 .nav__auth-button {
