@@ -28,7 +28,8 @@
             ],
             "styles": [
               "src/styles/styles.css",
-              "src/styles/forms.css"
+              "src/styles/forms.css",
+              "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": []
           },
