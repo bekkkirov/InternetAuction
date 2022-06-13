@@ -1,14 +1,14 @@
 <div class="nav-wrapper">
     <div class="container">
         <nav class="nav">
-            <h1 class="nav__logo">Auction</h1>
+            <a class="nav__logo" routerLink="/">Auction</a>
             <input #searchBar type="text" class="nav__search-bar" placeholder="I'm searching for...">
             <div class="nav__profile" *ngIf="(accountService.currentUser$ | async);else nav__auth">
             </div>
             <ng-template #nav__auth>
                 <div class="nav__auth">
-                    <a class="nav__auth-button">Sign in</a>
-                    <a class="nav__auth-button">Sign up</a>
+                    <a class="nav__auth-button" routerLink="/auth/sign-in">Sign in</a>
+                    <a class="nav__auth-button" routerLink="/auth/sign-up">Sign up</a>
                 </div>
             </ng-template>
         </nav>

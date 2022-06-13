@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AccountService} from "./core/services/account.service";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-root',
@@ -9,7 +10,7 @@ import {AccountService} from "./core/services/account.service";
 export class AppComponent implements OnInit{
     title = 'Client';
 
-    constructor(private accountService: AccountService) {
+    constructor(private accountService: AccountService, public router: Router) {
     }
 
     ngOnInit(): void {

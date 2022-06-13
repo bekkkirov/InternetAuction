@@ -1,1 +1,2 @@
-<app-nav-bar></app-nav-bar>
+<app-nav-bar *ngIf="router.url != '/auth/sign-in' && router.url != '/auth/sign-up'"></app-nav-bar>
+<router-outlet></router-outlet>

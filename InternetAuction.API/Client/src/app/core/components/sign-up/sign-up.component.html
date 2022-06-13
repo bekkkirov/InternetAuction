@@ -1,6 +1,6 @@
 <div class="page-container">
     <div class="sign-in">
-        <p class="sign-in-text">Already have an account?<a class="sign-in-ref">Sign in</a></p>
+        <p class="sign-in-text">Already have an account?<a class="sign-in-ref" routerLink="/auth/sign-in">Sign in</a></p>
     </div>
     <div class="wrapper">
         <form class="auth-box" [formGroup]="form" (ngSubmit)="register()">
