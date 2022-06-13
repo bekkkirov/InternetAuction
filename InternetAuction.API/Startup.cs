@@ -65,6 +65,8 @@ namespace InternetAuction.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "InternetAuction.API v1"));
             }
 
+            app.UseExceptionMiddleware();
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
