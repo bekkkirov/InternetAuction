@@ -24,8 +24,9 @@ namespace InternetAuction.API
                 var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
                 var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<UserRole>>();
                 var authorizationService = scope.ServiceProvider.GetRequiredService<IAuthorizationService>();
+                var unitOfWork = scope.ServiceProvider.GetRequiredService<IUnitOfWork>();
 
-                await DatabaseSeeder.SeedDatabase(userManager, roleManager, authorizationService);
+                await DatabaseSeeder.SeedDatabase(userManager, roleManager, authorizationService, unitOfWork);
             }
 
             host.Run();

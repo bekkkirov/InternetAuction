@@ -30,10 +30,6 @@ namespace InternetAuction.DAL.Configurations
 
             builder.Property(u => u.Balance)
                    .IsRequired();
-
-            builder.HasOne(u => u.ProfileImage)
-                   .WithOne(i => i.User)
-                   .HasForeignKey<Image>(i => i.UserId);
         }
     }
 }
