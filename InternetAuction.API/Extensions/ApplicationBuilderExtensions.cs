@@ -1,4 +1,5 @@
-﻿using InternetAuction.BLL.Exceptions;
+﻿using System;
+using InternetAuction.BLL.Exceptions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
@@ -19,14 +20,19 @@ namespace InternetAuction.API.Extensions
 
                     if (exception != null)
                     {
-                        if (exception is SignInException)
+                        switch (exception)
                         {
-                            context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-                        }
+                            case SignInException:
+                                context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                                break;
 
-                        else
-                        {
-                            context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+                            case ArgumentException:
+                                context.Response.StatusCode = StatusCodes.Status400BadRequest;
+                                break;
+
+                            default:
+                                context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+                                break;
                         }
 
                         await context.Response.WriteAsJsonAsync(new { Message = exception.Message} );
