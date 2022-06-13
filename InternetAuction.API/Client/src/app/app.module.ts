@@ -14,6 +14,7 @@ import { UserEditComponent } from './core/components/nav-bar/user-edit/user-edit
 import {ToastrModule} from "ngx-toastr";
 import {ErrorInterceptor} from "./core/interceptors/error.interceptor";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {TokenInterceptor} from "./core/interceptors/token.interceptor";
 
 @NgModule({
     declarations: [
@@ -34,7 +35,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
         ToastrModule.forRoot({positionClass: 'toast-bottom-right'})
     ],
     providers: [
-        {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
+        {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+        {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
     ],
     bootstrap: [AppComponent]
 })
