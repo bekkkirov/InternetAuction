@@ -5,11 +5,15 @@ using InternetAuction.DAL.Entities;
 
 namespace InternetAuction.BLL.Interfaces
 {
-    public interface ILotService : ICrudService<Lot>
+    public interface ILotService
     {
         Task<IEnumerable<LotModel>> GetAllWithDetailsAsync();
 
         Task<LotModel> GetByIdWithDetailsAsync(int lotId);
+
+        Task AddAsync(LotCreateModel model);
+
+        Task DeleteByIdAsync(int modelId);
 
         Task<IEnumerable<LotModel>> SearchAsync(string searchValue);
 
@@ -18,8 +22,6 @@ namespace InternetAuction.BLL.Interfaces
         Task<LotCategoryModel> GetCategoryByIdAsync(int categoryId);
 
         Task AddCategoryAsync(LotCategoryModel model);
-
-        Task DeleteCategoryAsync(LotCategoryModel model);
 
         Task DeleteCategoryByIdAsync(int categoryId);
 
