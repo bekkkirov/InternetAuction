@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using InternetAuction.BLL.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace InternetAuction.BLL.Interfaces
 {
@@ -10,7 +11,7 @@ namespace InternetAuction.BLL.Interfaces
 
         Task<AppUserModel> GetByIdAsync(int modelId);
 
-        Task UpdateAsync(AppUserModel model);
+        Task UpdateAsync(string userName, UserUpdateModel model);
 
         Task<IEnumerable<AppUserModel>> GetAllWithDetailsAsync();
 

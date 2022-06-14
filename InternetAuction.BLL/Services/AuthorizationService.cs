@@ -47,7 +47,7 @@ namespace InternetAuction.BLL.Services
 
             var user = await _unitOfWork.UserRepository.GetByUserNameWithDetailsAsync(model.UserName);
 
-            return new LoggedInUserModel() { UserName = identityUser.UserName, Token = await _tokenService.GenerateTokenAsync(identityUser), ProfileImage = user.ProfileImage.Url };
+            return new LoggedInUserModel() { UserName = identityUser.UserName, Token = await _tokenService.GenerateTokenAsync(identityUser), ProfileImage = user.ProfileImage?.Url };
         }
 
         public async Task<LoggedInUserModel> SignUpAsync(RegisterModel model)

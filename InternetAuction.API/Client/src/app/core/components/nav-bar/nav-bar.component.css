@@ -25,6 +25,7 @@
     background-position: -45px center;
     background-origin: content-box;
     background-size: 30px;
+    border-radius: 15px;
 }
 
 .nav__dropdown {

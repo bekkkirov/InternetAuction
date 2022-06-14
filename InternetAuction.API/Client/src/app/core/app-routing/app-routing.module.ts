@@ -15,8 +15,8 @@ const routes: Routes = [
         runGuardsAndResolvers: "always",
         canActivate: [AuthGuard],
         children: [
-            {path: 'users/:userName', component: UserDetailComponent},
-            {path: 'user/edit', component: UserEditComponent}
+            {path: 'users/profile/:userName', component: UserDetailComponent},
+            {path: 'users/edit', component: UserEditComponent}
         ]
     },
     {path: 'auth/sign-in', component: SignInComponent, canActivate: [LoggedInGuard]},

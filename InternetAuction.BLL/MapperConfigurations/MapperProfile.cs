@@ -16,6 +16,7 @@ namespace InternetAuction.BLL.MapperConfigurations
             CreateMap<Bid, BidModel>();
             CreateMap<AppUser, AppUserModel>().ReverseMap();
             CreateMap<RegisterModel, AppUser>();
+            CreateMap<UserUpdateModel, AppUser>();
         }
     }
 }

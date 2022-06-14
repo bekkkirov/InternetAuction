@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AccountService} from "../../services/account.service";
 import {LoggedInUserModel} from "../../models/LoggedInUserModel";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-nav-bar',
@@ -8,7 +9,7 @@ import {LoggedInUserModel} from "../../models/LoggedInUserModel";
     styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent implements OnInit {
-    constructor(public accountService: AccountService) {
+    constructor(public accountService: AccountService, private router: Router) {
     }
 
     ngOnInit(): void {
@@ -16,6 +17,7 @@ export class NavBarComponent implements OnInit {
     }
 
     logout() {
-
+        this.accountService.logout();
+        this.router.navigateByUrl("/");
     }
 }

@@ -14,7 +14,7 @@ namespace InternetAuction.BLL.Models
 
         public decimal Balance { get; set; }
 
-        public int? ProfileImageId { get; set; }
+        public ImageModel ProfileImage { get; set; }
 
         public List<LotModel> RegisteredLots { get; set; }
 

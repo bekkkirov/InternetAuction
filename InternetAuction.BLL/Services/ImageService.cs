@@ -18,17 +18,19 @@ namespace InternetAuction.BLL.Services
     public class ImageService : IImageService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
         private readonly Cloudinary _cloudinary;
 
-        public ImageService(IUnitOfWork unitOfWork, IOptions<CloudinarySettings> config)
+        public ImageService(IUnitOfWork unitOfWork, IOptions<CloudinarySettings> config, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
             _cloudinary = new Cloudinary(new Account(config.Value.CloudName, config.Value.ApiKey, config.Value.ApiSecret));
         }
 
-        public async Task AddAsync(IFormFile file, int? userId, int? lotId)
+        public async Task<ImageModel> AddAsync(IFormFile file, int? userId, int? lotId)
         {
-            if (file.Length == 0)
+            if (file is null || file.Length == 0)
             {
                 throw new ArgumentException("Image can't be empty");
             }
@@ -71,6 +73,8 @@ namespace InternetAuction.BLL.Services
 
                 await _unitOfWork.SaveChangesAsync();
             }
+
+            return _mapper.Map<ImageModel>(image);
         }
 
 

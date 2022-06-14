@@ -8,7 +8,7 @@ namespace InternetAuction.BLL.Interfaces
 {
     public interface IImageService
     {
-        Task AddAsync(IFormFile file, int? userId, int? lotId);
+        Task<ImageModel> AddAsync(IFormFile file, int? userId, int? lotId);
 
         Task DeleteAsync(string publicId);
     }

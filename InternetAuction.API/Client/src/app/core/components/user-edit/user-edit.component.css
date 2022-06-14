@@ -11,6 +11,8 @@
     width: 256px;
     height: 256px;
     margin-bottom: 15px;
+    border: 1px solid black;
+    border-radius: 50%;
 }
 
 .edit__userName {
@@ -49,9 +51,15 @@ input[type=file] {
     display: none;
 }
 
-.edit__form {
+.edit__form-data {
     display: flex;
     flex-direction: column;
+}
+
+.edit__form-label {
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 10px;
 }
 
 .edit__form-input {
@@ -60,9 +68,10 @@ input[type=file] {
     border-radius: 5px;
     padding: 15px 10px;
     width: 300px;
+    margin-bottom: 5px;
 }
 
-.edit__form-input:not(:last-child) {
+.form-group:not(:last-child) {
     margin-bottom: 40px;
 }
 

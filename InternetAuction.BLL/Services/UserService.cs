@@ -5,6 +5,7 @@ using InternetAuction.BLL.Interfaces;
 using InternetAuction.BLL.Models;
 using InternetAuction.DAL.Entities;
 using InternetAuction.DAL.Interfaces;
+using Microsoft.AspNetCore.Http;
 
 namespace InternetAuction.BLL.Services
 {
@@ -33,9 +34,10 @@ namespace InternetAuction.BLL.Services
             return _mapper.Map<AppUserModel>(user);
         }
 
-        public async Task UpdateAsync(AppUserModel model)
+        public async Task UpdateAsync(string userName, UserUpdateModel model)
         {
-            var userToUpdate = _mapper.Map<AppUser>(model);
+            var user = await _unitOfWork.UserRepository.GetByUserNameAsync(userName);
+            var userToUpdate = _mapper.Map(model, user);
 
             _unitOfWork.UserRepository.Update(userToUpdate);
             await _unitOfWork.SaveChangesAsync();

@@ -5,18 +5,45 @@
                 <img class="edit__profile-image" [src]="user.profileImage || '/assets/images/user.png'">
                 <p class="edit__userName">{{user.userName}}</p>
                 <label class="edit__image-upload">
-                    <input name="file" type="file"
-                           accept="image/png, image/jpeg">
+                    <input #fileInput name="file" type="file"
+                           accept="image/png, image/jpeg"
+                           (change)="onFileInput($event)">
                     Upload new image
                 </label>
             </div>
             <div class="edit__col2">
-                <form class="edit__form">
-                    <input class="edit__form-input" type="text" name="" placeholder="First name">
-                    <input class="edit__form-input" type="text" name="" placeholder="Last name">
-                    <input class="edit__form-input" type="text" name="" placeholder="Balance">
-                    <input class="edit__form-submit" type="submit" value="Update profile">
-                </form>
+                <div class="edit__form-data">
+                    <form class="edit__form" [formGroup]="form" (ngSubmit)="update()">
+                        <div class="form-group">
+                            <p class="edit__form-label">First name</p>
+                            <input class="edit__form-input" formControlName="firstName" name="firstName"
+                                   type="text" placeholder="FirstName">
+                            <p class="error-label"
+                               *ngIf="form.get('firstName')?.invalid && form.get('firstName')?.touched">
+                                This field must be 2-30 characters
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <p class="edit__form-label">Last name</p>
+                            <input class="edit__form-input" formControlName="lastName" name="lastName"
+                                   type="text" placeholder="Last name">
+                            <p class="error-label"
+                               *ngIf="form.get('lastName')?.invalid && form.get('lastName')?.touched">
+                                This field must be 2-30 characters
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <p class="edit__form-label">Balance</p>
+                            <input class="edit__form-input" formControlName="balance" name="balance"
+                                   type="number" step=".01" placeholder="Balance">
+                            <p class="error-label"
+                               *ngIf="form.get('balance')?.invalid">
+                                Value must be greater than 0
+                            </p>
+                        </div>
+                        <input class="edit__form-submit" type="submit" value="Update profile">
+                    </form>
+                </div>
             </div>
         </div>
     </div>
