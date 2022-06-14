@@ -109,6 +109,24 @@ namespace InternetAuction.API
 
                 await unitOfWork.SaveChangesAsync();
             }
+
+            if (!(await unitOfWork.LotCategoryRepository.GetAsync()).Any())
+            {
+                var categories = new List<LotCategory>()
+                {
+                    new LotCategory() { Name = "Electronics" },
+                    new LotCategory() { Name = "Sports" },
+                    new LotCategory() { Name = "Motors" },
+                    new LotCategory() { Name = "Collectibles and Art" },
+                };
+
+                foreach (var category in categories)
+                {
+                    unitOfWork.LotCategoryRepository.Add(category);
+                }
+
+                await unitOfWork.SaveChangesAsync();
+            }
         }
     }
 }

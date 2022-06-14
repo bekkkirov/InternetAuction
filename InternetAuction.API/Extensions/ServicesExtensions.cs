@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Text;
+using InternetAuction.BLL.Interfaces;
+using InternetAuction.BLL.Services;
 using InternetAuction.DAL.Entities;
 using InternetAuction.DAL.Interfaces;
 using InternetAuction.DAL.Repositories;
@@ -60,6 +62,15 @@ namespace InternetAuction.API.Extensions
                         };
                     });
 
+        }
+
+        public static void AddApplicationServices(this IServiceCollection services)
+        {
+            services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IAuthorizationService, AuthorizationService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IImageService, ImageService>();
+            services.AddScoped<ILotService, LotService>();
         }
     }
 }
