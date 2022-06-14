@@ -51,6 +51,11 @@ input[type=file] {
     display: none;
 }
 
+.edit__form {
+    display: flex;
+    flex-direction: column;
+}
+
 .edit__form-data {
     display: flex;
     flex-direction: column;
