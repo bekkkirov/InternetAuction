@@ -38,13 +38,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 
 .nav__dropdown-menu {
     position: absolute;
     background-color: #fff;
-    left: -15px;
+    left: 0;
+    right: 0;
     top: 45px;
+    margin: 0 auto;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
     padding: 20px 15px;
     transform: translateY(-2px);

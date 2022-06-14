@@ -1,0 +1,80 @@
+.edit {
+    padding: 100px;
+}
+
+.edit__inner {
+    display: flex;
+    justify-content: center;
+}
+
+.edit__profile-image {
+    width: 256px;
+    height: 256px;
+    margin-bottom: 15px;
+}
+
+.edit__userName {
+    margin-bottom: 35px;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.edit__col1,
+.edit__col2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.edit__col1 {
+    margin-right: 250px;
+}
+
+.edit__col2 {
+    justify-content: center;
+}
+
+.edit__image-upload {
+    background-color: #ff8229;
+    color: #ffffff;
+    border-radius: 5px;
+    padding: 20px 15px;
+}
+
+.edit__image-upload:hover {
+    background-color: #ff6700;
+}
+
+input[type=file] {
+    display: none;
+}
+
+.edit__form {
+    display: flex;
+    flex-direction: column;
+}
+
+.edit__form-input {
+    font-size: 20px;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 15px 10px;
+    width: 300px;
+}
+
+.edit__form-input:not(:last-child) {
+    margin-bottom: 40px;
+}
+
+.edit__form-submit {
+    padding: 15px;
+    border-radius: 5px;
+    font-size: 18px;
+    background-color: #000;
+    color: #fff;
+}
+
+.edit__form-submit:hover {
+    box-shadow: 0 0 10px #000;
+}
+

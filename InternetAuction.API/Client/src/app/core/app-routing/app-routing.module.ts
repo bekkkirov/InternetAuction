@@ -4,7 +4,7 @@ import {LotsListComponent} from "../components/lots-list/lots-list.component";
 import {UserDetailComponent} from "../components/user-detail/user-detail.component";
 import {SignInComponent} from "../components/sign-in/sign-in.component";
 import {SignUpComponent} from "../components/sign-up/sign-up.component";
-import {UserEditComponent} from "../components/nav-bar/user-edit/user-edit.component";
+import {UserEditComponent} from "../components/user-edit/user-edit.component";
 import {AuthGuard} from "../guards/auth.guard";
 import {LoggedInGuard} from "../guards/logged-in.guard";
 
@@ -16,7 +16,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         children: [
             {path: 'users/:userName', component: UserDetailComponent},
-            {path: 'users/edit', component: UserEditComponent}
+            {path: 'user/edit', component: UserEditComponent}
         ]
     },
     {path: 'auth/sign-in', component: SignInComponent, canActivate: [LoggedInGuard]},

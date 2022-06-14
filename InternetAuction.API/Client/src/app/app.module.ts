@@ -10,7 +10,7 @@ import { NavBarComponent } from './core/components/nav-bar/nav-bar.component';
 import { LotsListComponent } from './core/components/lots-list/lots-list.component';
 import { UserDetailComponent } from './core/components/user-detail/user-detail.component';
 import {AppRoutingModule} from "./core/app-routing/app-routing.module";
-import { UserEditComponent } from './core/components/nav-bar/user-edit/user-edit.component';
+import { UserEditComponent } from './core/components/user-edit/user-edit.component';
 import {ToastrModule} from "ngx-toastr";
 import {ErrorInterceptor} from "./core/interceptors/error.interceptor";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
