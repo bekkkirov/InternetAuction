@@ -10,15 +10,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InternetAuction.DAL.Migrations
 {
     [DbContext(typeof(AuctionContext))]
-    [Migration("20220610090853_InitialCreate")]
+    [Migration("20220614190802_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasAnnotation("ProductVersion", "3.1.26")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.17")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("InternetAuction.DAL.Entities.AppUser", b =>
@@ -33,23 +33,27 @@ namespace InternetAuction.DAL.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(30);
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(30);
 
                     b.Property<int?>("ProfileImageId")
                         .HasColumnType("int");
 
                     b.Property<string>("UserName")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(20);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ProfileImageId")
+                        .IsUnique()
+                        .HasFilter("[ProfileImageId] IS NOT NULL");
 
                     b.HasIndex("UserName")
                         .IsUnique();
@@ -110,10 +114,6 @@ namespace InternetAuction.DAL.Migrations
 
                     b.HasIndex("LotId");
 
-                    b.HasIndex("UserId")
-                        .IsUnique()
-                        .HasFilter("[UserId] IS NOT NULL");
-
                     b.ToTable("Images");
                 });
 
@@ -132,16 +132,16 @@ namespace InternetAuction.DAL.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
+                        .HasColumnType("nvarchar(250)")
+                        .HasMaxLength(250);
 
                     b.Property<decimal>("InitialPrice")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(30);
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
@@ -179,12 +179,19 @@ namespace InternetAuction.DAL.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(30);
 
                     b.HasKey("Id");
 
                     b.ToTable("LotCategories");
+                });
+
+            modelBuilder.Entity("InternetAuction.DAL.Entities.AppUser", b =>
+                {
+                    b.HasOne("InternetAuction.DAL.Entities.Image", "ProfileImage")
+                        .WithOne("User")
+                        .HasForeignKey("InternetAuction.DAL.Entities.AppUser", "ProfileImageId");
                 });
 
             modelBuilder.Entity("InternetAuction.DAL.Entities.Bid", b =>
@@ -200,10 +207,6 @@ namespace InternetAuction.DAL.Migrations
                         .HasForeignKey("LotId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Bidder");
-
-                    b.Navigation("Lot");
                 });
 
             modelBuilder.Entity("InternetAuction.DAL.Entities.Image", b =>
@@ -211,14 +214,6 @@ namespace InternetAuction.DAL.Migrations
                     b.HasOne("InternetAuction.DAL.Entities.Lot", "Lot")
                         .WithMany("Images")
                         .HasForeignKey("LotId");
-
-                    b.HasOne("InternetAuction.DAL.Entities.AppUser", "User")
-                        .WithOne("ProfileImage")
-                        .HasForeignKey("InternetAuction.DAL.Entities.Image", "UserId");
-
-                    b.Navigation("Lot");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("InternetAuction.DAL.Entities.Lot", b =>
@@ -238,35 +233,6 @@ namespace InternetAuction.DAL.Migrations
                         .HasForeignKey("SellerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Buyer");
-
-                    b.Navigation("Category");
-
-                    b.Navigation("Seller");
-                });
-
-            modelBuilder.Entity("InternetAuction.DAL.Entities.AppUser", b =>
-                {
-                    b.Navigation("Bids");
-
-                    b.Navigation("BoughtLots");
-
-                    b.Navigation("ProfileImage");
-
-                    b.Navigation("RegisteredLots");
-                });
-
-            modelBuilder.Entity("InternetAuction.DAL.Entities.Lot", b =>
-                {
-                    b.Navigation("Bids");
-
-                    b.Navigation("Images");
-                });
-
-            modelBuilder.Entity("InternetAuction.DAL.Entities.LotCategory", b =>
-                {
-                    b.Navigation("Lots");
                 });
 #pragma warning restore 612, 618
         }

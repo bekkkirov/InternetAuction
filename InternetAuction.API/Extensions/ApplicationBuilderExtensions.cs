@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Text.Json;
 using InternetAuction.BLL.Exceptions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using JsonSerializer = Newtonsoft.Json.JsonSerializer;
 
 namespace InternetAuction.API.Extensions
 {
@@ -22,11 +26,11 @@ namespace InternetAuction.API.Extensions
                     {
                         switch (exception)
                         {
-                            case SignInException:
+                            case SignInException e:
                                 context.Response.StatusCode = StatusCodes.Status401Unauthorized;
                                 break;
 
-                            case ArgumentException:
+                            case ArgumentException e:
                                 context.Response.StatusCode = StatusCodes.Status400BadRequest;
                                 break;
 
@@ -35,7 +39,8 @@ namespace InternetAuction.API.Extensions
                                 break;
                         }
 
-                        await context.Response.WriteAsJsonAsync(new { Message = exception.Message} );
+                        await context.Response.WriteAsync(JsonConvert.SerializeObject(new {Message = exception.Message},
+                            new JsonSerializerSettings() {ContractResolver = new CamelCasePropertyNamesContractResolver()}));
                     }
                 });
             });

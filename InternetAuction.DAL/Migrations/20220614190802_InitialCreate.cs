@@ -11,9 +11,9 @@ namespace InternetAuction.DAL.Migrations
                 name: "LotCategories",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false)
+                    Name = table.Column<string>(maxLength: 30, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -24,13 +24,13 @@ namespace InternetAuction.DAL.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
-                    Balance = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    ProfileImageId = table.Column<int>(type: "int", nullable: true)
+                    UserName = table.Column<string>(maxLength: 20, nullable: false),
+                    FirstName = table.Column<string>(maxLength: 30, nullable: false),
+                    LastName = table.Column<string>(maxLength: 30, nullable: false),
+                    Balance = table.Column<decimal>(nullable: false),
+                    ProfileImageId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -41,34 +41,34 @@ namespace InternetAuction.DAL.Migrations
                 name: "Lots",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    InitialPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    SaleStartTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    SaleEndTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
-                    CategoryId = table.Column<int>(type: "int", nullable: false),
-                    SellerId = table.Column<int>(type: "int", nullable: false),
-                    BuyerId = table.Column<int>(type: "int", nullable: true)
+                    Name = table.Column<string>(maxLength: 30, nullable: false),
+                    Description = table.Column<string>(maxLength: 250, nullable: false),
+                    InitialPrice = table.Column<decimal>(nullable: false),
+                    SaleStartTime = table.Column<DateTime>(nullable: false),
+                    SaleEndTime = table.Column<DateTime>(nullable: false),
+                    Status = table.Column<string>(nullable: false),
+                    Quantity = table.Column<int>(nullable: false),
+                    CategoryId = table.Column<int>(nullable: false),
+                    SellerId = table.Column<int>(nullable: false),
+                    BuyerId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Lots", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Lots_LotCategories_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "LotCategories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Lots_Users_BuyerId",
                         column: x => x.BuyerId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Lots_LotCategories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "LotCategories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Lots_Users_SellerId",
                         column: x => x.SellerId,
@@ -81,39 +81,39 @@ namespace InternetAuction.DAL.Migrations
                 name: "Bids",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    BidValue = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    BidTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LotId = table.Column<int>(type: "int", nullable: false),
-                    BidderId = table.Column<int>(type: "int", nullable: false)
+                    BidValue = table.Column<decimal>(nullable: false),
+                    BidTime = table.Column<DateTime>(nullable: false),
+                    LotId = table.Column<int>(nullable: false),
+                    BidderId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Bids", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Bids_Users_BidderId",
+                        column: x => x.BidderId,
+                        principalTable: "Users",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Bids_Lots_LotId",
                         column: x => x.LotId,
                         principalTable: "Lots",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Bids_Users_BidderId",
-                        column: x => x.BidderId,
-                        principalTable: "Users",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
                 name: "Images",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    PublicId = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Url = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: true),
-                    LotId = table.Column<int>(type: "int", nullable: true)
+                    PublicId = table.Column<string>(nullable: false),
+                    Url = table.Column<string>(nullable: false),
+                    UserId = table.Column<int>(nullable: true),
+                    LotId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -122,12 +122,6 @@ namespace InternetAuction.DAL.Migrations
                         name: "FK_Images_Lots_LotId",
                         column: x => x.LotId,
                         principalTable: "Lots",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Images_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -148,13 +142,6 @@ namespace InternetAuction.DAL.Migrations
                 column: "LotId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Images_UserId",
-                table: "Images",
-                column: "UserId",
-                unique: true,
-                filter: "[UserId] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Lots_BuyerId",
                 table: "Lots",
                 column: "BuyerId");
@@ -170,16 +157,42 @@ namespace InternetAuction.DAL.Migrations
                 column: "SellerId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Users_ProfileImageId",
+                table: "Users",
+                column: "ProfileImageId",
+                unique: true,
+                filter: "[ProfileImageId] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Users_UserName",
                 table: "Users",
                 column: "UserName",
                 unique: true);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Users_Images_ProfileImageId",
+                table: "Users",
+                column: "ProfileImageId",
+                principalTable: "Images",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_Lots_Users_BuyerId",
+                table: "Lots");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Lots_Users_SellerId",
+                table: "Lots");
+
             migrationBuilder.DropTable(
                 name: "Bids");
+
+            migrationBuilder.DropTable(
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Images");
@@ -189,9 +202,6 @@ namespace InternetAuction.DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "LotCategories");
-
-            migrationBuilder.DropTable(
-                name: "Users");
         }
     }
 }
