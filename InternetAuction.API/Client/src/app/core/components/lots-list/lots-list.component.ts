@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {LotService} from "../../services/lot.service";
-import {LotCategoryModel} from "../../models/LotCategoryModel";
+import {LotCategoryModel} from "../../models/lot-category.model";
 import {take} from "rxjs";
 
 @Component({

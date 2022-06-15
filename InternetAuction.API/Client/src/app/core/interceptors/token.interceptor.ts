@@ -6,7 +6,7 @@ import {
     HttpInterceptor
 } from '@angular/common/http';
 import {Observable, take} from 'rxjs';
-import {LoggedInUserModel} from "../models/LoggedInUserModel";
+import {LoggedInUserModel} from "../models/logged-in-user.model";
 import {AccountService} from "../services/account.service";
 
 @Injectable()

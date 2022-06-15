@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {LotCategoryModel} from "../models/LotCategoryModel";
+import {LotCategoryModel} from "../models/lot-category.model";
 import {environment} from "../../../environments/environment.prod";
 
 @Injectable({

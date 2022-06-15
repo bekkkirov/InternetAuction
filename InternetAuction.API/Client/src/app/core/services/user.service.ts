@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {environment} from "../../../environments/environment.prod";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {UserModel} from "../models/UserModel";
-import {UserUpdateModel} from "../models/UserUpdateModel";
-import {ImageModel} from "../models/ImageModel";
+import {UserModel} from "../models/user.model";
+import {UserUpdateModel} from "../models/user-update.model";
+import {ImageModel} from "../models/image.model";
 
 @Injectable({
     providedIn: 'root'

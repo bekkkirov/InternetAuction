@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {map, ReplaySubject} from "rxjs";
-import {LoggedInUserModel} from "../models/LoggedInUserModel";
-import {LoginModel} from "../models/LoginModel";
-import {RegisterModel} from "../models/RegisterModel";
+import {LoggedInUserModel} from "../models/logged-in-user.model";
+import {LoginModel} from "../models/login.model";
+import {RegisterModel} from "../models/register.model";
 import {environment} from "../../../environments/environment.prod";
 
 @Injectable({

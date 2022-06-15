@@ -1,5 +1,5 @@
-import {LotModel} from "./LotModel";
-import {BidModel} from "./BidModel";
+import {LotModel} from "./lot.model";
+import {BidModel} from "./bid.model";
 
 export interface UserModel {
     id: number,

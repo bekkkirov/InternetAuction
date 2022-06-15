@@ -1,4 +1,4 @@
-import {LotModel} from "./LotModel";
+import {LotModel} from "./lot.model";
 
 export interface LotCategoryModel {
     id: number,

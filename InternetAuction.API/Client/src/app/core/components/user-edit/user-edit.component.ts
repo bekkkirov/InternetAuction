@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {AccountService} from "../../services/account.service";
-import {LoggedInUserModel} from "../../models/LoggedInUserModel";
+import {LoggedInUserModel} from "../../models/logged-in-user.model";
 import {Observable, take} from "rxjs";
-import {UserModel} from "../../models/UserModel";
+import {UserModel} from "../../models/user.model";
 import {UserService} from "../../services/user.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AppValidators} from "../../validators/app-validators";
