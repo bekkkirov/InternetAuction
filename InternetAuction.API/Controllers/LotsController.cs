@@ -23,5 +23,12 @@ namespace InternetAuction.API.Controllers
         {
             return Ok(await _lotService.GetAllCategoriesAsync());
         }
+
+        [HttpGet]
+        [Route("previews")]
+        public async Task<ActionResult<IEnumerable<LotPreviewModel>>> GetLotsPreviews()
+        {
+            return Ok (await _lotService.GetLotsPreviewsAsync());
+        }
     }
 }

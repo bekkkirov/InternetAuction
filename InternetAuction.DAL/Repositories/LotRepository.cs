@@ -13,6 +13,14 @@ namespace InternetAuction.DAL.Repositories
         {
         }
 
+        public async Task<IEnumerable<Lot>> GetPreviewsAsync()
+        {
+            return await _dbSet
+                         .Include(l => l.Images)
+                         .Include(l => l.Bids)
+                         .ToListAsync();
+        }
+
         public async Task<IEnumerable<Lot>> GetAllWithDetailsAsync()
         {
             return await _dbSet.Include(l => l.Category)

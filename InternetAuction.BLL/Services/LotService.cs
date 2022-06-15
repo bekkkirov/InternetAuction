@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using InternetAuction.BLL.Interfaces;
@@ -65,6 +66,11 @@ namespace InternetAuction.BLL.Services
         public async Task<IEnumerable<LotModel>> GetAllWithDetailsAsync()
         {
             return _mapper.Map<IEnumerable<LotModel>>(await _unitOfWork.LotRepository.GetAllWithDetailsAsync());
+        }
+
+        public async Task<IEnumerable<LotPreviewModel>> GetLotsPreviewsAsync()
+        {
+            return _mapper.Map<IEnumerable<LotPreviewModel>>((await _unitOfWork.LotRepository.GetPreviewsAsync()));
         }
 
         public async Task<LotModel> GetByIdWithDetailsAsync(int lotId)

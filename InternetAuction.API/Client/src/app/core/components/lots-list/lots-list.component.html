@@ -5,4 +5,24 @@
         </div>
     </div>
 </div>
+<div class="lots">
+    <div class="container">
+        <div class="lots__inner">
+            <div class="lot" *ngFor="let lot of lots">
+                <img class="lot__image" [src]="lot.image?.url || '/assets/images/lot.png'">
+                <div class="lot__line"></div>
+                <div class="lot__data">
+                    <div class="lot__col1">
+                        <p class="lot__name">{{lot.name}}</p>
+                        <p class="lot__saleTime">{{lot.saleEndTime}}</p>
+                    </div>
+                    <div class="lot__col2">
+                        <p class="lot__currentPrice">{{lot.currentPrice}}$</p>
+                        <p class="lot__bidCount">{{lot.bidCount}} bids made</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 

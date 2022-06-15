@@ -9,6 +9,8 @@ namespace InternetAuction.BLL.Interfaces
     {
         Task<IEnumerable<LotModel>> GetAllWithDetailsAsync();
 
+        Task<IEnumerable<LotPreviewModel>> GetLotsPreviewsAsync();
+
         Task<LotModel> GetByIdWithDetailsAsync(int lotId);
 
         Task AddAsync(LotCreateModel model);

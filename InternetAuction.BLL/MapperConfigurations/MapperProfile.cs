@@ -20,9 +20,9 @@ namespace InternetAuction.BLL.MapperConfigurations
             CreateMap<UserUpdateModel, AppUser>();
             CreateMap<LotCreateModel, Lot>();
             CreateMap<Lot, LotPreviewModel>()
-                .ForMember(d => d.Image, opt => opt.MapFrom(src => src.Images.First()))
+                .ForMember(d => d.Image, opt => opt.MapFrom(src => src.Images.FirstOrDefault()))
                 .ForMember(d => d.BidCount, opt => opt.MapFrom(src => src.Bids.Count))
-                .ForMember(d => d.CurrentPrice, opt => opt.MapFrom(src => src.Bids.Max(b => b.BidValue)));
+                .ForMember(d => d.CurrentPrice, opt => opt.MapFrom(src => src.Bids.Count > 0 ? src.Bids.Max(b => b.BidValue) : src.InitialPrice));
         }
     }
 }

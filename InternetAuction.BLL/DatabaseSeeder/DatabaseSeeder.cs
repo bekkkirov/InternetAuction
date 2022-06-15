@@ -168,7 +168,7 @@ namespace InternetAuction.BLL.DatabaseSeeder
                                                .RuleFor(l => l.CategoryId, f => f.Random.Number(1, 4))
                                                .RuleFor(l => l.SaleEndTime, f => f.Date.Between(DateTime.Now, DateTime.Now.AddMinutes(30)))
                                                .RuleFor(l => l.SellerId, f => f.Random.Number(1, 5))
-                                               .Generate(150);
+                                               .Generate(100);
 
                 foreach (var lot in lotFaker)
                 {

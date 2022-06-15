@@ -1,3 +1,7 @@
+.categories {
+    margin-bottom: 100px;
+}
+
 .categories__inner {
     display: flex;
     justify-content: center;
@@ -17,4 +21,47 @@
 
 .categories__link:not(:last-child) {
     margin-right: 5px;
+}
+
+.lot {
+    display: flex;
+    margin-bottom: 20px;
+    background-color: #e7e7e7;
+    border-radius: 5px;
+    padding: 20px 15px;
+}
+
+.lot__image {
+    width: 150px;
+    height: 150px;
+    margin-right: 15px;
+}
+
+.lot__line {
+    background-color: #a4a4a4;
+    width: 1px;
+    margin-right: 20px;
+}
+
+.lot__data {
+    display: flex;
+    flex: 1 0 auto;
+    justify-content: space-between;
+    text-align: center;
+}
+
+.lot__col1,
+.lot__col2 {
+    display: flex;
+    flex-direction: column;
+}
+
+.lot__name {
+    font-size: 22px;
+    color: #376fff;
+    margin-bottom: 15px;
+}
+
+.lot__currentPrice {
+    margin-bottom: 20px;
 }
