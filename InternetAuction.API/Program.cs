@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using InternetAuction.BLL;
+using InternetAuction.BLL.DatabaseSeeder;
 using InternetAuction.BLL.Interfaces;
 using InternetAuction.DAL.Interfaces;
 using InternetAuction.Identity.Entities;

@@ -33,17 +33,17 @@ namespace InternetAuction.DAL.Entities
         /// <summary>
         /// Gets or sets the list of lots bought by this user.
         /// </summary>
-        public List<Lot> BoughtLots { get; set; }
+        public List<Lot> BoughtLots { get; set; } = new List<Lot>();
 
         /// <summary>
         /// Gets or sets the list of lots registered for sale by this user.
         /// </summary>
-        public List<Lot> RegisteredLots { get; set; }
+        public List<Lot> RegisteredLots { get; set; } = new List<Lot>();
 
         /// <summary>
         /// Gets or sets the list of bids made by this user.
         /// </summary>
-        public List<Bid> Bids { get; set; }
+        public List<Bid> Bids { get; set; } = new List<Bid>();
 
         /// <summary>
         /// Gets or sets the profile image id for this user.

@@ -29,7 +29,7 @@ namespace InternetAuction.DAL.Entities
         /// <summary>
         /// Gets or sets the start time for the sale of this lot.
         /// </summary>
-        public DateTime SaleStartTime { get; set; }
+        public DateTime SaleStartTime { get; set; } = DateTime.Now;
 
         /// <summary>
         /// Gets or sets the end time for the sale of this lot.
@@ -39,7 +39,7 @@ namespace InternetAuction.DAL.Entities
         /// <summary>
         /// Gets or sets the status for this lot.
         /// </summary>
-        public LotStatus Status { get; set; }
+        public LotStatus Status { get; set; } = LotStatus.Active;
 
         /// <summary>
         /// Gets or sets the quantity for this lot.
@@ -59,12 +59,12 @@ namespace InternetAuction.DAL.Entities
         /// <summary>
         /// Gets or sets the list of images for this lot.
         /// </summary>
-        public List<Image> Images { get; set; }
+        public List<Image> Images { get; set; } = new List<Image>();
 
         /// <summary>
         /// Gets or sets the list of bids for this lot.
         /// </summary>
-        public List<Bid> Bids { get; set; }
+        public List<Bid> Bids { get; set; } = new List<Bid>();
 
         /// <summary>
         /// Gets or sets the id of user who sells this lot.

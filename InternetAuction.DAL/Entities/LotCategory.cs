@@ -18,6 +18,6 @@ namespace InternetAuction.DAL.Entities
         /// <summary>
         /// Gets or sets the list of lots that belong to this category.
         /// </summary>
-        public List<Lot> Lots { get; set; }
+        public List<Lot> Lots { get; set; } = new List<Lot>();
     }
 }

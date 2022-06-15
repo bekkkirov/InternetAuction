@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text.Json;
-using System.Threading.Tasks;
+﻿using Bogus;
 using InternetAuction.BLL.Interfaces;
 using InternetAuction.BLL.Models;
 using InternetAuction.DAL.Entities;
@@ -10,8 +6,12 @@ using InternetAuction.DAL.Interfaces;
 using InternetAuction.Identity.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace InternetAuction.API
+namespace InternetAuction.BLL.DatabaseSeeder
 {
     public class DatabaseSeeder
     {
@@ -35,13 +35,39 @@ namespace InternetAuction.API
 
             if (!await userManager.Users.AnyAsync())
             {
-                //Gets user data from json file.
-                var userData = await File.ReadAllTextAsync("users.json");
-                var users = JsonSerializer.Deserialize<List<RegisterModel>>(userData);
+                var users = new List<RegisterModel>()
+                {
+                    new RegisterModel()
+                    {
+                        UserName = "bekirov",
+                        Email = "admin@mail.com",
+                        FirstName = "Vladislav",
+                        LastName = "Bekirov",
+                        Password = "admin12345",
+                    },
+
+                    new RegisterModel()
+                    {
+                        UserName = "moderator",
+                        Email = "moder@mail.com",
+                        FirstName = "Moder",
+                        LastName = "Moderov",
+                        Password = "moder12345",
+                    },
+                };
+
+                var fakeUsers = new Faker<RegisterModel>().RuleFor(u => u.UserName, f => f.Internet.UserName() + f.IndexGlobal)
+                                                                          .RuleFor(u => u.FirstName, f => f.Person.FirstName)
+                                                                          .RuleFor(u => u.LastName, f => f.Person.LastName)
+                                                                          .RuleFor(u => u.Email, f => f.Internet.Email() + f.IndexGlobal)
+                                                                          .RuleFor(u => u.Password, f => "password123")
+                                                                          .Generate(10);
+
+                users.AddRange(fakeUsers);
 
                 //Registers administrator.
                 await authorizationService.SignUpAsync(users[0]);
-                await userManager.AddToRolesAsync(userManager.Users.First(), new[] {"User", "Moderator", "Administrator"});
+                await userManager.AddToRolesAsync(userManager.Users.First(), new[] { "User", "Moderator", "Administrator" });
 
                 //Registers moderator.
                 await authorizationService.SignUpAsync(users[1]);
@@ -102,7 +128,7 @@ namespace InternetAuction.API
 
                 var registeredUsers = (await unitOfWork.UserRepository.GetAllWithDetailsAsync()).ToList();
 
-                for(int i = 0; i < images.Count; i++)
+                for (int i = 0; i < images.Count; i++)
                 {
                     registeredUsers[i].ProfileImage = images[i];
                 }
@@ -123,6 +149,30 @@ namespace InternetAuction.API
                 foreach (var category in categories)
                 {
                     unitOfWork.LotCategoryRepository.Add(category);
+                }
+
+                await unitOfWork.SaveChangesAsync();
+            }
+
+            if (!userManager.Users.Any())
+            {
+
+            }
+
+            if (!(await unitOfWork.LotRepository.GetAsync()).Any())
+            {
+                var lotFaker = new Faker<Lot>().RuleFor(l => l.Name, f => f.Commerce.ProductName())
+                                               .RuleFor(l => l.Description, f => f.Commerce.ProductDescription())
+                                               .RuleFor(l => l.InitialPrice, f => f.Random.Decimal(10, 200))
+                                               .RuleFor(l => l.Quantity, f => f.Random.Number(1, 3))
+                                               .RuleFor(l => l.CategoryId, f => f.Random.Number(1, 4))
+                                               .RuleFor(l => l.SaleEndTime, f => f.Date.Between(DateTime.Now, DateTime.Now.AddMinutes(30)))
+                                               .RuleFor(l => l.SellerId, f => f.Random.Number(1, 5))
+                                               .Generate(150);
+
+                foreach (var lot in lotFaker)
+                {
+                    unitOfWork.LotRepository.Add(lot);
                 }
 
                 await unitOfWork.SaveChangesAsync();
