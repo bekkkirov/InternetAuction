@@ -60,7 +60,6 @@ namespace InternetAuction.BLL.Services
 
             _unitOfWork.LotRepository.Update(lotToUpdate);
             await _unitOfWork.SaveChangesAsync();
-
         }
 
         public async Task<IEnumerable<LotModel>> GetAllWithDetailsAsync()

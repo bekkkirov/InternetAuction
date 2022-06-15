@@ -1,0 +1,20 @@
+.categories__inner {
+    display: flex;
+    justify-content: center;
+}
+
+.categories__link {
+    flex: 1 1 0;
+    background-color: #e5e5e5;
+    padding: 20px;
+    text-align: center;
+}
+
+.categories__link:hover {
+    background-color: #c5c5c5;
+    cursor: pointer;
+}
+
+.categories__link:not(:last-child) {
+    margin-right: 5px;
+}
