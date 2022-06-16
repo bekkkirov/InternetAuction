@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using InternetAuction.BLL.Interfaces;
 using InternetAuction.BLL.Models;
+using InternetAuction.BLL.Pagination;
 using InternetAuction.DAL.Entities;
 using InternetAuction.DAL.Interfaces;
 
@@ -68,9 +69,11 @@ namespace InternetAuction.BLL.Services
             return _mapper.Map<IEnumerable<LotModel>>(await _unitOfWork.LotRepository.GetAllWithDetailsAsync());
         }
 
-        public async Task<IEnumerable<LotPreviewModel>> GetLotsPreviewsAsync()
+        public async Task<PagedList<LotPreviewModel>> GetLotsPreviewsAsync(LotPaginationParameters paginationParams)
         {
-            return _mapper.Map<IEnumerable<LotPreviewModel>>((await _unitOfWork.LotRepository.GetPreviewsAsync()));
+            var lots = _mapper.Map<IEnumerable<LotPreviewModel>>(await _unitOfWork.LotRepository.GetPreviewsAsync());
+
+            return PagedList<LotPreviewModel>.CreateAsync(lots, paginationParams.PageNumber, paginationParams.PageSize) ;
         }
 
         public async Task<LotModel> GetByIdWithDetailsAsync(int lotId)

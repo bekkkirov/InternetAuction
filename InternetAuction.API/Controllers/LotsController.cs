@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using InternetAuction.API.Extensions;
 using InternetAuction.BLL.Interfaces;
 using InternetAuction.BLL.Models;
+using InternetAuction.BLL.Pagination;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InternetAuction.API.Controllers
@@ -26,9 +28,13 @@ namespace InternetAuction.API.Controllers
 
         [HttpGet]
         [Route("previews")]
-        public async Task<ActionResult<IEnumerable<LotPreviewModel>>> GetLotsPreviews()
+        public async Task<ActionResult<PagedList<LotPreviewModel>>> GetLotsPreviews([FromQuery] LotPaginationParameters paginationParams)
         {
-            return Ok (await _lotService.GetLotsPreviewsAsync());
+            var lots = await _lotService.GetLotsPreviewsAsync(paginationParams);
+
+            Response.AddPaginationHeader(lots.CurrentPage, lots.PageSize, lots.ItemsCount, lots.TotalPages);
+
+            return Ok(lots);
         }
     }
 }

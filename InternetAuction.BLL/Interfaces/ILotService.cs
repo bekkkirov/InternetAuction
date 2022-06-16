@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using InternetAuction.BLL.Models;
+using InternetAuction.BLL.Pagination;
 using InternetAuction.DAL.Entities;
 
 namespace InternetAuction.BLL.Interfaces
@@ -9,7 +10,7 @@ namespace InternetAuction.BLL.Interfaces
     {
         Task<IEnumerable<LotModel>> GetAllWithDetailsAsync();
 
-        Task<IEnumerable<LotPreviewModel>> GetLotsPreviewsAsync();
+        Task<PagedList<LotPreviewModel>> GetLotsPreviewsAsync(LotPaginationParameters paginationParams);
 
         Task<LotModel> GetByIdWithDetailsAsync(int lotId);
 
