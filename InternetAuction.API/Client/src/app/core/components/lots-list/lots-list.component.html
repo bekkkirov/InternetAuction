@@ -8,7 +8,11 @@
 <div class="lots">
     <div class="container">
         <div class="lots__inner">
-            <div class="lot" *ngFor="let lot of lots">
+            <div class="lot" *ngFor="let lot of lots | paginate: {
+              itemsPerPage: pagination?.itemsPerPage,
+              currentPage: pagination?.currentPage,
+              totalItems: pagination?.totalItems
+             }">
                 <img class="lot__image" [src]="lot.image?.url || '/assets/images/lot.png'">
                 <div class="lot__line"></div>
                 <div class="lot__data">
@@ -22,6 +26,11 @@
                     </div>
                 </div>
             </div>
+            <pagination-controls
+                    (pageChange)="changePage($event)"
+            >
+
+            </pagination-controls>
         </div>
     </div>
 </div>

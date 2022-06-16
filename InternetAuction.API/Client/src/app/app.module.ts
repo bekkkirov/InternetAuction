@@ -15,6 +15,7 @@ import {ToastrModule} from "ngx-toastr";
 import {ErrorInterceptor} from "./core/interceptors/error.interceptor";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {TokenInterceptor} from "./core/interceptors/token.interceptor";
+import {NgxPaginationModule} from "ngx-pagination";
 
 @NgModule({
     declarations: [
@@ -28,6 +29,7 @@ import {TokenInterceptor} from "./core/interceptors/token.interceptor";
     ],
     imports: [
         BrowserModule,
+        NgxPaginationModule,
         BrowserAnimationsModule,
         ReactiveFormsModule,
         HttpClientModule,

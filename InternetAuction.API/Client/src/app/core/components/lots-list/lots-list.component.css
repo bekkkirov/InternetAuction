@@ -23,12 +23,21 @@
     margin-right: 5px;
 }
 
+.lots__inner {
+    display: flex;
+    flex-direction: column;
+}
+
 .lot {
     display: flex;
     margin-bottom: 20px;
     background-color: #e7e7e7;
     border-radius: 5px;
     padding: 20px 15px;
+}
+
+.lot:last-of-type {
+    margin-bottom: 50px;
 }
 
 .lot__image {
@@ -64,4 +73,9 @@
 
 .lot__currentPrice {
     margin-bottom: 20px;
+}
+
+pagination-controls {
+    align-self: center;
+    font-size: 18px;
 }
