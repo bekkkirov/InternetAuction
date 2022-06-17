@@ -34,6 +34,14 @@ namespace InternetAuction.BLL.Services
             return _mapper.Map<LotModel>(lot);
         }
 
+        public async Task<PagedList<LotPreviewModel>> GetLotsByCategoryAsync(int categoryId, LotPaginationParameters lotParams)
+        {
+            var category = await _unitOfWork.LotCategoryRepository.GetByIdWithDetailsAsync(categoryId);
+            var lots = _mapper.Map<IEnumerable<LotPreviewModel>>(category.Lots);
+
+            return PagedList<LotPreviewModel>.CreateAsync(lots, lotParams.PageNumber, lotParams.PageSize);
+        }
+
         public async Task AddAsync(LotCreateModel model)
         {
             var lotToAdd = _mapper.Map<Lot>(model);

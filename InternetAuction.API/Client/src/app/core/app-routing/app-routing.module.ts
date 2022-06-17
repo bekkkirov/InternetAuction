@@ -21,6 +21,7 @@ const routes: Routes = [
     },
     {path: 'auth/sign-in', component: SignInComponent, canActivate: [LoggedInGuard]},
     {path: 'auth/sign-up', component: SignUpComponent, canActivate: [LoggedInGuard]},
+    {path: 'categories/:categoryId', component: LotsListComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

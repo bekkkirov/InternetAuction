@@ -22,11 +22,7 @@ export class LotService {
     }
 
     getLotPreviews(page?: number) {
-        let params: HttpParams = new HttpParams();
-
-        if(page != null) {
-            params = params.append('pageNumber', page);
-        }
+        let params: HttpParams = this.addPageParams(page);
 
         return this.http.get<LotPreviewModel[]>(this.apiUrl + "previews", {observe: 'response', params: params}).pipe(
             map(response => {
@@ -36,5 +32,28 @@ export class LotService {
                 return this.paginatedResult;
             })
         );
+    }
+
+    getLotsByCategory(categoryId, page?: number) {
+        let params: HttpParams = this.addPageParams(page);
+
+        return this.http.get<LotPreviewModel[]>(this.apiUrl + "categories/" + categoryId, {observe: 'response', params: params}).pipe(
+            map(response => {
+                this.paginatedResult.result = response.body;
+                this.paginatedResult.pagination = JSON.parse(response.headers.get('pagination'));
+
+                return this.paginatedResult;
+            })
+        );
+    }
+
+    addPageParams(page?: number) {
+        let params: HttpParams = new HttpParams();
+
+        if(page != null) {
+            params = params.append('pageNumber', page);
+        }
+
+        return params;
     }
 }
