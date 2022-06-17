@@ -8,13 +8,11 @@ namespace InternetAuction.BLL.Interfaces
 {
     public interface ILotService
     {
-        Task<IEnumerable<LotModel>> GetAllWithDetailsAsync();
-
-        Task<PagedList<LotPreviewModel>> GetLotsPreviewsAsync(LotPaginationParameters paginationParams);
+        Task<PagedList<LotPreviewModel>> GetLotsPreviewsAsync(LotParameters lotParams);
 
         Task<LotModel> GetByIdWithDetailsAsync(int lotId);
 
-        Task<PagedList<LotPreviewModel>> GetLotsByCategoryAsync(int categoryId, LotPaginationParameters lotParams);
+        Task<PagedList<LotPreviewModel>> GetLotsByCategoryAsync(int categoryId, LotParameters lotParams);
 
         Task AddAsync(LotCreateModel model);
 
@@ -23,8 +21,6 @@ namespace InternetAuction.BLL.Interfaces
         Task<IEnumerable<LotModel>> SearchAsync(string searchValue);
 
         Task<IEnumerable<LotCategoryModel>> GetAllCategoriesAsync();
-
-        Task<LotCategoryModel> GetCategoryByIdAsync(int categoryId);
 
         Task AddCategoryAsync(LotCategoryModel model);
 

@@ -28,7 +28,7 @@ namespace InternetAuction.API.Controllers
 
         [HttpGet]
         [Route("categories/{categoryId}")]
-        public async Task<ActionResult<PagedList<LotPreviewModel>>> GetLotsByCategory(int categoryId, [FromQuery] LotPaginationParameters lotParams)
+        public async Task<ActionResult<PagedList<LotPreviewModel>>> GetLotsByCategory(int categoryId, [FromQuery] LotParameters lotParams)
         {
             var lots = await _lotService.GetLotsByCategoryAsync(categoryId, lotParams);
 
@@ -39,9 +39,9 @@ namespace InternetAuction.API.Controllers
 
         [HttpGet]
         [Route("previews")]
-        public async Task<ActionResult<PagedList<LotPreviewModel>>> GetLotsPreviews([FromQuery] LotPaginationParameters paginationParams)
+        public async Task<ActionResult<PagedList<LotPreviewModel>>> GetLotsPreviews([FromQuery] LotParameters lotParams)
         {
-            var lots = await _lotService.GetLotsPreviewsAsync(paginationParams);
+            var lots = await _lotService.GetLotsPreviewsAsync(lotParams);
 
             Response.AddPaginationHeader(lots.CurrentPage, lots.PageSize, lots.ItemsCount, lots.TotalPages);
 

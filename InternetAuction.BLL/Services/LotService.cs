@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -34,12 +35,13 @@ namespace InternetAuction.BLL.Services
             return _mapper.Map<LotModel>(lot);
         }
 
-        public async Task<PagedList<LotPreviewModel>> GetLotsByCategoryAsync(int categoryId, LotPaginationParameters lotParams)
+        public async Task<PagedList<LotPreviewModel>> GetLotsByCategoryAsync(int categoryId, LotParameters lotParams)
         {
             var category = await _unitOfWork.LotCategoryRepository.GetByIdWithDetailsAsync(categoryId);
-            var lots = _mapper.Map<IEnumerable<LotPreviewModel>>(category.Lots);
+            var filteredLots = FilterLotsByParams(category.Lots, lotParams);
+            var mappedLots = _mapper.Map<IEnumerable<LotPreviewModel>>(filteredLots);
 
-            return PagedList<LotPreviewModel>.CreateAsync(lots, lotParams.PageNumber, lotParams.PageSize);
+            return PagedList<LotPreviewModel>.CreateAsync(mappedLots, lotParams.PageNumber, lotParams.PageSize);
         }
 
         public async Task AddAsync(LotCreateModel model)
@@ -72,16 +74,14 @@ namespace InternetAuction.BLL.Services
             await _unitOfWork.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<LotModel>> GetAllWithDetailsAsync()
+        public async Task<PagedList<LotPreviewModel>> GetLotsPreviewsAsync(LotParameters lotParams)
         {
-            return _mapper.Map<IEnumerable<LotModel>>(await _unitOfWork.LotRepository.GetAllWithDetailsAsync());
-        }
+            var lots = await _unitOfWork.LotRepository.GetPreviewsAsync();
+            var filteredLots = FilterLotsByParams(lots, lotParams);
 
-        public async Task<PagedList<LotPreviewModel>> GetLotsPreviewsAsync(LotPaginationParameters paginationParams)
-        {
-            var lots = _mapper.Map<IEnumerable<LotPreviewModel>>(await _unitOfWork.LotRepository.GetPreviewsAsync());
+            var mappedLots = _mapper.Map<IEnumerable<LotPreviewModel>>(filteredLots);
 
-            return PagedList<LotPreviewModel>.CreateAsync(lots, paginationParams.PageNumber, paginationParams.PageSize) ;
+            return PagedList<LotPreviewModel>.CreateAsync(mappedLots, lotParams.PageNumber, lotParams.PageSize) ;
         }
 
         public async Task<LotModel> GetByIdWithDetailsAsync(int lotId)
@@ -97,11 +97,6 @@ namespace InternetAuction.BLL.Services
         public async Task<IEnumerable<LotCategoryModel>> GetAllCategoriesAsync()
         {
             return _mapper.Map<IEnumerable<LotCategoryModel>>(await _unitOfWork.LotCategoryRepository.GetAsync());
-        }
-
-        public async Task<LotCategoryModel> GetCategoryByIdAsync(int categoryId)
-        {
-            throw new System.NotImplementedException();
         }
 
         public async Task AddCategoryAsync(LotCategoryModel model)
@@ -122,6 +117,42 @@ namespace InternetAuction.BLL.Services
         public async Task UpdateCategoryAsync(LotCategoryModel model)
         {
             throw new System.NotImplementedException();
+        }
+
+        private IEnumerable<Lot> FilterLotsByParams(IEnumerable<Lot> lots, LotParameters lotParams)
+        {
+            var result = lots.Where(l => (l.Bids.LastOrDefault()?.BidValue ?? l.InitialPrice) >= lotParams.MinPrice);
+
+            if (lotParams.MaxPrice.HasValue)
+            {
+                result = result.Where(l => (l.Bids.LastOrDefault()?.BidValue ?? l.InitialPrice) <= lotParams.MaxPrice);
+            }
+
+            if (Enum.TryParse(typeof(OrderOptions), lotParams.OrderOptions, true, out var orderOptions))
+            {
+                switch (orderOptions)
+                {
+                    case OrderOptions.PriceAscending:
+                        result = result.OrderBy(l => l.Bids.LastOrDefault()
+                                                      ?.BidValue ?? l.InitialPrice);
+                        break;
+
+                    case OrderOptions.PriceDescending:
+                        result = result.OrderByDescending(l => l.Bids.LastOrDefault()
+                                                                ?.BidValue ?? l.InitialPrice);
+                        break;
+
+                    case OrderOptions.NumberOfBidsAscending:
+                        result = result.OrderBy(l => l.Bids.Count);
+                        break;
+
+                    case OrderOptions.NumberOfBidsDescending:
+                        result = result.OrderByDescending(l => l.Bids.Count);
+                        break;
+                }
+            }
+
+            return result;
         }
     }
 }
