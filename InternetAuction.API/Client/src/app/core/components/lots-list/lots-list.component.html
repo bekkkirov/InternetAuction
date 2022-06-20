@@ -26,7 +26,7 @@
 </div>
 <div class="lots">
     <div class="container">
-        <div class="lots__inner">
+        <div class="lots__inner" *ngIf="this.lots && this.lots.length > 0;else lotsNotFound">
             <div class="lot" *ngFor="let lot of lots | paginate: {
               itemsPerPage: pagination?.itemsPerPage,
               currentPage: pagination?.currentPage,
@@ -37,7 +37,7 @@
                 <div class="lot__data">
                     <div class="lot__col1">
                         <p class="lot__name">{{lot.name}}</p>
-                        <p class="lot__saleTime">{{moment(lot.saleEndTime).fromNow()}}</p>
+                        <p class="lot__saleTime">Sale ends {{moment(lot.saleEndTime).fromNow()}}</p>
                     </div>
                     <div class="lot__col2">
                         <p class="lot__currentPrice">{{lot.currentPrice}}$</p>
@@ -50,6 +50,12 @@
             >
             </pagination-controls>
         </div>
+        <ng-template #lotsNotFound>
+            <div class="not-found">
+                <p class="not-found__smile">:(</p>
+                <p class="not-found__text">No lots that match specified filters were found</p>
+            </div>
+        </ng-template>
     </div>
 </div>
 

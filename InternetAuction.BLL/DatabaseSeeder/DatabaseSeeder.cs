@@ -166,7 +166,7 @@ namespace InternetAuction.BLL.DatabaseSeeder
                                                .RuleFor(l => l.InitialPrice, f => f.Random.Decimal(10, 200))
                                                .RuleFor(l => l.Quantity, f => f.Random.Number(1, 3))
                                                .RuleFor(l => l.CategoryId, f => f.Random.Number(1, 4))
-                                               .RuleFor(l => l.SaleEndTime, f => f.Date.Between(DateTime.Now, DateTime.Now.AddMinutes(30)))
+                                               .RuleFor(l => l.SaleEndTime, f => f.Date.Between(DateTime.Now, DateTime.Now.AddHours(72)))
                                                .RuleFor(l => l.SellerId, f => f.Random.Number(1, 5))
                                                .Generate(100);
 

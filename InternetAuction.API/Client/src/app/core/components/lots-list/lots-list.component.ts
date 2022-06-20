@@ -32,13 +32,13 @@ export class LotsListComponent implements OnInit {
     constructor(private lotService: LotService, private router: Router) {
         if(this.router.url.includes("categories") ) {
             this.isCategorySelected = true;
-            this.getLotsByCategory(this.categoryId);
         }
 
         else {
             this.isCategorySelected = false;
-            this.getLots();
         }
+
+        this.get();
     }
 
     ngOnInit(): void {

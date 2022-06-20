@@ -16,12 +16,12 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         children: [
             {path: 'users/profile/:userName', component: UserDetailComponent},
-            {path: 'users/edit', component: UserEditComponent}
+            {path: 'users/edit', component: UserEditComponent},
+            {path: 'categories/:categoryId', component: LotsListComponent},
         ]
     },
     {path: 'auth/sign-in', component: SignInComponent, canActivate: [LoggedInGuard]},
     {path: 'auth/sign-up', component: SignUpComponent, canActivate: [LoggedInGuard]},
-    {path: 'categories/:categoryId', component: LotsListComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({
