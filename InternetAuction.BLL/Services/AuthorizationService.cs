@@ -56,7 +56,7 @@ namespace InternetAuction.BLL.Services
 
             if (!result.Succeeded)
             {
-                throw new ArgumentException(string.Join($"{Environment.NewLine}", result.Errors.Select(e => e.Description)));
+                throw new ArgumentException(result.Errors.FirstOrDefault()?.Description ?? "Something went wrong");
             }
 
             var userToAdd = _mapper.Map<AppUser>(model);
