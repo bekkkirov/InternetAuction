@@ -7,6 +7,23 @@
         </div>
     </div>
 </div>
+<div class="filters">
+    <div class="container">
+        <form class="filters__form" [formGroup]="form" (ngSubmit)="applyFilters()">
+            <p class="filters__label">Min price</p>
+            <input class="filters__minPrice" type="number" step=".01" formControlName="minPrice" name="minPrice">
+            <p class="filters__label">Max price</p>
+            <input class="filters__maxPrice" type="number" step=".01" formControlName="maxPrice" name="maxPrice">
+            <select class="filters__order" formControlName="order" name="order">
+                <option ngValue="PriceAscending">Price ascending</option>
+                <option ngValue="PriceDescending">Price descending</option>
+                <option ngValue="BidsAscending">Bids ascending</option>
+                <option ngValue="BidsDescending">Bids descending</option>
+            </select>
+            <input class="filters__submit" type="submit" value="Apply filters" [disabled]="form.invalid">
+        </form>
+    </div>
+</div>
 <div class="lots">
     <div class="container">
         <div class="lots__inner">
@@ -20,7 +37,7 @@
                 <div class="lot__data">
                     <div class="lot__col1">
                         <p class="lot__name">{{lot.name}}</p>
-                        <p class="lot__saleTime">{{lot.saleEndTime}}</p>
+                        <p class="lot__saleTime">{{moment(lot.saleEndTime).fromNow()}}</p>
                     </div>
                     <div class="lot__col2">
                         <p class="lot__currentPrice">{{lot.currentPrice}}$</p>

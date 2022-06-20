@@ -12,6 +12,8 @@
     background-color: #e5e5e5;
     padding: 20px;
     text-align: center;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
 
 .categories__link:hover {
@@ -21,6 +23,62 @@
 
 .categories__link:not(:last-child) {
     margin-right: 5px;
+}
+
+.filters {
+    margin-bottom: 30px;
+}
+
+.filters__form {
+    display: flex;
+    justify-content: stretch;
+    align-items: center;
+    padding-left: 35px;
+}
+
+.filters__label {
+    margin-right: 15px;
+    font-weight: bold;
+}
+
+.filters__minPrice,
+.filters__maxPrice {
+    padding: 5px 10px;
+    font-size: 18px;
+    border: 1px solid #000;
+    border-radius: 5px;
+}
+
+.filters__minPrice {
+    margin-right: 25px;
+}
+
+.filters__maxPrice {
+    margin-right: 30px;
+}
+
+.filters__order {
+    font-size: 18px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    padding: 5px;
+    margin-right: 30px;
+}
+
+.filters__submit {
+    padding: 10px 15px;
+    background-color: #ff8229;
+    font-size: 18px;
+    border-radius: 5px;
+    color: #fff;
+}
+
+.filters__submit:enabled:hover {
+    box-shadow: 0 0 10px #ff8229;
+}
+
+.filters__submit:disabled {
+    opacity: 0.5;
 }
 
 .lots__inner {
@@ -56,7 +114,6 @@
     display: flex;
     flex: 1 0 auto;
     justify-content: space-between;
-    text-align: center;
 }
 
 .lot__col1,
@@ -69,6 +126,7 @@
     font-size: 22px;
     color: #376fff;
     margin-bottom: 15px;
+    text-align: center;
 }
 
 .lot__currentPrice {
