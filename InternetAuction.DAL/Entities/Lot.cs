@@ -37,11 +37,6 @@ namespace InternetAuction.DAL.Entities
         public DateTime SaleEndTime { get; set; }
 
         /// <summary>
-        /// Gets or sets the status for this lot.
-        /// </summary>
-        public LotStatus Status { get; set; } = LotStatus.Active;
-
-        /// <summary>
         /// Gets or sets the quantity for this lot.
         /// </summary>
         public int Quantity { get; set; }

@@ -17,8 +17,6 @@ namespace InternetAuction.BLL.Models
 
         public DateTime SaleEndTime { get; set; }
 
-        public string Status { get; set; }
-
         public int Quantity { get; set; }
 
         public int CategoryId { get; set; }

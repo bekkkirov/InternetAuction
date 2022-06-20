@@ -15,6 +15,8 @@ namespace InternetAuction.DAL.Interfaces
 
         Task<IEnumerable<Lot>> SearchAsync(string searchValue);
 
-        public Task<IEnumerable<Lot>> GetPreviewsAsync();
+        Task<IEnumerable<Lot>> GetPreviewsAsync();
+
+        Task<IEnumerable<Lot>> GetPreviewsByCategoryIdAsync(int categoryId);
     }
 }

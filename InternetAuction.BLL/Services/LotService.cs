@@ -37,8 +37,8 @@ namespace InternetAuction.BLL.Services
 
         public async Task<PagedList<LotPreviewModel>> GetLotsByCategoryAsync(int categoryId, LotParameters lotParams)
         {
-            var category = await _unitOfWork.LotCategoryRepository.GetByIdWithDetailsAsync(categoryId);
-            var filteredLots = FilterLotsByParams(category.Lots, lotParams);
+            var lots = await _unitOfWork.LotRepository.GetPreviewsByCategoryIdAsync(categoryId);
+            var filteredLots = FilterLotsByParams(lots, lotParams);
             var mappedLots = _mapper.Map<IEnumerable<LotPreviewModel>>(filteredLots);
 
             return PagedList<LotPreviewModel>.CreateAsync(mappedLots, lotParams.PageNumber, lotParams.PageSize);

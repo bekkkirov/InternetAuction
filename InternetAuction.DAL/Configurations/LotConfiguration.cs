@@ -31,12 +31,6 @@ namespace InternetAuction.DAL.Configurations
             builder.Property(l => l.SaleEndTime)
                    .IsRequired();
 
-            builder.Property(l => l.Status)
-                   .HasConversion(
-                       s => s.ToString(),
-                       s => (LotStatus) Enum.Parse(typeof(LotStatus), s))
-                   .IsRequired();
-
             builder.Property(l => l.Quantity)
                    .IsRequired();
 

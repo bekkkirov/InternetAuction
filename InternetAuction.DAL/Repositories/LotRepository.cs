@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using InternetAuction.DAL.Entities;
@@ -18,6 +19,16 @@ namespace InternetAuction.DAL.Repositories
             return await _dbSet
                          .Include(l => l.Images)
                          .Include(l => l.Bids)
+                         .Where(l => l.SaleEndTime > DateTime.Now)
+                         .ToListAsync();
+        }
+        
+        public async Task<IEnumerable<Lot>> GetPreviewsByCategoryIdAsync(int categoryId)
+        {
+            return await _dbSet
+                         .Include(l => l.Images)
+                         .Include(l => l.Bids)
+                         .Where(l => l.CategoryId == categoryId && l.SaleEndTime > DateTime.Now)
                          .ToListAsync();
         }
 
@@ -27,7 +38,8 @@ namespace InternetAuction.DAL.Repositories
                          .Include(l => l.Images)
                          .Include(l => l.Buyer)
                          .Include(l => l.Seller)
-                         .Include(l => l.Bids).ToListAsync();
+                         .Include(l => l.Bids)
+                         .ToListAsync();
         }
 
         public async Task<Lot> GetByIdWithDetailsAsync(int lotId)
