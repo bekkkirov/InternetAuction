@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InternetAuction.DAL", "Inte
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InternetAuction.BLL", "InternetAuction.BLL\InternetAuction.BLL.csproj", "{CA80DC6B-67C2-43ED-B575-A7F85E0EF5A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InternetAuction.Identity", "InternetAuction.Identity\InternetAuction.Identity.csproj", "{031149F2-4097-4647-AA38-9AE33A27EC80}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InternetAuction.Identity", "InternetAuction.Identity\InternetAuction.Identity.csproj", "{031149F2-4097-4647-AA38-9AE33A27EC80}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InternetAuction.BLL.Tests", "InternetAuction.BLL.Tests\InternetAuction.BLL.Tests.csproj", "{D5D23307-61E0-4217-B04E-215BAABFE38C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{031149F2-4097-4647-AA38-9AE33A27EC80}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{031149F2-4097-4647-AA38-9AE33A27EC80}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{031149F2-4097-4647-AA38-9AE33A27EC80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5D23307-61E0-4217-B04E-215BAABFE38C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5D23307-61E0-4217-B04E-215BAABFE38C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5D23307-61E0-4217-B04E-215BAABFE38C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5D23307-61E0-4217-B04E-215BAABFE38C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
