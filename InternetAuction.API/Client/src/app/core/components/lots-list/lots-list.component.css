@@ -127,6 +127,15 @@
     color: #376fff;
     margin-bottom: 15px;
     text-align: center;
+    padding-bottom: 3px;
+    border-width: 0 0 1px 0;
+    border-style: solid;
+    border-color: transparent;
+}
+
+.lot__name:hover {
+    color: #0046ff;
+    border-color: #376fff;
 }
 
 .lot__currentPrice {
