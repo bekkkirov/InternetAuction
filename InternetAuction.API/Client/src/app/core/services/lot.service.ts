@@ -18,6 +18,10 @@ export class LotService {
     constructor(private http: HttpClient) {
     }
 
+    getLot(lotId: number) {
+        return this.http.get<LotModel>(this.apiUrl + lotId);
+    }
+
     getCategories() {
         return this.http.get<LotCategoryModel[]>(this.apiUrl + "categories");
     }

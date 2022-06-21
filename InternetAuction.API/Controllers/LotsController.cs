@@ -47,5 +47,19 @@ namespace InternetAuction.API.Controllers
 
             return Ok(lots);
         }
+
+        [HttpGet]
+        [Route("{lotId}")]
+        public async Task<ActionResult<LotModel>> GetById(int lotId)
+        {
+            var lot = await _lotService.GetByIdWithDetailsAsync(lotId);
+
+            if (lot is null)
+            {
+                return NotFound();
+            }
+
+            return Ok(lot);
+        }
     }
 }

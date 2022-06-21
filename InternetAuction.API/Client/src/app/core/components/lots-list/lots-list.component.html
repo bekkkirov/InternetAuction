@@ -36,7 +36,7 @@
                 <div class="lot__line"></div>
                 <div class="lot__data">
                     <div class="lot__col1">
-                        <p class="lot__name">{{lot.name}}</p>
+                        <a class="lot__name" [routerLink]="'/lots/' + lot.id">{{lot.name}}</a>
                         <p class="lot__saleTime">Sale ends {{moment(lot.saleEndTime).fromNow()}}</p>
                     </div>
                     <div class="lot__col2">

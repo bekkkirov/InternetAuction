@@ -48,7 +48,8 @@ namespace InternetAuction.DAL.Repositories
                                .Include(l => l.Images)
                                .Include(l => l.Buyer)
                                .Include(l => l.Seller)
-                               .Include(l => l.Bids).FirstOrDefaultAsync(l => l.Id == lotId);
+                               .Include(l => l.Bids)
+                               .FirstOrDefaultAsync(l => l.Id == lotId);
         }
 
         public async Task<IEnumerable<Lot>> SearchAsync(string searchValue)

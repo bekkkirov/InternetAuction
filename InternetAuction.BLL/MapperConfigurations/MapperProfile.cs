@@ -12,7 +12,7 @@ namespace InternetAuction.BLL.MapperConfigurations
             CreateMap<Image, ImageModel>();
             CreateMap<LotCategory, LotCategoryModel>();
             CreateMap<Lot, LotModel>()
-                .ForMember(d => d.CategoryName, opt => opt.MapFrom(src => src.Category.Name));
+                .ForMember(d => d.CurrentPrice, opt => opt.MapFrom(src => src.Bids.Count > 0 ? src.Bids.Max(b => b.BidValue) : src.InitialPrice));
             CreateMap<Bid, BidModel>();
             CreateMap<AppUser, AppUserModel>().ReverseMap();
             CreateMap<RegisterModel, AppUser>();

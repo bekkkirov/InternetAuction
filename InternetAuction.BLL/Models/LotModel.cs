@@ -11,17 +11,13 @@ namespace InternetAuction.BLL.Models
 
         public string Description { get; set; }
 
-        public decimal InitialPrice { get; set; }
-
-        public DateTime SaleStartTime { get; set; }
+        public decimal CurrentPrice { get; set; }
 
         public DateTime SaleEndTime { get; set; }
 
         public int Quantity { get; set; }
 
         public int CategoryId { get; set; }
-
-        public string CategoryName { get; set; }
 
         public int SellerId { get; set; }
 

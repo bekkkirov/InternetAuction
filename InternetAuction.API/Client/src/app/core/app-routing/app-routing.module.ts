@@ -7,6 +7,7 @@ import {SignUpComponent} from "../components/sign-up/sign-up.component";
 import {UserEditComponent} from "../components/user-edit/user-edit.component";
 import {AuthGuard} from "../guards/auth.guard";
 import {LoggedInGuard} from "../guards/logged-in.guard";
+import {LotDetailComponent} from "../components/lot-detail/lot-detail.component";
 
 const routes: Routes = [
     {path: '', component: LotsListComponent},
@@ -18,6 +19,7 @@ const routes: Routes = [
             {path: 'users/profile/:userName', component: UserDetailComponent},
             {path: 'users/edit', component: UserEditComponent},
             {path: 'categories/:categoryId', component: LotsListComponent},
+            {path: 'lots/:lotId', component: LotDetailComponent}
         ]
     },
     {path: 'auth/sign-in', component: SignInComponent, canActivate: [LoggedInGuard]},

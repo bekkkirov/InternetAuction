@@ -1,0 +1,24 @@
+<div class="detail">
+    <div class="container">
+        <div class="detail__inner">
+            <div class="detail__col1">
+                <img class="detail__img" [src]="lot.images[0]?.url || 'assets/images/lot.png'" alt="">
+            </div>
+            <div class="detail__col2">
+                <p class="detail__name">{{lot.name}}</p>
+                <p class="detail__description">{{lot.description}}</p>
+                <p class="detail__quantity"><span class="bold">Quantity</span>: {{lot.quantity}}</p>
+                <p class="detail__end">Sale ends {{moment(lot.saleEndTime).fromNow()}}</p>
+                <div class="detail__bids">
+                    <p class="detail__price">{{lot.currentPrice}}$</p>
+                    <form class="detail__bid-form" [formGroup]="form">
+                        <p class="detail__bid-label">Bid</p>
+                        <input class="detail__bid-input" type="number" step=".01" formControlName="bidValue" name="bidValue">
+                        <p class="detail__usd">$</p>
+                        <input class="detail__submit" type="submit" value="Place bid">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

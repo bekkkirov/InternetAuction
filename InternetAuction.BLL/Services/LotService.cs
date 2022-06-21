@@ -21,6 +21,7 @@ namespace InternetAuction.BLL.Services
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
+
         public async Task<IEnumerable<LotModel>> GetAsync()
         {
             var lots = await _unitOfWork.LotRepository.GetAsync();
