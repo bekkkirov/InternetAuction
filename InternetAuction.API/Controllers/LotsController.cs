@@ -30,7 +30,7 @@ namespace InternetAuction.API.Controllers
         [Route("categories/{categoryId}")]
         public async Task<ActionResult<PagedList<LotPreviewModel>>> GetLotsByCategory(int categoryId, [FromQuery] LotParameters lotParams)
         {
-            var lots = await _lotService.GetLotsByCategoryAsync(categoryId, lotParams);
+            var lots = await _lotService.GetLotsPreviewsByCategoryAsync(categoryId, lotParams);
 
             Response.AddPaginationHeader(lots.CurrentPage, lots.PageSize, lots.ItemsCount, lots.TotalPages);
 

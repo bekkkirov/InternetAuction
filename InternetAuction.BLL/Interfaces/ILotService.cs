@@ -12,9 +12,9 @@ namespace InternetAuction.BLL.Interfaces
 
         Task<LotModel> GetByIdWithDetailsAsync(int lotId);
 
-        Task<PagedList<LotPreviewModel>> GetLotsByCategoryAsync(int categoryId, LotParameters lotParams);
+        Task<PagedList<LotPreviewModel>> GetLotsPreviewsByCategoryAsync(int categoryId, LotParameters lotParams);
 
-        Task AddAsync(LotCreateModel model);
+        Task AddAsync(LotCreateModel model, int sellerId);
 
         Task DeleteByIdAsync(int modelId);
 
@@ -22,10 +22,8 @@ namespace InternetAuction.BLL.Interfaces
 
         Task<IEnumerable<LotCategoryModel>> GetAllCategoriesAsync();
 
-        Task AddCategoryAsync(LotCategoryModel model);
+        Task AddCategoryAsync(LotCategoryCreateModel model);
 
         Task DeleteCategoryByIdAsync(int categoryId);
-
-        Task UpdateCategoryAsync(LotCategoryModel model);
     }
 }
