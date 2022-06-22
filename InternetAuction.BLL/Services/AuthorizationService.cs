@@ -9,6 +9,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using InternetAuction.BLL.Exceptions;
+using InternetAuction.BLL.Models.User;
 
 namespace InternetAuction.BLL.Services
 {

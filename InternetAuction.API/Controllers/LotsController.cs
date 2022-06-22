@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using InternetAuction.API.Extensions;
 using InternetAuction.BLL.Interfaces;
 using InternetAuction.BLL.Models;
+using InternetAuction.BLL.Models.Lot;
 using InternetAuction.BLL.Pagination;
 using Microsoft.AspNetCore.Mvc;
 

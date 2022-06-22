@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using InternetAuction.BLL.Interfaces;
 using InternetAuction.BLL.Models;
+using InternetAuction.BLL.Models.Lot;
 using InternetAuction.BLL.Pagination;
 using InternetAuction.DAL.Entities;
 using InternetAuction.DAL.Interfaces;

@@ -4,6 +4,8 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using InternetAuction.BLL.Interfaces;
 using InternetAuction.BLL.Models;
+using InternetAuction.BLL.Models.Image;
+using InternetAuction.BLL.Models.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

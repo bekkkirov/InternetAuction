@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using InternetAuction.BLL.Interfaces;
 using InternetAuction.BLL.Models;
+using InternetAuction.BLL.Models.User;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InternetAuction.API.Controllers

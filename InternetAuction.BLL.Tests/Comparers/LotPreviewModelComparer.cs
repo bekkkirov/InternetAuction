@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using InternetAuction.BLL.Models;
+using InternetAuction.BLL.Models.Lot;
 
 namespace InternetAuction.BLL.Tests.Comparers
 {

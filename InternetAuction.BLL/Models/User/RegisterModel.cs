@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace InternetAuction.BLL.Models
+﻿namespace InternetAuction.BLL.Models.User
 {
     public class RegisterModel
     {

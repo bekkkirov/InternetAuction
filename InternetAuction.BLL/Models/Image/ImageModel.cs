@@ -1,4 +1,4 @@
-﻿namespace InternetAuction.BLL.Models
+﻿namespace InternetAuction.BLL.Models.Image
 {
     public class ImageModel
     {

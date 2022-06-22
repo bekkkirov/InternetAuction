@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using CloudinaryDotNet.Actions;
 using InternetAuction.BLL.Models;
+using InternetAuction.BLL.Models.Image;
 using Microsoft.AspNetCore.Http;
 
 namespace InternetAuction.BLL.Interfaces

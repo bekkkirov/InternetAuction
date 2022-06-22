@@ -1,6 +1,10 @@
 ﻿using System.Linq;
 using AutoMapper;
 using InternetAuction.BLL.Models;
+using InternetAuction.BLL.Models.Bid;
+using InternetAuction.BLL.Models.Image;
+using InternetAuction.BLL.Models.Lot;
+using InternetAuction.BLL.Models.User;
 using InternetAuction.DAL.Entities;
 
 namespace InternetAuction.BLL.MapperConfigurations

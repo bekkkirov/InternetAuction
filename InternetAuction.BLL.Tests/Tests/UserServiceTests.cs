@@ -7,6 +7,8 @@ using Moq;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using InternetAuction.BLL.Models.Bid;
+using InternetAuction.BLL.Models.User;
 using Xunit;
 
 namespace InternetAuction.BLL.Tests.Tests

@@ -1,4 +1,4 @@
-﻿namespace InternetAuction.BLL.Models
+﻿namespace InternetAuction.BLL.Models.Lot
 {
     public class LotCategoryCreateModel
     {

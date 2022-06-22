@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using InternetAuction.BLL.Models;
+using InternetAuction.BLL.Models.Lot;
 using InternetAuction.BLL.Pagination;
 using InternetAuction.BLL.Services;
 using InternetAuction.BLL.Tests.Comparers;

@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using InternetAuction.BLL.Models.Image;
 
-namespace InternetAuction.BLL.Models
+namespace InternetAuction.BLL.Models.Lot
 {
     public class LotModel
     {

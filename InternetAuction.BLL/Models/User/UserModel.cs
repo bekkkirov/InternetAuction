@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
+using InternetAuction.BLL.Models.Bid;
+using InternetAuction.BLL.Models.Image;
+using InternetAuction.BLL.Models.Lot;
 
-namespace InternetAuction.BLL.Models
+namespace InternetAuction.BLL.Models.User
 {
     public class UserModel
     {

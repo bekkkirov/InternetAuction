@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using InternetAuction.DAL.Entities;
 
-namespace InternetAuction.BLL.Models
+namespace InternetAuction.BLL.Models.Lot
 {
     public class LotCreateModel
     {

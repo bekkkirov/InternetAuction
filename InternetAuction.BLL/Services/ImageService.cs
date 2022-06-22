@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using InternetAuction.BLL.Models.Image;
 using InternetAuction.DAL.Entities;
 
 namespace InternetAuction.BLL.Services

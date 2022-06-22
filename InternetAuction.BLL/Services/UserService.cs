@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using InternetAuction.BLL.Interfaces;
 using InternetAuction.BLL.Models;
+using InternetAuction.BLL.Models.User;
 using InternetAuction.DAL.Entities;
 using InternetAuction.DAL.Interfaces;
 using Microsoft.AspNetCore.Http;

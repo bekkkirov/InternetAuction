@@ -6,6 +6,7 @@ using AutoMapper;
 using InternetAuction.BLL.Exceptions;
 using InternetAuction.BLL.Interfaces;
 using InternetAuction.BLL.Models;
+using InternetAuction.BLL.Models.User;
 using InternetAuction.BLL.Services;
 using InternetAuction.DAL.Entities;
 using InternetAuction.DAL.Interfaces;

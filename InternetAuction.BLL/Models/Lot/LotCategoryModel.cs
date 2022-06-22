@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace InternetAuction.BLL.Models
+namespace InternetAuction.BLL.Models.Lot
 {
     public class LotCategoryModel
     {

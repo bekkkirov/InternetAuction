@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using InternetAuction.BLL.Models;
+using InternetAuction.BLL.Models.User;
 using Microsoft.AspNetCore.Http;
 
 namespace InternetAuction.BLL.Interfaces

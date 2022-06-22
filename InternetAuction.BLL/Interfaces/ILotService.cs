@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using InternetAuction.BLL.Models;
+using InternetAuction.BLL.Models.Lot;
 using InternetAuction.BLL.Pagination;
 using InternetAuction.DAL.Entities;
 

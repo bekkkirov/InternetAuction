@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace InternetAuction.BLL.Models
+namespace InternetAuction.BLL.Models.Bid
 {
     public class BidModel
     {

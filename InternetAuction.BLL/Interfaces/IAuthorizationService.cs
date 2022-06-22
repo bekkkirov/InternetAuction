@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using InternetAuction.BLL.Models;
+using InternetAuction.BLL.Models.User;
 
 namespace InternetAuction.BLL.Interfaces
 {

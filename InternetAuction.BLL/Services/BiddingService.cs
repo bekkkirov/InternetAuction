@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using InternetAuction.BLL.Interfaces;
 using InternetAuction.BLL.Models;
+using InternetAuction.BLL.Models.Bid;
 using InternetAuction.DAL.Entities;
 using InternetAuction.DAL.Interfaces;
 
@@ -38,6 +39,12 @@ namespace InternetAuction.BLL.Services
         public async Task AddAsync(BidCreateModel model)
         {
             var lot = await _unitOfWork.LotRepository.GetByIdWithDetailsAsync(model.LotId);
+
+            if (lot.Seller.UserName == model.BidderUserName)
+            {
+                throw new InvalidOperationException("Bidding on your own lot is not possible");
+            }
+
             var currentPrice = lot.Bids.Count == 0 ? lot.InitialPrice : lot.Bids.Max(b => b.BidValue);
 
             if (DateTime.Now > lot.SaleEndTime)
@@ -45,7 +52,7 @@ namespace InternetAuction.BLL.Services
                 throw new InvalidOperationException("Lot is closed");
             }
 
-            if (currentPrice - model.BidValue > 10)
+            if (model.BidValue < currentPrice || model.BidValue - currentPrice < 10)
             {
                 throw new ArgumentException("Invalid bid value", nameof(model.BidValue));
             }
@@ -63,20 +70,6 @@ namespace InternetAuction.BLL.Services
         {
             await _unitOfWork.BidRepository.DeleteByIdAsync(modelId);
             await _unitOfWork.SaveChangesAsync();
-        }
-
-        public async Task<IEnumerable<BidModel>> GetAllWithDetailsAsync()
-        {
-            var bids = await _unitOfWork.BidRepository.GetAllWithDetailsAsync();
-
-            return _mapper.Map<IEnumerable<BidModel>>(bids);
-        }
-
-        public async Task<BidModel> GetByIdWithDetailsAsync(int modelId)
-        {
-            var bid = await _unitOfWork.BidRepository.GetByIdWithDetailsAsync(modelId);
-
-            return _mapper.Map<BidModel>(bid);
         }
     }
 }
