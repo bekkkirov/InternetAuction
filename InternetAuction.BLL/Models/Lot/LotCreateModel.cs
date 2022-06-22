@@ -10,8 +10,6 @@ namespace InternetAuction.BLL.Models.Lot
 
         public decimal InitialPrice { get; set; }
 
-        public DateTime SaleStartTime { get; set; }
-
         public DateTime SaleEndTime { get; set; }
 
         public int Quantity { get; set; }
