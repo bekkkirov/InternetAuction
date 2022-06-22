@@ -1,16 +1,16 @@
-﻿using InternetAuction.BLL.Models;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using InternetAuction.BLL.Models;
 using InternetAuction.BLL.Pagination;
 using InternetAuction.BLL.Services;
 using InternetAuction.BLL.Tests.Comparers;
 using InternetAuction.DAL.Entities;
 using InternetAuction.DAL.Interfaces;
 using Moq;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Xunit;
 
-namespace InternetAuction.BLL.Tests
+namespace InternetAuction.BLL.Tests.Tests
 {
     public class LotServiceTests
     {

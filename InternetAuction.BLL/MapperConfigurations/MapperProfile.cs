@@ -9,20 +9,29 @@ namespace InternetAuction.BLL.MapperConfigurations
     {
         public MapperProfile()
         {
-            CreateMap<Image, ImageModel>();
-            CreateMap<LotCategory, LotCategoryModel>();
-            CreateMap<Lot, LotModel>()
-                .ForMember(d => d.CurrentPrice, opt => opt.MapFrom(src => src.Bids.Count > 0 ? src.Bids.Max(b => b.BidValue) : src.InitialPrice));
-            CreateMap<Bid, BidModel>();
-            CreateMap<AppUser, AppUserModel>().ReverseMap();
+            //User
+            CreateMap<AppUser, UserModel>();
             CreateMap<RegisterModel, AppUser>();
             CreateMap<UserUpdateModel, AppUser>();
+
+            //Image
+            CreateMap<Image, ImageModel>();
+
+            //Lot
             CreateMap<LotCreateModel, Lot>();
-            CreateMap<LotCategoryCreateModel, LotCategory>();
+            CreateMap<Lot, LotModel>()
+                .ForMember(d => d.CurrentPrice, opt => opt.MapFrom(src => src.Bids.Count > 0 ? src.Bids.Max(b => b.BidValue) : src.InitialPrice));
             CreateMap<Lot, LotPreviewModel>()
                 .ForMember(d => d.Image, opt => opt.MapFrom(src => src.Images.FirstOrDefault()))
                 .ForMember(d => d.BidCount, opt => opt.MapFrom(src => src.Bids.Count))
                 .ForMember(d => d.CurrentPrice, opt => opt.MapFrom(src => src.Bids.Count > 0 ? src.Bids.Max(b => b.BidValue) : src.InitialPrice));
+            
+            //LotCategory
+            CreateMap<LotCategory, LotCategoryModel>();
+            CreateMap<LotCategoryCreateModel, LotCategory>();
+            
+            //Bid
+            CreateMap<Bid, BidModel>();
         }
     }
 }

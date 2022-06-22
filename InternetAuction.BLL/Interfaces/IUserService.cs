@@ -7,16 +7,16 @@ namespace InternetAuction.BLL.Interfaces
 {
     public interface IUserService
     {
-        Task<IEnumerable<AppUserModel>> GetAsync();
+        Task<IEnumerable<UserModel>> GetAsync();
 
-        Task<AppUserModel> GetByIdAsync(int modelId);
+        Task<UserModel> GetByIdAsync(int modelId);
 
         Task UpdateAsync(string userName, UserUpdateModel model);
 
-        Task<IEnumerable<AppUserModel>> GetAllWithDetailsAsync();
+        Task<IEnumerable<UserModel>> GetAllWithDetailsAsync();
 
-        Task<AppUserModel> GetByUserNameAsync(string userName);
+        Task<UserModel> GetByUserNameAsync(string userName);
 
-        Task<AppUserModel> GetByUserNameWithDetailsAsync(string userName);
+        Task<UserModel> GetByUserNameWithDetailsAsync(string userName);
     }
 }

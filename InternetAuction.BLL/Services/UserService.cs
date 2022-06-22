@@ -20,18 +20,18 @@ namespace InternetAuction.BLL.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<AppUserModel>> GetAsync()
+        public async Task<IEnumerable<UserModel>> GetAsync()
         {
             var users = await _unitOfWork.UserRepository.GetAsync();
 
-            return _mapper.Map<IEnumerable<AppUserModel>>(users);
+            return _mapper.Map<IEnumerable<UserModel>>(users);
         }
 
-        public async Task<AppUserModel> GetByIdAsync(int modelId)
+        public async Task<UserModel> GetByIdAsync(int modelId)
         {
             var user = await _unitOfWork.UserRepository.GetByIdAsync(modelId);
 
-            return _mapper.Map<AppUserModel>(user);
+            return _mapper.Map<UserModel>(user);
         }
 
         public async Task UpdateAsync(string userName, UserUpdateModel model)
@@ -43,25 +43,25 @@ namespace InternetAuction.BLL.Services
             await _unitOfWork.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<AppUserModel>> GetAllWithDetailsAsync()
+        public async Task<IEnumerable<UserModel>> GetAllWithDetailsAsync()
         {
             var users = await _unitOfWork.UserRepository.GetAllWithDetailsAsync();
 
-            return _mapper.Map<IEnumerable<AppUserModel>>(users);
+            return _mapper.Map<IEnumerable<UserModel>>(users);
         }
 
-        public async Task<AppUserModel> GetByUserNameAsync(string userName)
+        public async Task<UserModel> GetByUserNameAsync(string userName)
         {
             var user = await _unitOfWork.UserRepository.GetByUserNameAsync(userName);
 
-            return _mapper.Map<AppUserModel>(user);
+            return _mapper.Map<UserModel>(user);
         }
 
-        public async Task<AppUserModel> GetByUserNameWithDetailsAsync(string userName)
+        public async Task<UserModel> GetByUserNameWithDetailsAsync(string userName)
         {
             var user = await _unitOfWork.UserRepository.GetByUserNameWithDetailsAsync(userName);
 
-            return _mapper.Map<AppUserModel>(user);
+            return _mapper.Map<UserModel>(user);
         }
     }
 }

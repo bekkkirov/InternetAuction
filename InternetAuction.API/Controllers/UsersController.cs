@@ -25,7 +25,7 @@ namespace InternetAuction.API.Controllers
         }
 
         [HttpGet("{userName}", Name = "GetByUsername")]
-        public async Task<ActionResult<AppUserModel>> GetByUsername(string userName)
+        public async Task<ActionResult<UserModel>> GetByUsername(string userName)
         {
             var user = await _userService.GetByUserNameWithDetailsAsync(userName);
 

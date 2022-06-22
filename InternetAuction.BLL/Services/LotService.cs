@@ -96,7 +96,7 @@ namespace InternetAuction.BLL.Services
         {
             var result = lots.Where(l => (l.Bids.LastOrDefault()?.BidValue ?? l.InitialPrice) >= lotParams.MinPrice);
 
-            if (lotParams.MaxPrice.HasValue)
+            if (lotParams.MaxPrice.HasValue && lotParams.MaxPrice.Value > 0)
             {
                 result = result.Where(l => (l.Bids.LastOrDefault()?.BidValue ?? l.InitialPrice) <= lotParams.MaxPrice);
             }
