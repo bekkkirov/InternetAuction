@@ -18,7 +18,7 @@ namespace InternetAuction.DAL.Entities
         /// <summary>
         /// Gets or sets the time when this bid was made.
         /// </summary>
-        public DateTime BidTime { get; set; }
+        public DateTime BidTime { get; set; } = DateTime.Now;
 
         /// <summary>
         /// Gets or sets the lot id to which this bid refers.

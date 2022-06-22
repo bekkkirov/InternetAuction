@@ -32,6 +32,7 @@ namespace InternetAuction.BLL.MapperConfigurations
             
             //Bid
             CreateMap<Bid, BidModel>();
+            CreateMap<BidCreateModel, Bid>();
         }
     }
 }
