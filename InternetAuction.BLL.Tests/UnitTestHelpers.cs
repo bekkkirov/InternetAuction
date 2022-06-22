@@ -1,5 +1,8 @@
 ﻿using AutoMapper;
 using InternetAuction.BLL.MapperConfigurations;
+using InternetAuction.Identity.Entities;
+using Microsoft.AspNetCore.Identity;
+using Moq;
 
 namespace InternetAuction.BLL.Tests
 {
@@ -13,6 +16,14 @@ namespace InternetAuction.BLL.Tests
             });
 
             return config.CreateMapper();
+        }
+
+        public static Mock<UserManager<User>> CreateUserManagerMock()
+        {
+            var userStoreMock = new Mock<IUserStore<User>>();
+            var userManagerMock = new Mock<UserManager<User>>(userStoreMock.Object, null, null, null, null, null, null, null, null);
+
+            return userManagerMock;
         }
     }
 }

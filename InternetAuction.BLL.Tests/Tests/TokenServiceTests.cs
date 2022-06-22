@@ -30,8 +30,7 @@ namespace InternetAuction.BLL.Tests.Tests
             var configuration = new ConfigurationBuilder().AddInMemoryCollection(tokenConfiguration)
                                                           .Build();
 
-            var userStoreMock = new Mock<IUserStore<User>>();
-            var userManagerMock = new Mock<UserManager<User>>(userStoreMock.Object, null, null, null, null, null, null, null, null);
+            var userManagerMock = UnitTestHelpers.CreateUserManagerMock();
             userManagerMock.Setup(x => x.GetRolesAsync(It.IsAny<User>()))
                            .ReturnsAsync(UserRoles);
 
