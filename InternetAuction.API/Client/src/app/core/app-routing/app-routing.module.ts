@@ -8,6 +8,7 @@ import {UserEditComponent} from "../components/user-edit/user-edit.component";
 import {AuthGuard} from "../guards/auth.guard";
 import {LoggedInGuard} from "../guards/logged-in.guard";
 import {LotDetailComponent} from "../components/lot-detail/lot-detail.component";
+import {PageNotFoundComponent} from "../components/page-not-found/page-not-found.component";
 
 const routes: Routes = [
     {path: '', component: LotsListComponent},
@@ -19,11 +20,13 @@ const routes: Routes = [
             {path: 'users/profile/:userName', component: UserDetailComponent},
             {path: 'users/edit', component: UserEditComponent},
             {path: 'categories/:categoryId', component: LotsListComponent},
-            {path: 'lots/:lotId', component: LotDetailComponent}
+            {path: 'lots/:lotId', component: LotDetailComponent},
+            {path: 'not-found', component: PageNotFoundComponent},
         ]
     },
     {path: 'auth/sign-in', component: SignInComponent, canActivate: [LoggedInGuard]},
     {path: 'auth/sign-up', component: SignUpComponent, canActivate: [LoggedInGuard]},
+    {path: '**', component: PageNotFoundComponent}
 ];
 
 @NgModule({

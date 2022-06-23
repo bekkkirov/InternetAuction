@@ -17,6 +17,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {TokenInterceptor} from "./core/interceptors/token.interceptor";
 import {NgxPaginationModule} from "ngx-pagination";
 import { LotDetailComponent } from './core/components/lot-detail/lot-detail.component';
+import { PageNotFoundComponent } from './core/components/page-not-found/page-not-found.component';
 
 @NgModule({
     declarations: [
@@ -28,6 +29,7 @@ import { LotDetailComponent } from './core/components/lot-detail/lot-detail.comp
         UserDetailComponent,
         UserEditComponent,
         LotDetailComponent,
+        PageNotFoundComponent,
     ],
     imports: [
         BrowserModule,

@@ -7,11 +7,12 @@ import {
 } from '@angular/common/http';
 import {catchError, Observable, throwError} from 'rxjs';
 import {ToastrService} from "ngx-toastr";
+import {Router} from "@angular/router";
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
 
-  constructor(private toastr: ToastrService) {}
+  constructor(private toastr: ToastrService, private router: Router) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(request).pipe(
@@ -21,6 +22,10 @@ export class ErrorInterceptor implements HttpInterceptor {
                     case 400:
                     case 401:
                         this.toastr.error(err.error.message);
+                        break;
+
+                    case 404:
+                        this.router.navigateByUrl('not-found')
                         break;
                 }
             }
