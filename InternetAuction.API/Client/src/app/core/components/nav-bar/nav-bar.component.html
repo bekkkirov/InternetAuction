@@ -11,7 +11,7 @@
                         <p class="nav__userName">{{(accountService.currentUser$ | async).userName}}</p>
                     </button>
                     <div class="nav__dropdown-menu">
-                        <a class="nav__dropdown-item">My profile</a>
+                        <a class="nav__dropdown-item" [routerLink]="'users/profile/' + (accountService.currentUser$ | async).userName">My profile</a>
                         <a class="nav__dropdown-item" routerLink="users/edit">Edit profile</a>
                         <a class="nav__dropdown-item" (click)="logout()">Logout</a>
                     </div>

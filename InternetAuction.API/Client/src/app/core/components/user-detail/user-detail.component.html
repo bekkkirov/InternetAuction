@@ -1,1 +1,36 @@
-<p>user-detail works!</p>
+<div class="profile">
+    <div class="container">
+        <div class="profile__inner">
+            <div class="profile__col1">
+                <img class="profile__img" [src]="user.profileImage.url || '/assets/images/user.png'">
+                <p class="profile__userName">{{user.userName}}</p>
+            </div>
+            <div class="profile__col2">
+                <div class="profile__tabs">
+                    <a class="profile__tab" [ngClass]="tab === 'boughtLots' ? 'tab-active' : ''"
+                       (click)="tab = 'boughtLots'">Bought lots</a>
+                    <a class="profile__tab" [ngClass]="tab === 'regLots' ? 'tab-active' : ''" (click)="tab = 'regLots'">Registered
+                        lots</a>
+                    <a class="profile__tab" [ngClass]="tab === 'bids' ? 'tab-active' : ''"
+                       (click)="tab = 'bids'">Bids</a>
+                </div>
+                <div class="profile__content">
+                    <div class="profile__registeredLots" *ngIf="tab === 'regLots'">
+                        <div class="profile__lot" *ngFor="let lot of user.registeredLots | paginate: {
+                          itemsPerPage: 3,
+                          currentPage: pageNumber,
+                          totalItems: user.registeredLots.length}">
+                            <img class="lot__image" [src]="lot.images[0] || '/assets/images/lot.png'">
+                            <a class="lot__name" [routerLink]="'/lots/' + lot.id">{{lot.name}}</a>
+                        </div>
+                        <pagination-controls (pageChange)="changePage($event)"></pagination-controls>
+                    </div>
+                    <div class="profile__boughtLots" *ngIf="tab === 'boughtLots'">
+                    </div>
+                    <div class="profile__bid" *ngIf="tab === 'bids'">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
