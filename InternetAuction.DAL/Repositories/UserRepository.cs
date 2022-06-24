@@ -39,7 +39,9 @@ namespace InternetAuction.DAL.Repositories
         {
             return await _dbSet.Include(u => u.ProfileImage)
                                .Include(u => u.BoughtLots)
+                               .ThenInclude(l => l.Images)
                                .Include(u => u.RegisteredLots)
+                               .ThenInclude(l => l.Images)
                                .Include(u => u.Bids)
                                .FirstOrDefaultAsync(u => u.UserName == userName);
         }

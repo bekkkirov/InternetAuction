@@ -20,7 +20,7 @@
                           itemsPerPage: 3,
                           currentPage: pageNumber,
                           totalItems: user.registeredLots.length}">
-                            <img class="lot__image" [src]="lot.images[0] || '/assets/images/lot.png'">
+                            <img class="lot__image" [src]="lot.images[0]?.url || '/assets/images/lot.png'">
                             <a class="lot__name" [routerLink]="'/lots/' + lot.id">{{lot.name}}</a>
                         </div>
                         <pagination-controls (pageChange)="changePage($event)"></pagination-controls>

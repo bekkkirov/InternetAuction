@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpParams} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {LotCategoryModel} from "../models/lot-category.model";
 import {environment} from "../../../environments/environment.prod";
 import {LotPreviewModel} from "../models/lot-preview-model";
@@ -7,6 +7,8 @@ import {map} from "rxjs";
 import {PaginatedResultModel} from "../models/paginated-result.model";
 import {LotModel} from "../models/lot.model";
 import {LotParameters} from "../models/lot-parameters.model";
+import {LotCreate} from "../models/lot-create.model";
+import {ImageModel} from "../models/image.model";
 
 @Injectable({
     providedIn: 'root'
@@ -20,6 +22,10 @@ export class LotService {
 
     getLot(lotId: number) {
         return this.http.get<LotModel>(this.apiUrl + lotId);
+    }
+
+    addLot(lot: LotCreate) {
+        return this.http.post<LotModel>(this.apiUrl, lot);
     }
 
     getCategories() {
@@ -64,5 +70,12 @@ export class LotService {
         }
 
         return params;
+    }
+
+    addLotImage(image, lotId: number) {
+        let headers = new HttpHeaders();
+        headers.append('Content-Disposition','multipart/form-data');
+
+        return this.http.post<ImageModel>(this.apiUrl + `${lotId}/image`, image, {headers: headers});
     }
 }

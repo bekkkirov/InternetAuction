@@ -39,13 +39,16 @@ namespace InternetAuction.BLL.Services
             return PagedList<LotPreviewModel>.CreateAsync(mappedLots, lotParams.PageNumber, lotParams.PageSize);
         }
 
-        public async Task AddAsync(LotCreateModel model, int sellerId)
+        public async Task<LotModel> AddAsync(LotCreateModel model, string sellerUserName)
         {
             var lotToAdd = _mapper.Map<Lot>(model);
-            lotToAdd.SellerId = sellerId;
+            var seller = await _unitOfWork.UserRepository.GetByUserNameAsync(sellerUserName);
+            lotToAdd.Seller = seller;
 
             _unitOfWork.LotRepository.Add(lotToAdd);
             await _unitOfWork.SaveChangesAsync();
+
+            return _mapper.Map<LotModel>(lotToAdd);
         }
 
         public async Task DeleteByIdAsync(int modelId)

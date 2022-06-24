@@ -15,7 +15,7 @@ namespace InternetAuction.BLL.Interfaces
 
         Task<PagedList<LotPreviewModel>> GetLotsPreviewsByCategoryAsync(int categoryId, LotParameters lotParams);
 
-        Task AddAsync(LotCreateModel model, int sellerId);
+        Task<LotModel> AddAsync(LotCreateModel model, string sellerUserName);
 
         Task DeleteByIdAsync(int modelId);
 

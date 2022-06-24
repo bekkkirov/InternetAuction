@@ -18,6 +18,7 @@ import {TokenInterceptor} from "./core/interceptors/token.interceptor";
 import {NgxPaginationModule} from "ngx-pagination";
 import { LotDetailComponent } from './core/components/lot-detail/lot-detail.component';
 import { PageNotFoundComponent } from './core/components/page-not-found/page-not-found.component';
+import { LotCreateComponent } from './core/components/lot-create/lot-create.component';
 
 @NgModule({
     declarations: [
@@ -30,6 +31,7 @@ import { PageNotFoundComponent } from './core/components/page-not-found/page-not
         UserEditComponent,
         LotDetailComponent,
         PageNotFoundComponent,
+        LotCreateComponent,
     ],
     imports: [
         BrowserModule,

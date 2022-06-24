@@ -45,7 +45,6 @@ export class UserEditComponent implements OnInit {
     }
 
     onFileInput(event) {
-        console.log(event.target.files[0]);
         let formData = new FormData();
         formData.append('image', event.target.files[0]);
 

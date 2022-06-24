@@ -9,6 +9,7 @@ import {AuthGuard} from "../guards/auth.guard";
 import {LoggedInGuard} from "../guards/logged-in.guard";
 import {LotDetailComponent} from "../components/lot-detail/lot-detail.component";
 import {PageNotFoundComponent} from "../components/page-not-found/page-not-found.component";
+import {LotCreateComponent} from "../components/lot-create/lot-create.component";
 
 const routes: Routes = [
     {path: '', component: LotsListComponent},
@@ -21,6 +22,7 @@ const routes: Routes = [
             {path: 'users/edit', component: UserEditComponent},
             {path: 'categories/:categoryId', component: LotsListComponent},
             {path: 'lots/:lotId', component: LotDetailComponent},
+            {path: 'lot/create', component: LotCreateComponent},
             {path: 'not-found', component: PageNotFoundComponent},
         ]
     },
