@@ -1,8 +1,7 @@
 ﻿using FluentValidation;
-using InternetAuction.BLL.Models;
 using InternetAuction.BLL.Models.User;
 
-namespace InternetAuction.BLL.Validators
+namespace InternetAuction.BLL.Validators.User
 {
     public class UserUpdateModelValidator : AbstractValidator<UserUpdateModel>
     {

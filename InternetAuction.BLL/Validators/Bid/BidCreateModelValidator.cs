@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using InternetAuction.BLL.Models.Bid;
 
-namespace InternetAuction.BLL.Validators
+namespace InternetAuction.BLL.Validators.Bid
 {
     public class BidCreateModelValidator : AbstractValidator<BidCreateModel>
     {

@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using InternetAuction.BLL.Models.Lot;
 
-namespace InternetAuction.BLL.Validators
+namespace InternetAuction.BLL.Validators.Lot
 {
     public class LotCategoryCreateModelValidator : AbstractValidator<LotCategoryCreateModel>
     {
