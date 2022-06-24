@@ -1,6 +1,6 @@
-import {ImageModel} from "./image.model";
+import {Image} from "./image.model";
 
-export interface LotModel {
+export interface Lot {
     id: number,
     name: string,
     description: string,
@@ -10,5 +10,5 @@ export interface LotModel {
     categoryId: number,
     sellerId: number,
     buyerId: number,
-    images: ImageModel[]
+    images: Image[]
 }

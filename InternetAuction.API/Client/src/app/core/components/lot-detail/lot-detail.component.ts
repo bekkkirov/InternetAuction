@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {LotModel} from "../../models/lot.model";
+import {Lot} from "../../models/lot.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import {LotService} from "../../services/lot.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
@@ -11,7 +11,7 @@ import * as moment from 'moment';
     styleUrls: ['./lot-detail.component.css']
 })
 export class LotDetailComponent implements OnInit {
-    lot: LotModel;
+    lot: Lot;
     moment = moment;
 
     form = new FormGroup({

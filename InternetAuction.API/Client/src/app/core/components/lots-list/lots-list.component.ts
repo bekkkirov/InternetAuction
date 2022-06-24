@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {LotService} from "../../services/lot.service";
-import {LotCategoryModel} from "../../models/lot-category.model";
+import {LotCategory} from "../../models/lot-category.model";
 import {take} from "rxjs";
-import {LotPreviewModel} from "../../models/lot-preview-model";
-import {PaginationModel} from "../../models/pagination.model";
+import {LotPreview} from "../../models/lot-preview-model";
+import {Pagination} from "../../models/pagination.model";
 import {Router} from "@angular/router";
 import {LotParameters} from "../../models/lot-parameters.model";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
@@ -15,9 +15,9 @@ import * as moment from 'moment';
     styleUrls: ['./lots-list.component.css']
 })
 export class LotsListComponent implements OnInit {
-    categories: LotCategoryModel[];
-    lots: LotPreviewModel[];
-    pagination: PaginationModel;
+    categories: LotCategory[];
+    lots: LotPreview[];
+    pagination: Pagination;
     lotParams: LotParameters = new LotParameters();
     isCategorySelected: boolean;
     categoryId: number = 1;

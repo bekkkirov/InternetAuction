@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {environment} from "../../../environments/environment.prod";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {UserModel} from "../models/user.model";
-import {UserUpdateModel} from "../models/user-update.model";
-import {ImageModel} from "../models/image.model";
+import {User} from "../models/user.model";
+import {UserUpdate} from "../models/user-update.model";
+import {Image} from "../models/image.model";
 
 @Injectable({
     providedIn: 'root'
@@ -15,7 +15,7 @@ export class UserService {
     }
 
     getByUserName(userName: string) {
-        return this.http.get<UserModel>(this.apiUrl + userName);
+        return this.http.get<User>(this.apiUrl + userName);
     }
 
     addProfileImage(image) {
@@ -25,10 +25,10 @@ export class UserService {
         let formData = new FormData();
         formData.append('image', image);
 
-        return this.http.post<ImageModel>(this.apiUrl + "edit/image", formData, {headers: headers});
+        return this.http.post<Image>(this.apiUrl + "edit/image", formData, {headers: headers});
     }
 
-    updateProfile(model: UserUpdateModel) {
+    updateProfile(model: UserUpdate) {
         return this.http.put(this.apiUrl + "edit/profile", model);
     }
 }

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {UserModel} from "../../models/user.model";
+import {User} from "../../models/user.model";
 import {UserService} from "../../services/user.service";
 import {ActivatedRoute} from "@angular/router";
 
@@ -9,7 +9,7 @@ import {ActivatedRoute} from "@angular/router";
     styleUrls: ['./user-detail.component.css']
 })
 export class UserDetailComponent implements OnInit {
-    user: UserModel;
+    user: User;
     pageNumber: number = 1;
     tab: string = "regLots"
 

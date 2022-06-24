@@ -1,6 +1,6 @@
-import {PaginationModel} from "./pagination.model";
+import {Pagination} from "./pagination.model";
 
-export class PaginatedResultModel<T> {
+export class PaginatedResult<T> {
     result: T;
-    pagination: PaginationModel;
+    pagination: Pagination;
 }

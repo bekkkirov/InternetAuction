@@ -1,4 +1,4 @@
-export interface BidModel {
+export interface Bid {
     id: number,
     bidValue: number,
     bidTime: Date,

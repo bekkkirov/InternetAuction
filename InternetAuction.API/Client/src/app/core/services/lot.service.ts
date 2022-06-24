@@ -1,41 +1,41 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
-import {LotCategoryModel} from "../models/lot-category.model";
+import {LotCategory} from "../models/lot-category.model";
 import {environment} from "../../../environments/environment.prod";
-import {LotPreviewModel} from "../models/lot-preview-model";
+import {LotPreview} from "../models/lot-preview-model";
 import {map} from "rxjs";
-import {PaginatedResultModel} from "../models/paginated-result.model";
-import {LotModel} from "../models/lot.model";
+import {PaginatedResult} from "../models/paginated-result.model";
+import {Lot} from "../models/lot.model";
 import {LotParameters} from "../models/lot-parameters.model";
 import {LotCreate} from "../models/lot-create.model";
-import {ImageModel} from "../models/image.model";
+import {Image} from "../models/image.model";
 
 @Injectable({
     providedIn: 'root'
 })
 export class LotService {
     apiUrl = environment.apiUrl + "lots/"
-    paginatedResult: PaginatedResultModel<LotPreviewModel[]> = new PaginatedResultModel<LotPreviewModel[]>();
+    paginatedResult: PaginatedResult<LotPreview[]> = new PaginatedResult<LotPreview[]>();
 
     constructor(private http: HttpClient) {
     }
 
     getLot(lotId: number) {
-        return this.http.get<LotModel>(this.apiUrl + lotId);
+        return this.http.get<Lot>(this.apiUrl + lotId);
     }
 
     addLot(lot: LotCreate) {
-        return this.http.post<LotModel>(this.apiUrl, lot);
+        return this.http.post<Lot>(this.apiUrl, lot);
     }
 
     getCategories() {
-        return this.http.get<LotCategoryModel[]>(this.apiUrl + "categories");
+        return this.http.get<LotCategory[]>(this.apiUrl + "categories");
     }
 
     getLotPreviews(lotParams: LotParameters) {
         let params: HttpParams = this.addParams(lotParams);
 
-        return this.http.get<LotPreviewModel[]>(this.apiUrl + "previews", {observe: 'response', params: params}).pipe(
+        return this.http.get<LotPreview[]>(this.apiUrl + "previews", {observe: 'response', params: params}).pipe(
             map(response => {
                 this.paginatedResult.result = response.body;
                 this.paginatedResult.pagination = JSON.parse(response.headers.get('pagination'));
@@ -48,7 +48,7 @@ export class LotService {
     getLotsByCategory(categoryId, lotParams: LotParameters) {
         let params: HttpParams = this.addParams(lotParams);
 
-        return this.http.get<LotPreviewModel[]>(this.apiUrl + "categories/" + categoryId, {observe: 'response', params: params}).pipe(
+        return this.http.get<LotPreview[]>(this.apiUrl + "categories/" + categoryId, {observe: 'response', params: params}).pipe(
             map(response => {
                 this.paginatedResult.result = response.body;
                 this.paginatedResult.pagination = JSON.parse(response.headers.get('pagination'));
@@ -79,6 +79,6 @@ export class LotService {
         let formData = new FormData();
         formData.append('image', image);
 
-        return this.http.post<ImageModel>(this.apiUrl + `${lotId}/image`, formData, {headers: headers});
+        return this.http.post<Image>(this.apiUrl + `${lotId}/image`, formData, {headers: headers});
     }
 }

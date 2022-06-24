@@ -1,10 +1,10 @@
-import {ImageModel} from "./image.model";
+import {Image} from "./image.model";
 
-export interface LotPreviewModel {
+export interface LotPreview {
     id: number,
     name: string,
     saleEndTime: Date,
-    image: ImageModel,
+    image: Image,
     bidCount: number,
     currentPrice: number
 }

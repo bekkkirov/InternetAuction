@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {AccountService} from "../../services/account.service";
-import {LoggedInUserModel} from "../../models/logged-in-user.model";
+import {LoggedInUser} from "../../models/logged-in-user.model";
 import {Observable, take} from "rxjs";
-import {UserModel} from "../../models/user.model";
+import {User} from "../../models/user.model";
 import {UserService} from "../../services/user.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AppValidators} from "../../validators/app-validators";
@@ -14,7 +14,7 @@ import {ToastrService} from "ngx-toastr";
     styleUrls: ['./user-edit.component.css']
 })
 export class UserEditComponent implements OnInit {
-    user: LoggedInUserModel;
+    user: LoggedInUser;
 
     form = new FormGroup({
         "profileImage": new FormControl(null),

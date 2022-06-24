@@ -1,4 +1,4 @@
-export interface UserUpdateModel {
+export interface UserUpdate {
     firstName: string,
     lastName: string,
     balance: number

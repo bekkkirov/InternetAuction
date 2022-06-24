@@ -1,10 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {LotService} from "../../services/lot.service";
-import {LotCategoryModel} from "../../models/lot-category.model";
+import {LotCategory} from "../../models/lot-category.model";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AppValidators} from "../../validators/app-validators";
 import * as moment from "moment";
-import {LotModel} from "../../models/lot.model";
+import {Lot} from "../../models/lot.model";
 import {Router} from "@angular/router";
 
 @Component({
@@ -13,7 +13,7 @@ import {Router} from "@angular/router";
     styleUrls: ['./lot-create.component.css']
 })
 export class LotCreateComponent implements OnInit {
-    categories: LotCategoryModel[];
+    categories: LotCategory[];
     moment = moment;
     @ViewChild('fileInput') fileInput;
 

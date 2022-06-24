@@ -1,7 +1,7 @@
-import {LotModel} from "./lot.model";
+import {Lot} from "./lot.model";
 
-export interface LotCategoryModel {
+export interface LotCategory {
     id: number,
     name: string,
-    lots: LotModel[]
+    lots: Lot[]
 }

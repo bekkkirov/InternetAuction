@@ -1,15 +1,15 @@
-import {LotModel} from "./lot.model";
-import {BidModel} from "./bid.model";
-import {ImageModel} from "./image.model";
+import {Lot} from "./lot.model";
+import {Bid} from "./bid.model";
+import {Image} from "./image.model";
 
-export interface UserModel {
+export interface User {
     id: number,
     userName: string,
     firstName: string,
     lastName: string,
     balance: string,
-    profileImage: ImageModel,
-    registeredLots: LotModel[],
-    boughtLots: LotModel[],
-    bids: BidModel[]
+    profileImage: Image,
+    registeredLots: Lot[],
+    boughtLots: Lot[],
+    bids: Bid[]
 }
