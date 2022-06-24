@@ -76,6 +76,9 @@ export class LotService {
         let headers = new HttpHeaders();
         headers.append('Content-Disposition','multipart/form-data');
 
-        return this.http.post<ImageModel>(this.apiUrl + `${lotId}/image`, image, {headers: headers});
+        let formData = new FormData();
+        formData.append('image', image);
+
+        return this.http.post<ImageModel>(this.apiUrl + `${lotId}/image`, formData, {headers: headers});
     }
 }

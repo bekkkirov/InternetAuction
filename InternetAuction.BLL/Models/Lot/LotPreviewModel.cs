@@ -15,6 +15,6 @@ namespace InternetAuction.BLL.Models.Lot
 
         public int BidCount { get; set; }
 
-        public int CurrentPrice { get; set; }
+        public decimal CurrentPrice { get; set; }
     }
 }

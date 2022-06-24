@@ -29,7 +29,7 @@
                        name="initialPrice"
                        placeholder="Lot price">
                 <p class="error-label"
-                   *ngIf="form.get('price')?.invalid">Value must be >= 1</p>
+                   *ngIf="form.get('initialPrice')?.invalid">Value must be >= 1</p>
             </div>
             <div class="form-group">
                 <input class="create__control create__sale-end"
@@ -38,7 +38,7 @@
                        name="saleEndTime"
                        placeholder="Sale end time">
                 <p class="error-label"
-                   *ngIf="form.get('sale-end')?.invalid && form.get('sale-end')?.touched">Provide a valid date</p>
+                   *ngIf="form.get('saleEndTime')?.invalid && form.get('saleEndTime')?.touched">Provide a valid date</p>
             </div>
             <div class="form-group">
                 <input class="create__control create__quantity"

@@ -18,6 +18,11 @@
     justify-content: center;
 }
 
+.detail__img {
+    width: 350px;
+    height: 350px;
+}
+
 .detail__name {
     font-size: 50px;
     font-weight: bold;

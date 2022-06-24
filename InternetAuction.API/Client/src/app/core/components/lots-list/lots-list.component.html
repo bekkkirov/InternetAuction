@@ -40,7 +40,7 @@
                         <p class="lot__saleTime">Sale ends {{moment(lot.saleEndTime).fromNow()}}</p>
                     </div>
                     <div class="lot__col2">
-                        <p class="lot__currentPrice">{{lot.currentPrice}}$</p>
+                        <p class="lot__currentPrice">{{lot.currentPrice | number :'1.2-2' }}$</p>
                         <p class="lot__bidCount">{{lot.bidCount}} bids made</p>
                     </div>
                 </div>
