@@ -45,10 +45,7 @@ export class UserEditComponent implements OnInit {
     }
 
     onFileInput(event) {
-        let formData = new FormData();
-        formData.append('image', event.target.files[0]);
-
-        this.userService.addProfileImage(formData).subscribe(response => {
+        this.userService.addProfileImage(event.target.files[0]).subscribe(response => {
             this.user.profileImage = response.url;
             this.accountService.setCurrentUser(this.user);
             this.toastr.success("Profile image has been updated!")
