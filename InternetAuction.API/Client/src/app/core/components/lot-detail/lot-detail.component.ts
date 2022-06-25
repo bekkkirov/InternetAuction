@@ -33,4 +33,8 @@ export class LotDetailComponent implements OnInit {
 
         this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.currentUser = user);
     }
+
+    canBid() {
+        return !(this.currentUser.userName === this.lot.sellerUserName);
+    }
 }

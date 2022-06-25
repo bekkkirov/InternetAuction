@@ -4,7 +4,6 @@
 
 .detail__inner {
     display: flex;
-    justify-content: space-between;
 }
 
 .detail__col1,
@@ -16,6 +15,12 @@
 
 .detail__col1 {
     justify-content: center;
+    margin-right: 150px;
+    width: 25%;
+}
+
+.detail__col2 {
+    width: 75%;
 }
 
 .detail__img {
@@ -63,6 +68,10 @@
     color: red;
     font-weight: bold;
     margin-right: 35px;
+}
+
+.detail__price-bid-disabled {
+    margin: 0;
 }
 
 .detail__bid-form {
