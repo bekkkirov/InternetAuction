@@ -14,7 +14,9 @@ namespace InternetAuction.BLL.MapperConfigurations
         public MapperProfile()
         {
             //User
-            CreateMap<AppUser, UserModel>();
+            CreateMap<AppUser, UserModel>()
+                .ForMember(d => d.BoughtLots, opt => opt.MapFrom(src => src.BoughtLots.OrderByDescending(l => l.SaleStartTime)))
+                .ForMember(d => d.RegisteredLots, opt => opt.MapFrom(src => src.RegisteredLots.OrderByDescending(l => l.SaleStartTime)));
             CreateMap<RegisterModel, AppUser>();
             CreateMap<UserUpdateModel, AppUser>();
 
@@ -23,8 +25,9 @@ namespace InternetAuction.BLL.MapperConfigurations
 
             //Lot
             CreateMap<LotCreateModel, Lot>();
-            CreateMap<Lot, LotModel>().ForMember(d => d.SellerUserName, opt => opt.MapFrom(src => src.Seller.UserName))
-                                      .ForMember(d => d.CurrentPrice, opt => opt.MapFrom(src => src.Bids.Count > 0 ? src.Bids.Max(b => b.BidValue) : src.InitialPrice));
+            CreateMap<Lot, LotModel>()
+                .ForMember(d => d.SellerUserName, opt => opt.MapFrom(src => src.Seller.UserName))
+                .ForMember(d => d.CurrentPrice, opt => opt.MapFrom(src => src.Bids.Count > 0 ? src.Bids.Max(b => b.BidValue) : src.InitialPrice));
             CreateMap<Lot, LotPreviewModel>()
                 .ForMember(d => d.Image, opt => opt.MapFrom(src => src.Images.FirstOrDefault()))
                 .ForMember(d => d.BidCount, opt => opt.MapFrom(src => src.Bids.Count))
