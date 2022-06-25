@@ -20,7 +20,7 @@ namespace InternetAuction.BLL.Models.Lot
 
         public int CategoryId { get; set; }
 
-        public int SellerId { get; set; }
+        public string SellerUserName { get; set; }
 
         public int? BuyerId { get; set; }
 

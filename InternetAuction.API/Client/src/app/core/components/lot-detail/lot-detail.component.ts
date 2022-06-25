@@ -4,6 +4,9 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {LotService} from "../../services/lot.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import * as moment from 'moment';
+import {LoggedInUser} from "../../models/logged-in-user.model";
+import {AccountService} from "../../services/account.service";
+import {take} from "rxjs";
 
 @Component({
     selector: 'app-lot-detail',
@@ -13,12 +16,13 @@ import * as moment from 'moment';
 export class LotDetailComponent implements OnInit {
     lot: Lot;
     moment = moment;
+    currentUser: LoggedInUser;
 
     form = new FormGroup({
         "bidValue": new FormControl(null, [Validators.required])
     });
 
-    constructor(private lotService: LotService, private route: ActivatedRoute) {
+    constructor(private lotService: LotService, private route: ActivatedRoute, private accountService: AccountService) {
     }
 
     ngOnInit(): void {
@@ -27,5 +31,6 @@ export class LotDetailComponent implements OnInit {
             this.form.patchValue({"bidValue": result.currentPrice + 5});
         });
 
+        this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.currentUser = user);
     }
 }

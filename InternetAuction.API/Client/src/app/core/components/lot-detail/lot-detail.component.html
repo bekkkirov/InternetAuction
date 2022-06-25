@@ -11,7 +11,7 @@
                 <p class="detail__end">Sale ends {{moment(lot.saleEndTime).fromNow()}}</p>
                 <div class="detail__bids">
                     <p class="detail__price">{{lot.currentPrice}}$</p>
-                    <form class="detail__bid-form" [formGroup]="form">
+                    <form class="detail__bid-form" [formGroup]="form" *ngIf="lot.sellerUserName !== currentUser.userName">
                         <p class="detail__bid-label">Bid</p>
                         <input class="detail__bid-input" type="number" step=".01" formControlName="bidValue" name="bidValue">
                         <p class="detail__usd">$</p>

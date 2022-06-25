@@ -8,7 +8,7 @@ export interface Lot {
     saleEndTime: Date,
     quantity: number,
     categoryId: number,
-    sellerId: number,
+    sellerUserName: string,
     buyerId: number,
     images: Image[]
 }
