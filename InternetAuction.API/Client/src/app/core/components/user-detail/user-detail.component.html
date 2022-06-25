@@ -2,7 +2,7 @@
     <div class="container">
         <div class="profile__inner">
             <div class="profile__col1">
-                <img class="profile__img" [src]="user.profileImage.url || '/assets/images/user.png'">
+                <img class="profile__img" [src]="user.profileImage?.url || '/assets/images/user.png'">
                 <p class="profile__userName">{{user.userName}}</p>
             </div>
             <div class="profile__col2">

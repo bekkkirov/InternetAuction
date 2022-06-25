@@ -42,7 +42,8 @@ namespace InternetAuction.BLL.Services
             {
                 var uploadParams = new ImageUploadParams()
                 {
-                    File = new FileDescription(file.FileName, stream)
+                    File = new FileDescription(file.FileName, stream),
+                    AllowedFormats = new string [] { "png", "jpeg" }
                 };
 
                 uploadResult = await _cloudinary.UploadAsync(uploadParams);

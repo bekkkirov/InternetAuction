@@ -88,7 +88,11 @@ input[type=file] {
     color: #fff;
 }
 
-.edit__form-submit:hover {
+.edit__form-submit:enabled:hover {
     box-shadow: 0 0 10px #000;
+}
+
+.edit__form-submit:disabled {
+    opacity: 0.5;
 }
 

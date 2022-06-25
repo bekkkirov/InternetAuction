@@ -42,7 +42,7 @@ export class SignUpComponent {
             password: this.form.get('passwords.password')?.value.trim(),
         }).subscribe(
             {
-                complete: () => this.router.navigateByUrl("/")
+                complete: () => this.router.navigateByUrl("users/edit")
             });
     }
 }

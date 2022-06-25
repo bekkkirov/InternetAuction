@@ -45,10 +45,14 @@ export class UserEditComponent implements OnInit {
     }
 
     onFileInput(event) {
-        this.userService.addProfileImage(event.target.files[0]).subscribe(response => {
-            this.user.profileImage = response.url;
-            this.accountService.setCurrentUser(this.user);
-            this.toastr.success("Profile image has been updated!")
-        });
+        let image = event.target.files[0];
+
+        if(image) {
+            this.userService.addProfileImage(image).subscribe(response => {
+                this.user.profileImage = response.url;
+                this.accountService.setCurrentUser(this.user);
+                this.toastr.success("Profile image has been updated!")
+            });
+        }
     }
 }
