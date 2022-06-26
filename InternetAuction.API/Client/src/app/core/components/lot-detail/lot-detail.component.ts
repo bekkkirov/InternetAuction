@@ -17,6 +17,7 @@ export class LotDetailComponent implements OnInit {
     lot: Lot;
     moment = moment;
     currentUser: LoggedInUser;
+    canBid: boolean;
 
     form = new FormGroup({
         "bidValue": new FormControl(null, [Validators.required])
@@ -29,12 +30,13 @@ export class LotDetailComponent implements OnInit {
         this.lotService.getLot(+this.route.snapshot.paramMap.get('lotId')).subscribe(result => {
             this.lot = result;
             this.form.patchValue({"bidValue": result.currentPrice + 5});
+            this.canBid = this.currentUser.userName !== this.lot.sellerUserName && result.saleEndTime < new Date();
         });
 
         this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.currentUser = user);
     }
 
-    canBid() {
-        return !(this.currentUser.userName === this.lot.sellerUserName);
+    saleEnded() {
+        return moment(this.lot.saleEndTime).isBefore(new Date());
     }
 }
