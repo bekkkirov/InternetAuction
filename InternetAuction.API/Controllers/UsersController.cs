@@ -54,14 +54,8 @@ namespace InternetAuction.API.Controllers
         public async Task<ActionResult<ImageModel>> AddProfileImage(IFormFile image)
         {
             var currentUserName = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var currentUser = await _userService.GetByUserNameWithDetailsAsync(currentUserName);
 
-            if (currentUser.ProfileImage != null)
-            {
-                await _imageService.DeleteAsync(currentUser.ProfileImage.PublicId);
-            }
-
-            var created = await _imageService.AddAsync(image, currentUser.Id, null);
+            var created = await _userService.SetProfileImage(currentUserName, image);
 
             return CreatedAtRoute("GetByUsername", new {username = currentUserName}, created);
         }

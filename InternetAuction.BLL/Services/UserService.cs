@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using InternetAuction.BLL.Interfaces;
 using InternetAuction.BLL.Models;
+using InternetAuction.BLL.Models.Image;
 using InternetAuction.BLL.Models.User;
 using InternetAuction.DAL.Entities;
 using InternetAuction.DAL.Interfaces;
@@ -14,6 +15,7 @@ namespace InternetAuction.BLL.Services
     public class UserService : IUserService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IImageService _imageService;
         private readonly IMapper _mapper;
 
         /// <summary>
@@ -21,10 +23,12 @@ namespace InternetAuction.BLL.Services
         /// </summary>
         /// <param name="unitOfWork"></param>
         /// <param name="mapper"></param>
-        public UserService(IUnitOfWork unitOfWork, IMapper mapper)
+        /// <param name="imageService"></param>
+        public UserService(IUnitOfWork unitOfWork, IMapper mapper, IImageService imageService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _imageService = imageService;
         }
 
         public async Task<IEnumerable<UserModel>> GetAsync()
@@ -69,6 +73,18 @@ namespace InternetAuction.BLL.Services
             var user = await _unitOfWork.UserRepository.GetByUserNameWithDetailsAsync(userName);
 
             return _mapper.Map<UserModel>(user);
+        }
+
+        public async Task<ImageModel> SetProfileImage(string userName, IFormFile image)
+        {
+            var currentUser = await _unitOfWork.UserRepository.GetByUserNameAsync(userName);
+
+            if (currentUser.ProfileImage != null)
+            {
+                await _imageService.DeleteAsync(currentUser.ProfileImage.PublicId);
+            }
+
+            return await _imageService.AddAsync(image, currentUser.Id, null);
         }
     }
 }
