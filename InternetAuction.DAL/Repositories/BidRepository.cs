@@ -6,8 +6,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace InternetAuction.DAL.Repositories
 {
+    ///<inheritdoc cref="IBidRepository"/>
     public class BidRepository : BaseRepository<Bid>, IBidRepository
     {
+        ///<inheritdoc/>
         public BidRepository(AuctionContext context) : base(context)
         {
             

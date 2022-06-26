@@ -6,8 +6,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace InternetAuction.DAL.Repositories
 {
+    ///<inheritdoc cref="ILotCategoryRepository"/>
     public class LotCategoryRepository : BaseRepository<LotCategory>, ILotCategoryRepository
     {
+        ///<inheritdoc/>
         public LotCategoryRepository(AuctionContext context) : base(context)
         {
         }

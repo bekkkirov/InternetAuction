@@ -3,6 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace InternetAuction.DAL
 {
+    /// <summary>
+    /// Application main context
+    /// </summary>
     public class AuctionContext : DbContext
     {
         public DbSet<AppUser> Users { get; set; }

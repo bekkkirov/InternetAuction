@@ -5,11 +5,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace InternetAuction.DAL.Repositories
 {
+    ///<inheritdoc cref="ICrudRepository{TEntity}"/>
     public class BaseRepository<TEntity> : ICrudRepository<TEntity> where TEntity : class, IEntity
     {
         private protected readonly AuctionContext _context;
         private protected readonly DbSet<TEntity> _dbSet;
 
+        /// <summary>
+        /// Creates an instance of the repository.
+        /// </summary>
+        /// <param name="context">Database context.</param>
         public BaseRepository(AuctionContext context)
         {
             _context = context;
