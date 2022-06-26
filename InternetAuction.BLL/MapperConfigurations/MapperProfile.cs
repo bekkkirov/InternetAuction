@@ -38,7 +38,7 @@ namespace InternetAuction.BLL.MapperConfigurations
             CreateMap<LotCategoryCreateModel, LotCategory>();
             
             //Bid
-            CreateMap<Bid, BidModel>();
+            CreateMap<Bid, BidModel>().ForMember(d => d.LotName, opt => opt.MapFrom(src => src.Lot.Name));
             CreateMap<BidCreateModel, Bid>();
         }
     }

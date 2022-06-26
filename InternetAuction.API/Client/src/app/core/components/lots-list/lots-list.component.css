@@ -122,6 +122,10 @@
     flex-direction: column;
 }
 
+.lot__col2 {
+    text-align: right;
+}
+
 .lot__name {
     font-size: 22px;
     color: #376fff;

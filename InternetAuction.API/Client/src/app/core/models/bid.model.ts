@@ -3,5 +3,6 @@ export interface Bid {
     bidValue: number,
     bidTime: Date,
     lotId: number,
+    lotName: string,
     bidderId: number
 }

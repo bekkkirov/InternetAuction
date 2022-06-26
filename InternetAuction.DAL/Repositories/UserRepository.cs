@@ -43,6 +43,7 @@ namespace InternetAuction.DAL.Repositories
                                .Include(u => u.BoughtLots)
                                .Include(u => u.RegisteredLots)
                                .Include(u => u.Bids)
+                               .ThenInclude(b => b.Lot)
                                .FirstOrDefaultAsync(u => u.UserName == userName);
         }
     }

@@ -4,6 +4,7 @@
 
 .profile__inner {
     display: flex;
+    justify-content: space-around;
 }
 
 .profile__col1,
@@ -11,10 +12,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-.profile__col1 {
-    margin-right: 250px;
 }
 
 .profile__img {
@@ -49,17 +46,50 @@
     align-items: center;
 }
 
-.profile__lot {
+.profile__container {
     display: flex;
     margin-bottom: 35px;
-    justify-content: flex-start;
+    justify-content: space-between;
+    align-items: center;
     width: 100%;
+    text-align: center;
+    background-color: #e3e3e3;
+    padding: 15px;
+    border-radius: 10px;
 }
 
-.lot__image {
-    width: 70px;
-    height: 70px;
-    margin-right: 30px;
+.profile__name {
+    font-size: 20px;
+    color: #5e77ff;
+    padding-bottom: 3px;
+    border-width: 0 0 1px 0;
+    border-style: solid;
+    border-color: transparent;
+    width: 25%;
+}
+
+.profile__name:hover {
+    color: #0046ff;
+    border-color: #0046ff;
+}
+
+.profile__delete {
+    width: 50px;
+    height: 50px;
+}
+
+.profile__delete:hover {
+    background-color: #ff7777;
+}
+
+.profile__value {
+    font-size: 18px;
+    color: red;
+    width: 25%;
+}
+
+.profile__bids {
+    width: 100%;
 }
 
 .tab-active {
