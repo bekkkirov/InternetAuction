@@ -6,9 +6,11 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using InternetAuction.BLL.Interfaces;
+using InternetAuction.BLL.Settings;
 using InternetAuction.Identity.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 namespace InternetAuction.BLL.Services
@@ -22,11 +24,11 @@ namespace InternetAuction.BLL.Services
         /// <summary>
         /// Creates a new instance of the token service.
         /// </summary>
-        /// <param name="configuration"></param>
+        /// <param name="config"></param>
         /// <param name="userManager"></param>
-        public TokenService(IConfiguration configuration, UserManager<User> userManager)
+        public TokenService(IOptions<TokenSettings> config, UserManager<User> userManager)
         {
-            _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]));
+            _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config.Value.Key));
             _userManager = userManager;
         }
 

@@ -40,6 +40,7 @@ namespace InternetAuction.API
             services.AddRepositories();
             services.AddAutoMapper(typeof(MapperProfile).Assembly);
             services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
+            services.Configure<TokenSettings>(Configuration.GetSection("Jwt"));
             services.AddApplicationServices();
         }
 
