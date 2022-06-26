@@ -12,6 +12,8 @@ namespace InternetAuction.BLL.Models.Bid
 
         public int LotId { get; set; }
 
+        public string LotName { get; set; }
+
         public int BidderId { get; set; }
     }
 }

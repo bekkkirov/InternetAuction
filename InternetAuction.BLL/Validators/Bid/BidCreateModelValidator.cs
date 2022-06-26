@@ -9,12 +9,6 @@ namespace InternetAuction.BLL.Validators.Bid
         {
             RuleFor(b => b.BidValue)
                 .GreaterThan(0).WithMessage("Bid value must be greater than zero");
-
-            RuleFor(b => b.BidderUserName)
-                .NotEmpty().WithMessage("Bidder user name is required");
-
-            RuleFor(b => b.LotId)
-                .NotEmpty().WithMessage("Lot id is required");
         }
     }
 }

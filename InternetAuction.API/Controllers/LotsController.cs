@@ -4,9 +4,11 @@ using System.Threading.Tasks;
 using InternetAuction.API.Extensions;
 using InternetAuction.BLL.Interfaces;
 using InternetAuction.BLL.Models;
+using InternetAuction.BLL.Models.Bid;
 using InternetAuction.BLL.Models.Image;
 using InternetAuction.BLL.Models.Lot;
 using InternetAuction.BLL.Pagination;
+using InternetAuction.DAL.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -20,11 +22,13 @@ namespace InternetAuction.API.Controllers
     {
         private readonly ILotService _lotService;
         private readonly IImageService _imageService;
+        private readonly IBiddingService _bidService;
 
-        public LotsController(ILotService lotService, IImageService imageService)
+        public LotsController(ILotService lotService, IImageService imageService, IBiddingService bidService)
         {
             _lotService = lotService;
             _imageService = imageService;
+            _bidService = bidService;
         }
 
         [HttpGet]
@@ -85,7 +89,18 @@ namespace InternetAuction.API.Controllers
         {
             var created = await _imageService.AddAsync(image, null, lotId);
 
-            return CreatedAtRoute("GetById", new { Id = created.Id }, created);
+            return CreatedAtRoute("GetById", new { Id = lotId }, created);
+        }
+
+        [HttpPost]
+        [Route("{lotId}/bids")]
+        public async Task<ActionResult<Bid>> PlaceBid(BidCreateModel model, int lotId)
+        {
+            var userName = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var created = await _bidService.AddAsync(model, userName, lotId);
+
+            return CreatedAtRoute("GetById", new { lotId }, created);
         }
     }
 }

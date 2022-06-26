@@ -71,6 +71,7 @@ namespace InternetAuction.API.Extensions
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IImageService, ImageService>();
             services.AddScoped<ILotService, LotService>();
+            services.AddScoped<IBiddingService, BiddingService>();
         }
     }
 }

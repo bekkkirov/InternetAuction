@@ -36,11 +36,11 @@ namespace InternetAuction.BLL.Services
             return _mapper.Map<BidModel>(bid);
         }
 
-        public async Task AddAsync(BidCreateModel model)
+        public async Task<BidModel> AddAsync(BidCreateModel model, string userName, int lotId)
         {
-            var lot = await _unitOfWork.LotRepository.GetByIdWithDetailsAsync(model.LotId);
+            var lot = await _unitOfWork.LotRepository.GetByIdWithDetailsAsync(lotId);
 
-            if (lot.Seller.UserName == model.BidderUserName)
+            if (lot.Seller.UserName == userName)
             {
                 throw new InvalidOperationException("Bidding on your own lot is not possible");
             }
@@ -52,18 +52,21 @@ namespace InternetAuction.BLL.Services
                 throw new InvalidOperationException("Lot is closed");
             }
 
-            if (model.BidValue < currentPrice || model.BidValue - currentPrice < 10)
+            if (model.BidValue < currentPrice || model.BidValue - currentPrice < 5)
             {
-                throw new ArgumentException("Invalid bid value", nameof(model.BidValue));
+                throw new ArgumentException("Bid value is too low");
             }
 
             var bid = _mapper.Map<Bid>(model);
 
-            var bidder = await _unitOfWork.UserRepository.GetByUserNameAsync(model.BidderUserName);
+            var bidder = await _unitOfWork.UserRepository.GetByUserNameAsync(userName);
             bid.Bidder = bidder;
+            bid.Lot = lot;
 
             _unitOfWork.BidRepository.Add(bid);
             await _unitOfWork.SaveChangesAsync();
+
+            return _mapper.Map<BidModel>(bid);
         }
 
         public async Task DeleteByIdAsync(int modelId)

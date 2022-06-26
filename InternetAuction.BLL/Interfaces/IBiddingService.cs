@@ -11,7 +11,7 @@ namespace InternetAuction.BLL.Interfaces
 
         Task<BidModel> GetByIdAsync(int modelId);
 
-        Task AddAsync(BidCreateModel model);
+        Task<BidModel> AddAsync(BidCreateModel model, string userName, int lotId);
 
         Task DeleteByIdAsync(int modelId);
     }
