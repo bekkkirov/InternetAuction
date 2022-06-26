@@ -100,7 +100,18 @@ namespace InternetAuction.API.Controllers
 
             var created = await _bidService.AddAsync(model, userName, lotId);
 
-            return CreatedAtRoute("GetById", new { lotId }, created);
+            return CreatedAtRoute("GetById", new {Id = lotId }, created);
+        }
+
+        [HttpDelete]
+        [Route("{lotId}")]
+        public async Task<ActionResult> DeleteLot(int lotId)
+        {
+            var currentUserName = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            await _lotService.DeleteByIdAsync(currentUserName, lotId);
+
+            return NoContent();
         }
     }
 }

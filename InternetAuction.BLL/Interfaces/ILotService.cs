@@ -47,7 +47,7 @@ namespace InternetAuction.BLL.Interfaces
         /// </summary>
         /// <param name="modelId">Lot id</param>
         /// <returns></returns>
-        Task DeleteByIdAsync(int modelId);
+        Task DeleteByIdAsync(string userName, int modelId);
 
         /// <summary>
         /// Searches for lots.

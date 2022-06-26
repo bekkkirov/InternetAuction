@@ -81,4 +81,8 @@ export class LotService {
 
         return this.http.post<Image>(this.apiUrl + `${lotId}/image`, formData, {headers: headers});
     }
+
+    deleteLot(lotId: number) {
+        return this.http.delete(this.apiUrl + lotId);
+    }
 }

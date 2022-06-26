@@ -22,7 +22,7 @@
                           totalItems: user.registeredLots?.length}">
                             <a class="profile__name" [routerLink]="'/lots/' + lot.id">{{lot.name}}</a>
                             <p class="profile__value">{{lot.currentPrice}}$</p>
-                            <img class="profile__delete" src="assets/images/delete.png">
+                            <img class="profile__delete" src="assets/images/delete.png" (click)="deleteLot(lot.id)">
                         </div>
                         <pagination-controls (pageChange)="changePage($event)"></pagination-controls>
                     </div>

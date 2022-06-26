@@ -57,8 +57,20 @@ namespace InternetAuction.BLL.Services
             return _mapper.Map<LotModel>(lotToAdd);
         }
 
-        public async Task DeleteByIdAsync(int modelId)
+        public async Task DeleteByIdAsync(string userName, int modelId)
         {
+            var lot = await _unitOfWork.LotRepository.GetByIdWithDetailsAsync(modelId);
+
+            if (userName != lot.Seller.UserName)
+            {
+                throw new ArgumentException("You can't delete this lot");
+            }
+
+            if (lot.SaleEndTime <= DateTime.Now)
+            {
+                throw new ArgumentException("You can't delete an item after the sale end");
+            }
+
             await _unitOfWork.LotRepository.DeleteByIdAsync(modelId);
             await _unitOfWork.SaveChangesAsync();
         }
