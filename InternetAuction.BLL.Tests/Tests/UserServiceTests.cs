@@ -7,6 +7,8 @@ using Moq;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using InternetAuction.BLL.Interfaces;
 using InternetAuction.BLL.Models.Bid;
 using InternetAuction.BLL.Models.User;
 using Xunit;
@@ -15,6 +17,21 @@ namespace InternetAuction.BLL.Tests.Tests
 {
     public class UserServiceTests
     {
+        private readonly Mock<IUnitOfWork> _unitOfWorkMock;
+        private readonly Mock<IImageService> _imageServiceMock;
+        private readonly IMapper _mapper;
+
+        private readonly UserService _userService;
+
+        public UserServiceTests()
+        {
+            _unitOfWorkMock = new Mock<IUnitOfWork>();
+            _imageServiceMock = new Mock<IImageService>();
+            _mapper = UnitTestHelpers.CreateMapper();
+
+            _userService = new UserService(_unitOfWorkMock.Object, _mapper, _imageServiceMock.Object);
+        }
+
         #region TestData
 
         private static IEnumerable<AppUser> UserEntities => new List<AppUser>()
@@ -179,22 +196,17 @@ namespace InternetAuction.BLL.Tests.Tests
 
         #endregion
 
-       [Fact]
+        [Fact]
         public async Task Get_ShouldReturnCorrectData()
         {
             // Arrange
-            var unitOfWorkMock = new Mock<IUnitOfWork>();
-            unitOfWorkMock.Setup(x => x.UserRepository.GetAsync())
+            _unitOfWorkMock.Setup(x => x.UserRepository.GetAsync())
                           .ReturnsAsync(UserEntities);
-
-            var mapper = UnitTestHelpers.CreateMapper();
-
-            var userService = new UserService(unitOfWorkMock.Object, mapper);
 
             var expected = UserModels;
 
             // Act
-            var actual = await userService.GetAsync();
+            var actual = await _userService.GetAsync();
 
             // Assert
             Assert.Equal(expected, actual, new UserModelComparer());
@@ -205,16 +217,11 @@ namespace InternetAuction.BLL.Tests.Tests
         public async Task GetById_ShouldReturnCorrectData(int userId, UserModel expected)
         {
             // Arrange
-            var unitOfWorkMock = new Mock<IUnitOfWork>();
-            unitOfWorkMock.Setup(x => x.UserRepository.GetByIdAsync(It.IsAny<int>()))
+            _unitOfWorkMock.Setup(x => x.UserRepository.GetByIdAsync(It.IsAny<int>()))
                           .ReturnsAsync((int id) => UserEntities.FirstOrDefault(u => u.Id == id));
 
-            var mapper = UnitTestHelpers.CreateMapper();
-
-            var userService = new UserService(unitOfWorkMock.Object, mapper);
-
             // Act
-            var actual = await userService.GetByIdAsync(userId);
+            var actual = await _userService.GetByIdAsync(userId);
 
             // Assert
             Assert.Equal(expected, actual, new UserModelComparer());
@@ -224,28 +231,23 @@ namespace InternetAuction.BLL.Tests.Tests
         public async Task Update_ShouldUpdateEntity()
         {
             // Arrange
-            var unitOfWorkMock = new Mock<IUnitOfWork>();
-            unitOfWorkMock.Setup(x => x.UserRepository.Update(It.IsAny<AppUser>()));
-            unitOfWorkMock.Setup(x => x.UserRepository.GetByUserNameAsync(It.IsAny<string>()))
+            _unitOfWorkMock.Setup(x => x.UserRepository.Update(It.IsAny<AppUser>()));
+            _unitOfWorkMock.Setup(x => x.UserRepository.GetByUserNameAsync(It.IsAny<string>()))
                           .ReturnsAsync((string userName) => UserEntities.FirstOrDefault(u => u.UserName == userName));
-
-            var mapper = UnitTestHelpers.CreateMapper();
-
-            var userService = new UserService(unitOfWorkMock.Object, mapper);
 
             var userName = UserEntities.First().UserName;
             var updateModel = new UserUpdateModel() { FirstName = "NewFirst", LastName = "NewLast", Balance = 901 };
 
             // Act
-            await userService.UpdateAsync(UserEntities.First().UserName, updateModel);
+            await _userService.UpdateAsync(UserEntities.First().UserName, updateModel);
 
             // Assert
-            unitOfWorkMock.Verify(x => x.UserRepository.Update(
+            _unitOfWorkMock.Verify(x => x.UserRepository.Update(
                               It.Is<AppUser>(u => u.UserName == userName
                                     && u.FirstName == updateModel.FirstName
                                     && u.LastName == updateModel.LastName 
                                     && u.Balance == updateModel.Balance)), Times.Once);
-            unitOfWorkMock.Verify(x => x.SaveChangesAsync(), Times.Once);
+            _unitOfWorkMock.Verify(x => x.SaveChangesAsync(), Times.Once);
         }
 
         [Theory]
@@ -253,16 +255,11 @@ namespace InternetAuction.BLL.Tests.Tests
         public async Task GetByUserName_ShouldReturnCorrectData(string userName, UserModel expected)
         {
             // Arrange
-            var unitOfWorkMock = new Mock<IUnitOfWork>();
-            unitOfWorkMock.Setup(x => x.UserRepository.GetByUserNameAsync(It.IsAny<string>()))
+            _unitOfWorkMock.Setup(x => x.UserRepository.GetByUserNameAsync(It.IsAny<string>()))
                           .ReturnsAsync( (string uName) => UserEntities.FirstOrDefault(u => u.UserName == uName));
 
-            var mapper = UnitTestHelpers.CreateMapper();
-
-            var userService = new UserService(unitOfWorkMock.Object, mapper);
-
             // Act
-            var actual = await userService.GetByUserNameAsync(userName);
+            var actual = await _userService.GetByUserNameAsync(userName);
 
             // Assert
             Assert.Equal(expected, actual, new UserModelComparer());
@@ -272,18 +269,13 @@ namespace InternetAuction.BLL.Tests.Tests
         public async Task GetAllWithDetails_ShouldReturnCorrectData()
         {
             // Arrange
-            var unitOfWorkMock = new Mock<IUnitOfWork>();
-            unitOfWorkMock.Setup(x => x.UserRepository.GetAllWithDetailsAsync())
+            _unitOfWorkMock.Setup(x => x.UserRepository.GetAllWithDetailsAsync())
                           .ReturnsAsync(UserEntities);
-
-            var mapper = UnitTestHelpers.CreateMapper();
-
-            var userService = new UserService(unitOfWorkMock.Object, mapper);
 
             var expected = UserModels;
 
             // Act
-            var actual = await userService.GetAllWithDetailsAsync();
+            var actual = await _userService.GetAllWithDetailsAsync();
 
             // Assert
             Assert.Equal(expected, actual, new UserModelComparer());
@@ -295,16 +287,11 @@ namespace InternetAuction.BLL.Tests.Tests
         public async Task GetByUserNameWithDetails_ShouldReturnCorrectData(string userName, UserModel expected)
         {
             // Assert
-            var unitOfWorkMock = new Mock<IUnitOfWork>();
-            unitOfWorkMock.Setup(x => x.UserRepository.GetByUserNameWithDetailsAsync(It.IsAny<string>()))
+            _unitOfWorkMock.Setup(x => x.UserRepository.GetByUserNameWithDetailsAsync(It.IsAny<string>()))
                           .ReturnsAsync((string uName) => UserEntities.FirstOrDefault(u => u.UserName == uName));
 
-            var mapper = UnitTestHelpers.CreateMapper();
-
-            var userService = new UserService(unitOfWorkMock.Object, mapper);
-
             // Act
-            var actual = await userService.GetByUserNameWithDetailsAsync(userName);
+            var actual = await _userService.GetByUserNameWithDetailsAsync(userName);
 
             // Assert
             Assert.Equal(expected, actual, new UserModelComparer());

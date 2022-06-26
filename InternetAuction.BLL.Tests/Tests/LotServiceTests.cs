@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using InternetAuction.BLL.Models;
 using InternetAuction.BLL.Models.Lot;
 using InternetAuction.BLL.Pagination;
@@ -15,6 +16,19 @@ namespace InternetAuction.BLL.Tests.Tests
 {
     public class LotServiceTests
     {
+        private readonly Mock<IUnitOfWork> _unitOfWorkMock;
+        private readonly IMapper _mapper;
+
+        private readonly LotService _lotService;
+
+        public LotServiceTests()
+        {
+            _unitOfWorkMock = new Mock<IUnitOfWork>();
+            _mapper = UnitTestHelpers.CreateMapper();
+
+            _lotService = new LotService(_unitOfWorkMock.Object, _mapper);
+        }
+
         #region TestData
 
         private static IEnumerable<Lot> LotEntities => new List<Lot>()
@@ -133,20 +147,20 @@ namespace InternetAuction.BLL.Tests.Tests
                     Id = 1,
                     Name = "Category1"
                 },
-                
+
                 new LotCategory()
                 {
                     Id = 2,
                     Name = "Category2"
                 },
-                
+
                 new LotCategory()
                 {
                     Id = 3,
                     Name = "Category3"
                 },
-            }; 
-        
+            };
+
         private static IEnumerable<LotCategoryModel> LotCategoryModels => new List<LotCategoryModel>()
             {
                 new LotCategoryModel()
@@ -154,19 +168,40 @@ namespace InternetAuction.BLL.Tests.Tests
                     Id = 1,
                     Name = "Category1"
                 },
-                
+
                 new LotCategoryModel()
                 {
                     Id = 2,
                     Name = "Category2"
                 },
-                
+
                 new LotCategoryModel()
                 {
                     Id = 3,
                     Name = "Category3"
                 },
             };
+
+        private static IEnumerable<AppUser> UserEntities => new List<AppUser>()
+        {
+            new AppUser()
+            {
+                Id = 1,
+                UserName = "user1"
+            },
+            
+            new AppUser()
+            {
+                Id = 2,
+                UserName = "user2"
+            },
+            
+            new AppUser()
+            {
+                Id = 3,
+                UserName = "user3"
+            },
+        };
 
         public static IEnumerable<object[]> GetLotById_TestData()
         {
@@ -205,17 +240,13 @@ namespace InternetAuction.BLL.Tests.Tests
         public async Task GetLots_ShouldReturnCorrectData()
         {
             // Arrange
-            var unitOfWorkMock = new Mock<IUnitOfWork>();
-            unitOfWorkMock.Setup(x => x.LotRepository.GetAsync())
+            _unitOfWorkMock.Setup(x => x.LotRepository.GetAsync())
                           .ReturnsAsync(LotEntities);
 
-            var mapper = UnitTestHelpers.CreateMapper();
             var expected = LotModels;
 
-            var lotService = new LotService(unitOfWorkMock.Object, mapper);
-
             // Act
-            var actual = await lotService.GetAsync();
+            var actual = await _lotService.GetAsync();
 
             // Assert
             Assert.Equal(expected, actual, new LotModelComparer());
@@ -226,16 +257,11 @@ namespace InternetAuction.BLL.Tests.Tests
         public async Task GetLotById_ShouldReturnCorrectData(int lotId, LotModel expected)
         {
             // Arrange
-            var unitOfWorkMock = new Mock<IUnitOfWork>();
-            unitOfWorkMock.Setup(x => x.LotRepository.GetByIdWithDetailsAsync(It.IsAny<int>()))
+            _unitOfWorkMock.Setup(x => x.LotRepository.GetByIdWithDetailsAsync(It.IsAny<int>()))
                           .ReturnsAsync((int id) => LotEntities.FirstOrDefault(l => l.Id == id));
 
-            var mapper = UnitTestHelpers.CreateMapper();
-
-            var lotService = new LotService(unitOfWorkMock.Object, mapper);
-
             // Act
-            var actual = await lotService.GetByIdWithDetailsAsync(lotId);
+            var actual = await _lotService.GetByIdWithDetailsAsync(lotId);
 
             // Assert
             Assert.Equal(expected, actual, new LotModelComparer());
@@ -245,19 +271,14 @@ namespace InternetAuction.BLL.Tests.Tests
         public async Task GetPreviews_ShouldReturnCorrectData()
         {
             // Arrange
-            var unitOfWorkMock = new Mock<IUnitOfWork>();
-            unitOfWorkMock.Setup(x => x.LotRepository.GetPreviewsAsync())
+            _unitOfWorkMock.Setup(x => x.LotRepository.GetPreviewsAsync())
                           .ReturnsAsync(LotEntities);
-
-            var mapper = UnitTestHelpers.CreateMapper();
 
             var lotParameters = new LotParameters();
             var expected = PagedList<LotPreviewModel>.CreateAsync(LotPreviewModels, lotParameters.PageNumber, lotParameters.PageSize);
 
-            var lotService = new LotService(unitOfWorkMock.Object, mapper);
-
             // Act
-            var actual = await lotService.GetLotsPreviewsAsync(lotParameters);
+            var actual = await _lotService.GetLotsPreviewsAsync(lotParameters);
 
             // Assert
             Assert.Equal(expected, actual, new LotPreviewModelComparer());
@@ -268,17 +289,13 @@ namespace InternetAuction.BLL.Tests.Tests
         public async Task GetLotsPreviewsByCategory_ShouldReturnCorrectData(int categoryId, PagedList<LotPreviewModel> expected)
         {
             // Arrange
-            var unitOfWorkMock = new Mock<IUnitOfWork>();
-            unitOfWorkMock.Setup(x => x.LotRepository.GetPreviewsByCategoryIdAsync(It.IsAny<int>()))
+            _unitOfWorkMock.Setup(x => x.LotRepository.GetPreviewsByCategoryIdAsync(It.IsAny<int>()))
                           .ReturnsAsync((int id) => LotEntities.Where(l => l.CategoryId == id));
 
-            var mapper = UnitTestHelpers.CreateMapper();
             var lotParameters = new LotParameters();
 
-            var lotService = new LotService(unitOfWorkMock.Object, mapper);
-
             // Act
-            var actual = await lotService.GetLotsPreviewsByCategoryAsync(categoryId, lotParameters);
+            var actual = await _lotService.GetLotsPreviewsByCategoryAsync(categoryId, lotParameters);
 
             // Assert
             Assert.Equal(expected, actual, new LotPreviewModelComparer());
@@ -288,59 +305,47 @@ namespace InternetAuction.BLL.Tests.Tests
         public async Task AddLot_ShouldAddLot()
         {
             // Arrange
-            var unitOfWorkMock = new Mock<IUnitOfWork>();
-            unitOfWorkMock.Setup(x => x.LotRepository.Add(It.IsAny<Lot>()));
-
-            var mapper = UnitTestHelpers.CreateMapper();
-
-            var lotService = new LotService(unitOfWorkMock.Object, mapper);
+            _unitOfWorkMock.Setup(x => x.LotRepository.Add(It.IsAny<Lot>()));
+            _unitOfWorkMock.Setup(x => x.UserRepository.GetByUserNameAsync(It.IsAny<string>()))
+                           .ReturnsAsync( (string userName) => UserEntities.FirstOrDefault(u => u.UserName == userName));
 
             var lot = new LotCreateModel() { Name = "Lot" };
-            var sellerId = 1;
+            var sellerUserName = "user1";
 
             // Act
-            await lotService.AddAsync(lot, sellerId);
+            await _lotService.AddAsync(lot, sellerUserName);
 
             // Assert
-            unitOfWorkMock.Verify(x => x.LotRepository.Add(It.Is<Lot>(l => l.Name == lot.Name && l.SellerId == sellerId)), Times.Once);
-            unitOfWorkMock.Verify(x => x.SaveChangesAsync(), Times.Once);
+            _unitOfWorkMock.Verify(x => x.LotRepository.Add(It.Is<Lot>(l => l.Name == lot.Name && l.Seller.UserName == sellerUserName)), Times.Once);
+            _unitOfWorkMock.Verify(x => x.SaveChangesAsync(), Times.Once);
         }
 
         [Fact]
         public async Task DeleteLotById_ShouldDeleteLot()
         {
             // Arrange
-            var unitOfWorkMock = new Mock<IUnitOfWork>();
-            unitOfWorkMock.Setup(x => x.LotRepository.DeleteByIdAsync(It.IsAny<int>()));
-
-            var mapper = UnitTestHelpers.CreateMapper();
-
-            var lotService = new LotService(unitOfWorkMock.Object, mapper);
+            _unitOfWorkMock.Setup(x => x.LotRepository.DeleteByIdAsync(It.IsAny<int>()));
 
             var lotToDelete = new Lot() { Id = 1, Name = "Lot" };
 
             // Act
-            await lotService.DeleteByIdAsync(lotToDelete.Id);
+            await _lotService.DeleteByIdAsync(lotToDelete.Id);
 
             // Assert
-            unitOfWorkMock.Verify(x => x.LotRepository.DeleteByIdAsync(It.Is<int>(id => id == lotToDelete.Id)), Times.Once);
-            unitOfWorkMock.Verify(x => x.SaveChangesAsync(), Times.Once);
+            _unitOfWorkMock.Verify(x => x.LotRepository.DeleteByIdAsync(It.Is<int>(id => id == lotToDelete.Id)), Times.Once);
+            _unitOfWorkMock.Verify(x => x.SaveChangesAsync(), Times.Once);
         }
 
         [Fact]
         public async Task GetCategories_ShouldReturnCorrectData()
         {
             // Arrange
-            var unitOfWorkMock = new Mock<IUnitOfWork>();
-            unitOfWorkMock.Setup(x => x.LotCategoryRepository.GetAsync()).ReturnsAsync(LotCategories);
+            _unitOfWorkMock.Setup(x => x.LotCategoryRepository.GetAsync()).ReturnsAsync(LotCategories);
 
-            var mapper = UnitTestHelpers.CreateMapper();
             var expected = LotCategoryModels;
 
-            var lotService = new LotService(unitOfWorkMock.Object, mapper);
-
             // Act
-            var actual = await lotService.GetAllCategoriesAsync();
+            var actual = await _lotService.GetAllCategoriesAsync();
 
             // Assert
             Assert.Equal(expected, actual, new LotCategoryModelComparer());
@@ -350,42 +355,32 @@ namespace InternetAuction.BLL.Tests.Tests
         public async Task AddCategory_ShouldAddCategory()
         {
             // Arrange
-            var unitOfWorkMock = new Mock<IUnitOfWork>();
-            unitOfWorkMock.Setup(x => x.LotCategoryRepository.Add(It.IsAny<LotCategory>()));
-
-            var mapper = UnitTestHelpers.CreateMapper();
-
-            var lotService = new LotService(unitOfWorkMock.Object, mapper);
+            _unitOfWorkMock.Setup(x => x.LotCategoryRepository.Add(It.IsAny<LotCategory>()));
 
             var category = new LotCategoryCreateModel() { Name = "Category" };
 
             // Act
-            await lotService.AddCategoryAsync(category);
+            await _lotService.AddCategoryAsync(category);
 
             // Assert
-            unitOfWorkMock.Verify(x => x.LotCategoryRepository.Add(It.Is<LotCategory>(c => c.Name == category.Name)), Times.Once);
-            unitOfWorkMock.Verify(x => x.SaveChangesAsync(), Times.Once);
-        } 
-        
+            _unitOfWorkMock.Verify(x => x.LotCategoryRepository.Add(It.Is<LotCategory>(c => c.Name == category.Name)), Times.Once);
+            _unitOfWorkMock.Verify(x => x.SaveChangesAsync(), Times.Once);
+        }
+
         [Fact]
         public async Task DeleteCategoryById_ShouldDeleteCategory()
         {
             // Arrange
-            var unitOfWorkMock = new Mock<IUnitOfWork>();
-            unitOfWorkMock.Setup(x => x.LotCategoryRepository.DeleteByIdAsync(It.IsAny<int>()));
-
-            var mapper = UnitTestHelpers.CreateMapper();
-
-            var lotService = new LotService(unitOfWorkMock.Object, mapper);
+            _unitOfWorkMock.Setup(x => x.LotCategoryRepository.DeleteByIdAsync(It.IsAny<int>()));
 
             var categoryToDelete = new LotCategory() { Id = 1, Name = "Category" };
 
             // Act
-            await lotService.DeleteCategoryByIdAsync(categoryToDelete.Id);
+            await _lotService.DeleteCategoryByIdAsync(categoryToDelete.Id);
 
             // Assert
-            unitOfWorkMock.Verify(x => x.LotCategoryRepository.DeleteByIdAsync(It.Is<int>(id => id == categoryToDelete.Id)), Times.Once);
-            unitOfWorkMock.Verify(x => x.SaveChangesAsync(), Times.Once);
+            _unitOfWorkMock.Verify(x => x.LotCategoryRepository.DeleteByIdAsync(It.Is<int>(id => id == categoryToDelete.Id)), Times.Once);
+            _unitOfWorkMock.Verify(x => x.SaveChangesAsync(), Times.Once);
         }
     }
 }
