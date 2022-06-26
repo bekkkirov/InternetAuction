@@ -3,6 +3,9 @@ using InternetAuction.BLL.Models.Lot;
 
 namespace InternetAuction.BLL.Validators.Lot
 {
+    /// <summary>
+    /// Represents a validator for the lot parameters model.
+    /// </summary>
     public class LotParametersValidator : AbstractValidator<LotParameters>
     {
         public LotParametersValidator()

@@ -13,11 +13,17 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace InternetAuction.BLL.Services
 {
+    ///<inheritdoc cref="ITokenService"/>
     public class TokenService : ITokenService
     {
         private readonly SymmetricSecurityKey _key;
         private readonly UserManager<User> _userManager;
 
+        /// <summary>
+        /// Creates a new instance of the token service.
+        /// </summary>
+        /// <param name="configuration"></param>
+        /// <param name="userManager"></param>
         public TokenService(IConfiguration configuration, UserManager<User> userManager)
         {
             _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]));

@@ -16,12 +16,19 @@ using InternetAuction.DAL.Entities;
 
 namespace InternetAuction.BLL.Services
 {
+    ///<inheritdoc cref="IImageService"/>
     public class ImageService : IImageService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly Cloudinary _cloudinary;
 
+        /// <summary>
+        /// Creates a new instance of the ImageService.
+        /// </summary>
+        /// <param name="unitOfWork"></param>
+        /// <param name="config"></param>
+        /// <param name="mapper"></param>
         public ImageService(IUnitOfWork unitOfWork, IOptions<CloudinarySettings> config, IMapper mapper)
         {
             _unitOfWork = unitOfWork;

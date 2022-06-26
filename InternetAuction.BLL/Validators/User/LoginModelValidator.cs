@@ -3,6 +3,9 @@ using InternetAuction.BLL.Models.User;
 
 namespace InternetAuction.BLL.Validators.User
 {
+    /// <summary>
+    /// Represents a validator for the login model.
+    /// </summary>
     public class LoginModelValidator : AbstractValidator<LoginModel>
     {
         public LoginModelValidator()

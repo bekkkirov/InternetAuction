@@ -10,11 +10,17 @@ using Microsoft.AspNetCore.Http;
 
 namespace InternetAuction.BLL.Services
 {
+    ///<inheritdoc cref="IUserService"/>
     public class UserService : IUserService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
+        /// <summary>
+        /// Creates a new instance of the UserService.
+        /// </summary>
+        /// <param name="unitOfWork"></param>
+        /// <param name="mapper"></param>
         public UserService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
@@ -28,9 +34,9 @@ namespace InternetAuction.BLL.Services
             return _mapper.Map<IEnumerable<UserModel>>(users);
         }
 
-        public async Task<UserModel> GetByIdAsync(int modelId)
+        public async Task<UserModel> GetByIdAsync(int userId)
         {
-            var user = await _unitOfWork.UserRepository.GetByIdAsync(modelId);
+            var user = await _unitOfWork.UserRepository.GetByIdAsync(userId);
 
             return _mapper.Map<UserModel>(user);
         }

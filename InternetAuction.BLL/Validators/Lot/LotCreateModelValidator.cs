@@ -4,6 +4,9 @@ using InternetAuction.BLL.Models.Lot;
 
 namespace InternetAuction.BLL.Validators.Lot
 {
+    /// <summary>
+    /// Represents a validator for the lot create model.
+    /// </summary>
     public class LotCreateModelValidator : AbstractValidator<LotCreateModel>
     {
         public LotCreateModelValidator()

@@ -3,6 +3,9 @@ using InternetAuction.BLL.Models.Lot;
 
 namespace InternetAuction.BLL.Validators.Lot
 {
+    /// <summary>
+    /// Represents a validator for the category create model.
+    /// </summary>
     public class LotCategoryCreateModelValidator : AbstractValidator<LotCategoryCreateModel>
     {
         public LotCategoryCreateModelValidator()

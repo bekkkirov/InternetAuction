@@ -13,6 +13,7 @@ using InternetAuction.BLL.Models.User;
 
 namespace InternetAuction.BLL.Services
 {
+    ///<inheritdoc cref="IAuthorizationService"/>
     public class AuthorizationService : IAuthorizationService
     {
         private readonly UserManager<User> _userManager;
@@ -21,6 +22,14 @@ namespace InternetAuction.BLL.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
+        /// <summary>
+        /// Creates a new instance of the AuthorizationService.
+        /// </summary>
+        /// <param name="userManager"></param>
+        /// <param name="signInManager"></param>
+        /// <param name="tokenService"></param>
+        /// <param name="unitOfWork"></param>
+        /// <param name="mapper"></param>
         public AuthorizationService(UserManager<User> userManager, SignInManager<User> signInManager, ITokenService tokenService, IUnitOfWork unitOfWork, IMapper mapper)
         {
             _userManager = userManager;

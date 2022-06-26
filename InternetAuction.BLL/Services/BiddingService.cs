@@ -11,11 +11,17 @@ using InternetAuction.DAL.Interfaces;
 
 namespace InternetAuction.BLL.Services
 {
+    ///<inheritdoc cref="IBiddingService"/>
     public class BiddingService : IBiddingService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
+        /// <summary>
+        /// Creates a new instance of the BiddingService.
+        /// </summary>
+        /// <param name="unitOfWork"></param>
+        /// <param name="mapper"></param>
         public BiddingService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
@@ -67,12 +73,6 @@ namespace InternetAuction.BLL.Services
             await _unitOfWork.SaveChangesAsync();
 
             return _mapper.Map<BidModel>(bid);
-        }
-
-        public async Task DeleteByIdAsync(int modelId)
-        {
-            await _unitOfWork.BidRepository.DeleteByIdAsync(modelId);
-            await _unitOfWork.SaveChangesAsync();
         }
     }
 }

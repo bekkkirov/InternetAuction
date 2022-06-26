@@ -12,11 +12,17 @@ using InternetAuction.DAL.Interfaces;
 
 namespace InternetAuction.BLL.Services
 {
+    ///<inheritdoc cref="ILotService"/>
     public class LotService : ILotService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
+        /// <summary>
+        /// Creates a new instance of the LotService.
+        /// </summary>
+        /// <param name="unitOfWork"></param>
+        /// <param name="mapper"></param>
         public LotService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;

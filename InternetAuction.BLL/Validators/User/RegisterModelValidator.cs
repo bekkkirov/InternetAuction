@@ -3,6 +3,9 @@ using InternetAuction.BLL.Models.User;
 
 namespace InternetAuction.BLL.Validators.User
 {
+    /// <summary>
+    /// Represents a validator for the register model.
+    /// </summary>
     public class RegisterModelValidator : AbstractValidator<RegisterModel>
     {
         public RegisterModelValidator()
