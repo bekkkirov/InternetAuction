@@ -43,6 +43,12 @@ namespace InternetAuction.API.Extensions
                     .AddSignInManager<SignInManager<User>>()
                     .AddRoleValidator<RoleValidator<UserRole>>()
                     .AddEntityFrameworkStores<IdentityContext>();
+
+            services.AddAuthorization(opt =>
+            {
+                opt.AddPolicy("RequireModeratorRole", builder => builder.RequireRole("Moderator"));
+                opt.AddPolicy("RequireAdministratorRole", builder => builder.RequireRole("Administrator"));
+            });
         }
 
         public static void AddJwtAuthentication(this IServiceCollection services, string key)
