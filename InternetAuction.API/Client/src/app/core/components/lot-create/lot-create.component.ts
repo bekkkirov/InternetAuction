@@ -20,9 +20,9 @@ export class LotCreateComponent implements OnInit {
     form: FormGroup = new FormGroup({
         "name": new FormControl(null, [Validators.required, AppValidators.validateLength(5, 30)]),
         "description": new FormControl(null, [Validators.required, AppValidators.validateLength(10, 250)]),
-        "initialPrice": new FormControl(1, [Validators.required, Validators.min(1)]),
+        "initialPrice": new FormControl(null, [Validators.required, Validators.min(1)]),
         "saleEndTime": new FormControl(null, [Validators.required, AppValidators.validateDate]),
-        "quantity": new FormControl(1, [Validators.required, Validators.min(1)]),
+        "quantity": new FormControl(null, [Validators.required, Validators.min(1)]),
         "categoryId": new FormControl("", [Validators.required])
     });
 

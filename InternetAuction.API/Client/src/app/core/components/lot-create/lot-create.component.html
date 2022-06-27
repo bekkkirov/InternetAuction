@@ -29,7 +29,7 @@
                        name="initialPrice"
                        placeholder="Lot price">
                 <p class="error-label"
-                   *ngIf="form.get('initialPrice')?.invalid">Value must be >= 1</p>
+                   *ngIf="form.get('initialPrice')?.invalid && form.get('initialPrice')?.touched">Value must be >= 1</p>
             </div>
             <div class="form-group">
                 <input class="create__control create__sale-end"
@@ -47,7 +47,7 @@
                        name="quantity"
                        placeholder="Quantity">
                 <p class="error-label"
-                   *ngIf="form.get('quantity')?.invalid">
+                   *ngIf="form.get('quantity')?.invalid && form.get('quantity')?.touched">
                     Value must be greater than 0
                 </p>
             </div>
@@ -65,7 +65,7 @@
                 <input #fileInput name="file"
                        type="file"
                        accept="image/png, image/jpeg">
-                Upload new image
+                Add lot image
             </label>
             <input class="create__submit" type="submit" value="Submit" [disabled]="form.invalid">
         </form>
