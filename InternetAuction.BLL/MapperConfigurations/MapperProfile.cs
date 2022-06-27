@@ -16,7 +16,8 @@ namespace InternetAuction.BLL.MapperConfigurations
             //User
             CreateMap<AppUser, UserModel>()
                 .ForMember(d => d.BoughtLots, opt => opt.MapFrom(src => src.BoughtLots.OrderByDescending(l => l.SaleStartTime)))
-                .ForMember(d => d.RegisteredLots, opt => opt.MapFrom(src => src.RegisteredLots.OrderByDescending(l => l.SaleStartTime)));
+                .ForMember(d => d.RegisteredLots, opt => opt.MapFrom(src => src.RegisteredLots.OrderByDescending(l => l.SaleStartTime)))
+                .ForMember(d => d.Bids, opt => opt.MapFrom(src => src.Bids.OrderByDescending(b => b.BidTime)));
             CreateMap<RegisterModel, AppUser>();
             CreateMap<UserUpdateModel, AppUser>();
 
