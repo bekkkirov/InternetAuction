@@ -15,7 +15,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace InternetAuction.API.Controllers
 {
-    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class LotsController : ControllerBase
@@ -38,6 +37,7 @@ namespace InternetAuction.API.Controllers
             return Ok(await _lotService.GetAllCategoriesAsync());
         }
 
+        [Authorize]
         [HttpGet]
         [Route("categories/{categoryId}")]
         public async Task<ActionResult<PagedList<LotPreviewModel>>> GetLotsByCategory(int categoryId, [FromQuery] LotParameters lotParams)
@@ -49,7 +49,7 @@ namespace InternetAuction.API.Controllers
             return Ok(lots);
         }
 
-        [HttpGet(Name = "GetById")]
+        [HttpGet]
         [Route("previews")]
         public async Task<ActionResult<PagedList<LotPreviewModel>>> GetLotsPreviews([FromQuery] LotParameters lotParams)
         {
@@ -60,7 +60,8 @@ namespace InternetAuction.API.Controllers
             return Ok(lots);
         }
 
-        [HttpGet]
+        [Authorize]
+        [HttpGet(Name = "GetById")]
         [Route("{lotId}")]
         public async Task<ActionResult<LotModel>> GetLotById(int lotId)
         {
@@ -74,6 +75,7 @@ namespace InternetAuction.API.Controllers
             return Ok(lot);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<LotModel>> AddLot(LotCreateModel model)
         {
@@ -83,6 +85,7 @@ namespace InternetAuction.API.Controllers
             return CreatedAtRoute("GetById", new { id = created.Id }, created);
         }
 
+        [Authorize]
         [HttpPost]
         [Route("{lotId}/image")]
         public async Task<ActionResult<ImageModel>> AddLotImage(int lotId, IFormFile image)
@@ -92,6 +95,7 @@ namespace InternetAuction.API.Controllers
             return CreatedAtRoute("GetById", new { Id = lotId }, created);
         }
 
+        [Authorize]
         [HttpPost]
         [Route("{lotId}/bids")]
         public async Task<ActionResult<Bid>> PlaceBid(BidCreateModel model, int lotId)
@@ -103,6 +107,7 @@ namespace InternetAuction.API.Controllers
             return CreatedAtRoute("GetById", new {Id = lotId }, created);
         }
 
+        [Authorize]
         [HttpDelete]
         [Route("{lotId}")]
         public async Task<ActionResult> DeleteLot(int lotId)

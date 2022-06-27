@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -40,6 +41,7 @@ namespace InternetAuction.BLL.Tests.Tests
                     Description = "Description",
                     InitialPrice = 120,
                     CategoryId = 1,
+                    SaleEndTime = DateTime.Now.AddMinutes(30),
                     Category = new LotCategory() {Name = "Category1"}
                 },
 
@@ -50,6 +52,7 @@ namespace InternetAuction.BLL.Tests.Tests
                     Description = "Description",
                     InitialPrice = 12,
                     CategoryId = 2,
+                    SaleEndTime = DateTime.Now.AddMinutes(30),
                     Category = new LotCategory() {Name = "Category1"}
                 },
 
@@ -60,7 +63,9 @@ namespace InternetAuction.BLL.Tests.Tests
                     Description = "Description",
                     InitialPrice = 68,
                     CategoryId = 1,
-                    Category = new LotCategory() {Name = "Category1"}
+                    Category = new LotCategory() {Name = "Category1"},
+                    SaleEndTime = DateTime.Now.AddMinutes(30),
+                    Seller = new AppUser() {UserName = "user3"}
                 },
 
                 new Lot()
@@ -70,6 +75,7 @@ namespace InternetAuction.BLL.Tests.Tests
                     Description = "Description",
                     InitialPrice = 14,
                     CategoryId = 2,
+                    SaleEndTime = DateTime.Now.AddMinutes(30),
                     Category = new LotCategory() {Name = "Category1"}
                 },
             };
@@ -325,11 +331,14 @@ namespace InternetAuction.BLL.Tests.Tests
         {
             // Arrange
             _unitOfWorkMock.Setup(x => x.LotRepository.DeleteByIdAsync(It.IsAny<int>()));
+            _unitOfWorkMock.Setup(x => x.LotRepository.GetByIdWithDetailsAsync(It.IsAny<int>()))
+                           .ReturnsAsync( (int id) => LotEntities.FirstOrDefault(l => l.Id == id));
 
-            var lotToDelete = new Lot() { Id = 1, Name = "Lot" };
+            var lotToDelete = new Lot() { Id = 3, Name = "Lot", Seller = new AppUser() {UserName = "user3"}};
+            var userName = "user3";
 
             // Act
-            await _lotService.DeleteByIdAsync(lotToDelete.Id);
+            await _lotService.DeleteByIdAsync(userName, lotToDelete.Id);
 
             // Assert
             _unitOfWorkMock.Verify(x => x.LotRepository.DeleteByIdAsync(It.Is<int>(id => id == lotToDelete.Id)), Times.Once);
