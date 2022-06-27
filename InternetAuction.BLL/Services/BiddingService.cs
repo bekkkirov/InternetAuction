@@ -63,9 +63,21 @@ namespace InternetAuction.BLL.Services
                 throw new ArgumentException("Bid value is too low");
             }
 
+            var bidder = await _unitOfWork.UserRepository.GetByUserNameAsync(userName);
+
+            var currentUserBids = lot.Bids.Where(b => b.BidderId == bidder.Id).ToList();
+
+            bidder.Balance += currentUserBids.Any() ? currentUserBids.Max(b => b.BidValue) : 0;
+
+            if (bidder.Balance < model.BidValue)
+            {
+                throw new ArgumentException("You don't have enough money on your balance");
+            }
+
+            bidder.Balance -= model.BidValue;
+
             var bid = _mapper.Map<Bid>(model);
 
-            var bidder = await _unitOfWork.UserRepository.GetByUserNameAsync(userName);
             bid.Bidder = bidder;
             bid.Lot = lot;
 
