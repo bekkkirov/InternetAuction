@@ -27,13 +27,13 @@ export class LotDetailComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.currentUser = user);
+
         this.lotService.getLot(+this.route.snapshot.paramMap.get('lotId')).subscribe(result => {
             this.lot = result;
             this.form.patchValue({"bidValue": result.currentPrice + 5});
-            this.canBid = this.currentUser.userName !== this.lot.sellerUserName && result.saleEndTime < new Date();
+            this.canBid = this.currentUser.userName !== this.lot.sellerUserName && !this.saleEnded();
         });
-
-        this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.currentUser = user);
     }
 
     saleEnded() {

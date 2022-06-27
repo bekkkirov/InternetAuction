@@ -4,6 +4,9 @@ import {UserService} from "../../services/user.service";
 import {ActivatedRoute} from "@angular/router";
 import {LotService} from "../../services/lot.service";
 import {ToastrService} from "ngx-toastr";
+import {LoggedInUser} from "../../models/logged-in-user.model";
+import {AccountService} from "../../services/account.service";
+import {take} from "rxjs";
 
 @Component({
     selector: 'app-user-detail',
@@ -11,15 +14,18 @@ import {ToastrService} from "ngx-toastr";
     styleUrls: ['./user-detail.component.css']
 })
 export class UserDetailComponent implements OnInit {
+    currentUser:  LoggedInUser;
     user: User;
     pageNumber: number = 1;
     tab: string = "regLots"
 
-    constructor(private userService: UserService, private lotService: LotService,
-                private route: ActivatedRoute, private toastr: ToastrService) {
+    constructor(private userService: UserService, private accountService: AccountService,
+                private lotService: LotService, private route: ActivatedRoute,
+                private toastr: ToastrService) {
     }
 
     ngOnInit(): void {
+        this.accountService.currentUser$.pipe(take(1)).subscribe(result => this.currentUser = result);
         this.loadUser();
     }
 
