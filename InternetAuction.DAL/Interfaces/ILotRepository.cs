@@ -41,5 +41,7 @@ namespace InternetAuction.DAL.Interfaces
         /// <param name="categoryId">Category id.</param>
         /// <returns>Lot previews that belong to specified category.</returns>
         Task<IEnumerable<Lot>> GetPreviewsByCategoryIdAsync(int categoryId);
+
+        Task SetWinners();
     }
 }

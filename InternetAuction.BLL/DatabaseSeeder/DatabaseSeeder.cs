@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Bogus.Extensions;
 using InternetAuction.BLL.Models.User;
 
 namespace InternetAuction.BLL.DatabaseSeeder
@@ -57,9 +58,9 @@ namespace InternetAuction.BLL.DatabaseSeeder
                     },
                 };
 
-                var fakeUsers = new Faker<RegisterModel>().RuleFor(u => u.UserName, f => f.Internet.UserName() + f.IndexGlobal)
-                                                                          .RuleFor(u => u.FirstName, f => f.Person.FirstName)
-                                                                          .RuleFor(u => u.LastName, f => f.Person.LastName)
+                var fakeUsers = new Faker<RegisterModel>().RuleFor(u => u.UserName, f => (f.Internet.UserName() + f.IndexGlobal).ClampLength(1, 20))
+                                                                          .RuleFor(u => u.FirstName, f => f.Person.FirstName.ClampLength(1, 30))
+                                                                          .RuleFor(u => u.LastName, f => f.Person.LastName.ClampLength(1, 30))
                                                                           .RuleFor(u => u.Email, f => f.Internet.Email() + f.IndexGlobal)
                                                                           .RuleFor(u => u.Password, f => "password123")
                                                                           .Generate(10);
@@ -162,8 +163,8 @@ namespace InternetAuction.BLL.DatabaseSeeder
 
             if (!(await unitOfWork.LotRepository.GetAsync()).Any())
             {
-                var lotFaker = new Faker<Lot>().RuleFor(l => l.Name, f => f.Commerce.ProductName())
-                                               .RuleFor(l => l.Description, f => f.Commerce.ProductDescription())
+                var lotFaker = new Faker<Lot>().RuleFor(l => l.Name, f => f.Commerce.ProductName().ClampLength(1, 30))
+                                               .RuleFor(l => l.Description, f => f.Commerce.ProductDescription().ClampLength(1, 250))
                                                .RuleFor(l => l.InitialPrice, f => f.Random.Decimal(10, 200))
                                                .RuleFor(l => l.Quantity, f => f.Random.Number(1, 3))
                                                .RuleFor(l => l.CategoryId, f => f.Random.Number(1, 4))

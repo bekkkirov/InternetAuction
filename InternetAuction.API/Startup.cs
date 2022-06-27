@@ -53,7 +53,7 @@ namespace InternetAuction.API
 
             app.UseExceptionMiddleware();
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
             app.UseCors(opt => opt.AllowAnyOrigin()
