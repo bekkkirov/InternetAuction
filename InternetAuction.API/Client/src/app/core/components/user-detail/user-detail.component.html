@@ -34,7 +34,7 @@
                           itemsPerPage: 3,
                           currentPage: pageNumber,
                           totalItems: user.bids?.length}">
-                            <p class="profile__name" [routerLink]="'/lots/' + bid.lotId">{{bid.lotName}}</p>
+                            <a class="profile__name" [routerLink]="'/lots/' + bid.lotId">{{bid.lotName}}</a>
                             <a class="profile__value">{{bid.bidValue}}$</a>
                         </div>
                         <pagination-controls (pageChange)="changePage($event)"></pagination-controls>
