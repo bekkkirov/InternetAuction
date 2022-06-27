@@ -49,7 +49,7 @@ export class LotDetailComponent implements OnInit {
     loadLot() {
         this.lotService.getLot(+this.route.snapshot.paramMap.get('lotId')).subscribe(result => {
             this.lot = result;
-            this.form.patchValue({"bidValue": result.currentPrice + 5});
+            this.form.patchValue({"bidValue": +(result.currentPrice + 5).toFixed(2)});
             this.canBid = this.currentUser.userName !== this.lot.sellerUserName && !this.saleEnded();
         });
     }
