@@ -61,6 +61,22 @@
     padding-left: 7px;
 }
 
+.submit-orange {
+    padding: 10px 15px;
+    background-color: #ff8229;
+    font-size: 18px;
+    border-radius: 5px;
+    color: #fff;
+}
+
+.submit-orange:enabled:hover {
+    box-shadow: 0 0 10px #ff8229;
+}
+
+.submit-orange:disabled {
+    opacity: 0.5;
+}
+
 @keyframes background {
     0% {
         background-position: 0 50%;

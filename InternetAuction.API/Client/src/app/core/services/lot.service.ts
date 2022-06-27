@@ -9,6 +9,7 @@ import {Lot} from "../models/lot.model";
 import {LotParameters} from "../models/lot-parameters.model";
 import {LotCreate} from "../models/lot-create.model";
 import {Image} from "../models/image.model";
+import {BidCreate} from "../models/bid-create.model";
 
 @Injectable({
     providedIn: 'root'
@@ -84,5 +85,9 @@ export class LotService {
 
     deleteLot(lotId: number) {
         return this.http.delete(this.apiUrl + lotId);
+    }
+
+    placeBid(lotId: number, bid: BidCreate) {
+        return this.http.post(this.apiUrl + `${lotId}/bids`, bid);
     }
 }

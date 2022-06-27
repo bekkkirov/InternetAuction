@@ -11,11 +11,11 @@
                 <p class="detail__end"> {{saleEnded() ? 'Sale ended' : 'Sale ends'}} {{moment(lot.saleEndTime).fromNow()}}</p>
                 <div class="detail__bids">
                     <p class="detail__price" [ngClass]="{'detail__price-bid-disabled': !canBid}">{{lot.currentPrice}}$</p>
-                    <form class="detail__bid-form" [formGroup]="form" *ngIf="canBid">
+                    <form class="detail__bid-form" [formGroup]="form" *ngIf="canBid" (ngSubmit)="placeBid()">
                         <p class="detail__bid-label">Bid</p>
                         <input class="detail__bid-input" type="number" step=".01" formControlName="bidValue" name="bidValue">
                         <p class="detail__usd">$</p>
-                        <input class="detail__submit" type="submit" value="Place bid">
+                        <input class="submit-orange" type="submit" value="Place bid" [disabled]="form.invalid">
                     </form>
                 </div>
             </div>
