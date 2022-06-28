@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using InternetAuction.BLL.Interfaces;
@@ -7,7 +9,9 @@ using InternetAuction.BLL.Models.Image;
 using InternetAuction.BLL.Models.User;
 using InternetAuction.DAL.Entities;
 using InternetAuction.DAL.Interfaces;
+using InternetAuction.Identity.Entities;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 
 namespace InternetAuction.BLL.Services
 {
@@ -17,6 +21,8 @@ namespace InternetAuction.BLL.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IImageService _imageService;
         private readonly IMapper _mapper;
+        private readonly UserManager<User> _userManager;
+        private readonly RoleManager<UserRole> _roleManager;
 
         /// <summary>
         /// Creates a new instance of the UserService.
@@ -24,11 +30,16 @@ namespace InternetAuction.BLL.Services
         /// <param name="unitOfWork"></param>
         /// <param name="mapper"></param>
         /// <param name="imageService"></param>
-        public UserService(IUnitOfWork unitOfWork, IMapper mapper, IImageService imageService)
+        /// <param name="userManager"></param>
+        /// <param name="roleManager"></param>
+        public UserService(IUnitOfWork unitOfWork, IImageService imageService, IMapper mapper,
+            UserManager<User> userManager, RoleManager<UserRole> roleManager)
         {
             _unitOfWork = unitOfWork;
-            _mapper = mapper;
             _imageService = imageService;
+            _mapper = mapper;
+            _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         public async Task<IEnumerable<UserModel>> GetAsync()
@@ -85,6 +96,23 @@ namespace InternetAuction.BLL.Services
             }
 
             return await _imageService.AddAsync(image, currentUser.Id, null);
+        }
+
+        public async Task AddToRoleAsync(string userName, string roleName)
+        {
+            if (!await _roleManager.RoleExistsAsync(roleName))
+            {
+                throw new ArgumentException("Specified role doesn't exist");
+            }
+
+            var user = await _userManager.FindByNameAsync(userName);
+            var result = await _userManager.AddToRoleAsync(user, roleName);
+
+            if (!result.Succeeded)
+            {
+                throw new ArgumentException(result.Errors.FirstOrDefault()
+                                                  ?.Description);
+            }
         }
     }
 }
