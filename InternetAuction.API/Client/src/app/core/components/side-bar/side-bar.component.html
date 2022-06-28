@@ -1,0 +1,31 @@
+<div class="sidebar">
+    <img class="sidebar__profile-image" [src]="currentUser?.profileImage || 'assets/images/user.png'">
+    <p class="sidebar__userName">{{currentUser?.userName}}</p>
+    <ul class="sidebar__links">
+        <li class="sidebar__item">
+            <a [routerLink]="'users/profile/' + currentUser?.userName" class="sidebar__link">
+                My profile
+            </a>
+        </li>
+        <li class="sidebar__item">
+            <a routerLink="users/edit" class="sidebar__link">
+                Edit profile
+            </a>
+        </li>
+        <li class="sidebar__item">
+            <a routerLink="lot/create" class="sidebar__link">
+                Register new lot
+            </a>
+        </li>
+        <li class="sidebar__item">
+            <a class="sidebar__link">
+                Admin panel
+            </a>
+        </li>
+        <li class="sidebar__item">
+            <a class="sidebar__link" (click)="logout()">
+                Logout
+            </a>
+        </li>
+    </ul>
+</div>

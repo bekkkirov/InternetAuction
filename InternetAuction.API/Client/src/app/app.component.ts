@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {AccountService} from "./core/services/account.service";
 import {Router} from "@angular/router";
+import {take} from "rxjs";
+import {LoggedInUser} from "./core/models/logged-in-user.model";
 
 @Component({
     selector: 'app-root',
@@ -9,13 +11,39 @@ import {Router} from "@angular/router";
 })
 export class AppComponent implements OnInit{
     title = 'Client';
+    currentUser: LoggedInUser;
 
-    constructor(private accountService: AccountService, public router: Router) {
+    constructor(public accountService: AccountService, public router: Router) {
     }
 
     ngOnInit(): void {
         let currentUser = JSON.parse(localStorage.getItem('user'));
-        console.log(currentUser);
         this.accountService.setCurrentUser(currentUser);
+
+        this.accountService.currentUser$.subscribe(result => this.currentUser = result);
+    }
+
+    toggleGrid() {
+        if(this.currentUser) {
+            return 'gridA';
+        }
+
+        if(!this.currentUser && !this.router.url.includes('auth')) {
+            return 'gridB';
+        }
+
+        return '';
+    }
+
+    toggleSideBar() {
+        return this.currentUser &&
+        !this.router.url.includes('/users/profile/') &&
+        this.router.url != '/users/edit' &&
+        this.router.url != '/auth/sign-in' &&
+        this.router.url != '/auth/sign-up'
+    }
+
+    toggleNavBar() {
+        return this.router.url != '/auth/sign-in' && this.router.url != '/auth/sign-up'
     }
 }

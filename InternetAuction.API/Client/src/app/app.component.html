@@ -1,2 +1,8 @@
-<app-nav-bar *ngIf="router.url != '/auth/sign-in' && router.url != '/auth/sign-up'"></app-nav-bar>
-<router-outlet></router-outlet>
+<div class="wrapper" [ngClass]="toggleGrid()">
+    <app-side-bar *ngIf="toggleSideBar()">
+    </app-side-bar>
+    <app-nav-bar *ngIf="toggleNavBar()"></app-nav-bar>
+    <div class="main">
+        <router-outlet></router-outlet>
+    </div>
+</div>

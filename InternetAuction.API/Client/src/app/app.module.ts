@@ -19,6 +19,7 @@ import {NgxPaginationModule} from "ngx-pagination";
 import { LotDetailComponent } from './core/components/lot-detail/lot-detail.component';
 import { PageNotFoundComponent } from './core/components/page-not-found/page-not-found.component';
 import { LotCreateComponent } from './core/components/lot-create/lot-create.component';
+import { SideBarComponent } from './core/components/side-bar/side-bar.component';
 
 @NgModule({
     declarations: [
@@ -32,6 +33,7 @@ import { LotCreateComponent } from './core/components/lot-create/lot-create.comp
         LotDetailComponent,
         PageNotFoundComponent,
         LotCreateComponent,
+        SideBarComponent,
     ],
     imports: [
         BrowserModule,

@@ -1,0 +1,32 @@
+.gridA {
+    display: grid;
+    grid-template-columns: 10% 90%;
+    grid-template-areas:
+       "header header"
+       "sidebar content";
+}
+
+.gridB {
+    display: grid;
+    grid-template-columns: 10% 90%;
+    grid-template-areas:
+       "header header"
+       "content content";
+}
+
+app-side-bar {
+    grid-area: sidebar;
+}
+
+app-nav-bar {
+    grid-area: header;
+}
+
+.wrapper {
+    height: 100%;
+}
+
+.main {
+    grid-area: content;
+    height: 100%;
+}
