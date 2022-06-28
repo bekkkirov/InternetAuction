@@ -1,6 +1,9 @@
 .sidebar {
     background-color: #e5e5e5;
     height: 100%;
+}
+
+.sidebar__inner {
     display: flex;
     flex-direction: column;
     align-items: center;
