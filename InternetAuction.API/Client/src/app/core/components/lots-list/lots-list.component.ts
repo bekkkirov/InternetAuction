@@ -32,8 +32,8 @@ export class LotsListComponent implements OnInit {
 
     constructor(private lotService: LotService, private router: Router,
                 private route: ActivatedRoute) {
-
         if(this.router.url.includes("categories") ) {
+            this.categoryId = +this.route.snapshot.paramMap.get('categoryId');
             this.mode = LotsListMode.CategoryMode;
         }
 
