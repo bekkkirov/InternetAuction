@@ -150,3 +150,60 @@ pagination-controls {
 .not-found__text {
     font-size: 30px;
 }
+
+@media screen and (max-width: 1280px) {
+    .filters__form {
+        justify-content: center;
+    }
+
+    .filters__maxPrice,
+    .filters__minPrice,
+    .filters__order {
+        margin-right: 20px;
+        width: 100px;
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .categories__inner {
+        flex-wrap: wrap;
+    }
+
+    .categories__link {
+        width: 25%;
+        flex: auto;
+        margin-bottom: 5px;
+    }
+
+    .filters__form {
+        flex-direction: column;
+    }
+
+    .filters__label {
+        margin-bottom: 15px;
+    }
+
+    .filters__maxPrice,
+    .filters__minPrice,
+    .filters__order {
+        margin: 0 0 20px 0;
+    }
+
+    .lot__image {
+        width: 60px;
+        height: 60px;
+    }
+
+    .lot__name {
+        font-size: 18px;
+    }
+
+    .lot__saleTime {
+        font-size: 16px;
+    }
+
+    .lot__col2 {
+        font-size: 14px;
+    }
+}

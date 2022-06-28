@@ -38,3 +38,33 @@
 .sidebar__link:hover {
     color: darkred;
 }
+
+@media screen and (max-width: 1280px) {
+    .sidebar__profile-image {
+        width: 70px;
+        height: 70px;
+    }
+
+    .sidebar__userName {
+        font-size: 20px;
+    }
+
+    .sidebar__link {
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 1280px) {
+    .sidebar__profile-image {
+        width: 50px;
+        height: 50px;
+    }
+
+    .sidebar__userName {
+        font-size: 16px;
+    }
+
+    .sidebar__link {
+        font-size: 14px;
+    }
+}
