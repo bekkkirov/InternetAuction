@@ -14,13 +14,11 @@ namespace InternetAuction.API.Controllers
     {
         private readonly ILotService _lotService;
         private readonly IUserService _userService;
-        private readonly UserManager<User> _userManager;
 
         public AdminController(ILotService lotService, IUserService userService, UserManager<User> userManager)
         {
             _lotService = lotService;
             _userService = userService;
-            _userManager = userManager;
         }
 
         [Authorize(Policy = "RequireModeratorRole")]
