@@ -93,9 +93,13 @@ namespace InternetAuction.BLL.Services
             return _mapper.Map<LotModel>(await _unitOfWork.LotRepository.GetByIdWithDetailsAsync(lotId));
         }
 
-        public async Task<IEnumerable<LotModel>> SearchAsync(string searchValue)
+        public async Task<PagedList<LotPreviewModel>> SearchAsync(string searchValue, LotParameters lotParams)
         {
-            throw new System.NotImplementedException();
+            var lots = await _unitOfWork.LotRepository.SearchAsync(searchValue);
+            var filteredLots = FilterLotsByParams(lots, lotParams);
+            var mappedLots = _mapper.Map<IEnumerable<LotPreviewModel>>(filteredLots);
+
+            return PagedList<LotPreviewModel>.CreateAsync(mappedLots, lotParams.PageNumber, lotParams.PageSize);
         }
 
         public async Task<IEnumerable<LotCategoryModel>> GetAllCategoriesAsync()

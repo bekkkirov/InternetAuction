@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {AccountService} from "../../services/account.service";
-import {LoggedInUser} from "../../models/logged-in-user.model";
 import {Router} from "@angular/router";
 
 @Component({
@@ -9,7 +8,10 @@ import {Router} from "@angular/router";
     styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent implements OnInit {
-    constructor(public accountService: AccountService, private router: Router) {
+    searchValue: string;
+
+    constructor(public accountService: AccountService,
+                private router: Router) {
     }
 
     ngOnInit(): void {
@@ -19,5 +21,12 @@ export class NavBarComponent implements OnInit {
     logout() {
         this.accountService.logout();
         this.router.navigateByUrl("/");
+    }
+
+    searchForLots() {
+        if(this.searchValue) {
+            this.router.navigateByUrl('lots/search/' + this.searchValue);
+        }
+
     }
 }

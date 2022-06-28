@@ -3,11 +3,12 @@ import {LotService} from "../../services/lot.service";
 import {LotCategory} from "../../models/lot-category.model";
 import {take} from "rxjs";
 import {LotPreview} from "../../models/lot-preview-model";
-import {Pagination} from "../../models/pagination.model";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {LotParameters} from "../../models/lot-parameters.model";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import * as moment from 'moment';
+import {PaginatedResult} from "../../models/paginated-result.model";
+import {LotsListMode} from "../../models/lots-list-mode";
 
 @Component({
     selector: 'app-lots-list',
@@ -16,10 +17,10 @@ import * as moment from 'moment';
 })
 export class LotsListComponent implements OnInit {
     categories: LotCategory[];
-    lots: LotPreview[];
-    pagination: Pagination;
+    lots: PaginatedResult<LotPreview[]> = new PaginatedResult<LotPreview[]>();
     lotParams: LotParameters = new LotParameters();
-    isCategorySelected: boolean;
+    mode: LotsListMode = LotsListMode.BaseMode;
+    searchValue: string;
     categoryId: number = 1;
     moment = moment;
 
@@ -29,24 +30,41 @@ export class LotsListComponent implements OnInit {
         "order": new FormControl("PriceAscending"),
     })
 
-    constructor(private lotService: LotService, private router: Router) {
+    constructor(private lotService: LotService, private router: Router,
+                private route: ActivatedRoute) {
+
         if(this.router.url.includes("categories") ) {
-            this.isCategorySelected = true;
+            this.mode = LotsListMode.CategoryMode;
         }
 
-        else {
-            this.isCategorySelected = false;
+        else if(this.route.snapshot.paramMap.get('searchValue')) {
+            this.mode = LotsListMode.SearchMode;
         }
 
         this.get();
     }
 
     ngOnInit(): void {
+        this.route.params.subscribe(result => {
+            this.searchValue = result['searchValue']
+            this.get()
+        })
         this.getCategories();
     }
 
     get() {
-        !this.isCategorySelected ? this.getLots() : this.getLotsByCategory(this.categoryId);
+        switch (this.mode) {
+            case LotsListMode.BaseMode:
+                this.getLots()
+                break;
+            case LotsListMode.CategoryMode:
+                this.getLotsByCategory(this.categoryId);
+                break;
+            case LotsListMode.SearchMode:
+                this.searchForLots(this.searchValue)
+                break;
+
+        }
     }
 
     getCategories() {
@@ -55,16 +73,20 @@ export class LotsListComponent implements OnInit {
 
     getLots() {
         this.lotService.getLotPreviews(this.lotParams).pipe(take(1)).subscribe(response => {
-            this.lots = response.result;
-            this.pagination = response.pagination;
+            this.lots = response;
         });
     }
 
     getLotsByCategory(categoryId: number) {
         this.lotService.getLotsByCategory(categoryId, this.lotParams).pipe(take(1)).subscribe(response => {
-            this.lots = response.result;
-            this.pagination = response.pagination;
-        })
+            this.lots = response;
+        });
+    }
+
+    searchForLots(searchValue: string) {
+        this.lotService.search(searchValue, this.lotParams).pipe(take(1)).subscribe(response => {
+            this.lots = response;
+        });
     }
 
     changePage(event) {

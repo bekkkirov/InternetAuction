@@ -22,6 +22,7 @@ const routes: Routes = [
             {path: 'users/edit', component: UserEditComponent},
             {path: 'categories/:categoryId', component: LotsListComponent},
             {path: 'lots/:lotId', component: LotDetailComponent},
+            {path: 'lots/search/:searchValue', component: LotsListComponent},
             {path: 'lot/create', component: LotCreateComponent},
             {path: 'not-found', component: PageNotFoundComponent},
         ]

@@ -54,7 +54,7 @@ namespace InternetAuction.BLL.Interfaces
         /// </summary>
         /// <param name="searchValue">Search value</param>
         /// <returns>Lot previews.</returns>
-        Task<IEnumerable<LotModel>> SearchAsync(string searchValue);
+        Task<PagedList<LotPreviewModel>> SearchAsync(string searchValue, LotParameters lotParams);
 
         /// <summary>
         /// Gets all categories.

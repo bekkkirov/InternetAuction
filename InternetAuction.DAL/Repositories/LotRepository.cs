@@ -56,7 +56,10 @@ namespace InternetAuction.DAL.Repositories
 
         public async Task<IEnumerable<Lot>> SearchAsync(string searchValue)
         {
-            return await _dbSet.Where(l => EF.Functions.Like(l.Name, $"%{searchValue}%"))
+            return await _dbSet.Include(l => l.Images)
+                               .Include(l => l.Bids)
+                               .Where(l => EF.Functions.Like(l.Name, $"%{searchValue}%"))
+                               .Where(l => l.SaleEndTime > DateTime.Now)
                                .ToListAsync();
         }
 

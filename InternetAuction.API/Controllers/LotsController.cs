@@ -76,6 +76,18 @@ namespace InternetAuction.API.Controllers
         }
 
         [Authorize]
+        [HttpGet]
+        [Route("search/{searchValue}")]
+        public async Task<ActionResult<PagedList<LotPreviewModel>>> Search(string searchValue, [FromQuery] LotParameters lotParams)
+        {
+            var lots = await _lotService.SearchAsync(searchValue, lotParams);
+
+            Response.AddPaginationHeader(lots.CurrentPage, lots.PageSize, lots.ItemsCount, lots.TotalPages);
+
+            return Ok(lots);
+        }
+
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<LotModel>> AddLot(LotCreateModel model)
         {

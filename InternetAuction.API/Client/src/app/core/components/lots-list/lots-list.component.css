@@ -65,22 +65,6 @@
     margin-right: 30px;
 }
 
-.filters__submit {
-    padding: 10px 15px;
-    background-color: #ff8229;
-    font-size: 18px;
-    border-radius: 5px;
-    color: #fff;
-}
-
-.filters__submit:enabled:hover {
-    box-shadow: 0 0 10px #ff8229;
-}
-
-.filters__submit:disabled {
-    opacity: 0.5;
-}
-
 .lots__inner {
     display: flex;
     flex-direction: column;

@@ -20,17 +20,17 @@
                 <option ngValue="BidsAscending">Bids ascending</option>
                 <option ngValue="BidsDescending">Bids descending</option>
             </select>
-            <input class="filters__submit" type="submit" value="Apply filters" [disabled]="form.invalid">
+            <input class="submit-orange" type="submit" value="Apply filters" [disabled]="form.invalid">
         </form>
     </div>
 </div>
 <div class="lots">
     <div class="container">
-        <div class="lots__inner" *ngIf="this.lots && this.lots.length > 0;else lotsNotFound">
-            <div class="lot" *ngFor="let lot of lots | paginate: {
-              itemsPerPage: pagination?.itemsPerPage,
-              currentPage: pagination?.currentPage,
-              totalItems: pagination?.totalItems
+        <div class="lots__inner" *ngIf="this.lots && this.lots?.result?.length > 0;else lotsNotFound">
+            <div class="lot" *ngFor="let lot of lots.result | paginate: {
+              itemsPerPage: lots.pagination?.itemsPerPage,
+              currentPage: lots.pagination?.currentPage,
+              totalItems: lots.pagination?.totalItems
              }">
                 <img class="lot__image" [src]="lot.image?.url || '/assets/images/lot.png'">
                 <div class="lot__line"></div>

@@ -16,7 +16,6 @@ import {BidCreate} from "../models/bid-create.model";
 })
 export class LotService {
     apiUrl = environment.apiUrl + "lots/"
-    paginatedResult: PaginatedResult<LotPreview[]> = new PaginatedResult<LotPreview[]>();
 
     constructor(private http: HttpClient) {
     }
@@ -38,10 +37,7 @@ export class LotService {
 
         return this.http.get<LotPreview[]>(this.apiUrl + "previews", {observe: 'response', params: params}).pipe(
             map(response => {
-                this.paginatedResult.result = response.body;
-                this.paginatedResult.pagination = JSON.parse(response.headers.get('pagination'));
-
-                return this.paginatedResult;
+                return new PaginatedResult<LotPreview[]>(response.body, JSON.parse(response.headers.get('pagination')));
             })
         );
     }
@@ -51,10 +47,7 @@ export class LotService {
 
         return this.http.get<LotPreview[]>(this.apiUrl + "categories/" + categoryId, {observe: 'response', params: params}).pipe(
             map(response => {
-                this.paginatedResult.result = response.body;
-                this.paginatedResult.pagination = JSON.parse(response.headers.get('pagination'));
-
-                return this.paginatedResult;
+                return new PaginatedResult<LotPreview[]>(response.body, JSON.parse(response.headers.get('pagination')));
             })
         );
     }
@@ -89,5 +82,15 @@ export class LotService {
 
     placeBid(lotId: number, bid: BidCreate) {
         return this.http.post(this.apiUrl + `${lotId}/bids`, bid);
+    }
+
+    search(searchValue: string, lotParams: LotParameters) {
+        let params: HttpParams = this.addParams(lotParams);
+
+        return this.http.get<LotPreview[]>(this.apiUrl + `search/${searchValue}`, {observe: 'response', params: params}).pipe(
+            map(response => {
+                return new PaginatedResult<LotPreview[]>(response.body, JSON.parse(response.headers.get('pagination')));
+            })
+        );
     }
 }

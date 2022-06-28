@@ -3,7 +3,7 @@ import {BrowserModule} from '@angular/platform-browser';
 
 import {AppComponent} from './app.component';
 import {SignInComponent} from "./core/components/sign-in/sign-in.component";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { SignUpComponent } from './core/components/sign-up/sign-up.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { NavBarComponent } from './core/components/nav-bar/nav-bar.component';
@@ -40,7 +40,8 @@ import { LotCreateComponent } from './core/components/lot-create/lot-create.comp
         ReactiveFormsModule,
         HttpClientModule,
         AppRoutingModule,
-        ToastrModule.forRoot({positionClass: 'toast-bottom-right'})
+        ToastrModule.forRoot({positionClass: 'toast-bottom-right'}),
+        FormsModule
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},

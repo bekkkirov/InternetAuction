@@ -18,7 +18,6 @@
 
 .nav__search-bar {
     padding: 10px 15px 10px 50px;
-    width: 50%;
     font-size: 18px;
     background-image: url('src/assets/images/search.png');
     background-repeat: no-repeat;
@@ -26,6 +25,7 @@
     background-origin: content-box;
     background-size: 30px;
     border-radius: 15px;
+    width: 50%;
 }
 
 .nav__dropdown {
