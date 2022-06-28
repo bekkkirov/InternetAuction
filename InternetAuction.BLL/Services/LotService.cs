@@ -139,11 +139,11 @@ namespace InternetAuction.BLL.Services
                                                                 ?.BidValue ?? l.InitialPrice);
                         break;
 
-                    case OrderOptions.NumberOfBidsAscending:
+                    case OrderOptions.BidsAscending:
                         result = result.OrderBy(l => l.Bids.Count);
                         break;
 
-                    case OrderOptions.NumberOfBidsDescending:
+                    case OrderOptions.BidsDescending:
                         result = result.OrderByDescending(l => l.Bids.Count);
                         break;
 

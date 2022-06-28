@@ -4,7 +4,7 @@
     {
         PriceAscending,
         PriceDescending,
-        NumberOfBidsAscending,
-        NumberOfBidsDescending
+        BidsAscending,
+        BidsDescending
     }
 }
