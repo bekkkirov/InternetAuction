@@ -1,5 +1,7 @@
 .detail {
     padding: 120px;
+    display: flex;
+    justify-content: center;
 }
 
 .detail__inner {
@@ -96,4 +98,60 @@
 .detail__usd {
     font-size: 18px;
     margin-right: 35px;
+}
+
+@media screen and (max-width: 1024px) {
+    .detail__img {
+        width: 250px;
+        height: 250px;
+    }
+
+    .detail__name {
+        font-size: 40px;
+        text-align: center;
+    }
+
+    .detail__bids {
+        flex-direction: column;
+    }
+
+    .detail__price {
+        margin: 0 0 30px 0;
+    }
+
+    .detail__quantity {
+        margin-bottom: 40px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .detail__inner {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .detail__col1 {
+        margin: 0 0 50px 0;
+    }
+
+    .detail__col2 {
+        justify-content: center;
+    }
+
+    .detail__description {
+        max-width: 100%;
+    }
+
+    .detail__quantity {
+        text-align: center;
+    }
+
+    .detail__end {
+        text-align: center;
+    }
+
+    .detail__col1,
+    .detail__col2 {
+        width: 100%;
+    }
 }
