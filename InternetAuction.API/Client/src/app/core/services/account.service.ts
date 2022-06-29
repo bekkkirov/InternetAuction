@@ -18,6 +18,18 @@ export class AccountService {
     }
 
     setCurrentUser(user: LoggedInUser | null) {
+        if(user) {
+            let userRoles = this.decodeToken(user.token)?.role;
+
+            if(Array.isArray(userRoles)) {
+                user.roles = userRoles;
+            }
+
+            else {
+                user.roles?.push('');
+            }
+        }
+        
         localStorage.setItem('user', JSON.stringify(user));
         this.currentUserSource.next(user);
     }
@@ -49,5 +61,11 @@ export class AccountService {
     logout() {
         localStorage.removeItem('user');
         this.setCurrentUser(null);
+    }
+
+    decodeToken(token: string) {
+        if(token) {
+            return JSON.parse(atob(token.split('.')[1]));
+        }
     }
 }
