@@ -11,6 +11,8 @@ using AutoMapper;
 using InternetAuction.BLL.Interfaces;
 using InternetAuction.BLL.Models.Bid;
 using InternetAuction.BLL.Models.User;
+using InternetAuction.Identity.Entities;
+using Microsoft.AspNetCore.Identity;
 using Xunit;
 
 namespace InternetAuction.BLL.Tests.Tests
@@ -20,6 +22,8 @@ namespace InternetAuction.BLL.Tests.Tests
         private readonly Mock<IUnitOfWork> _unitOfWorkMock;
         private readonly Mock<IImageService> _imageServiceMock;
         private readonly IMapper _mapper;
+        private readonly Mock<UserManager<User>> _userManagerMock;
+        private readonly Mock<RoleManager<UserRole>> _roleManagerMock;
 
         private readonly UserService _userService;
 
@@ -28,8 +32,11 @@ namespace InternetAuction.BLL.Tests.Tests
             _unitOfWorkMock = new Mock<IUnitOfWork>();
             _imageServiceMock = new Mock<IImageService>();
             _mapper = UnitTestHelpers.CreateMapper();
+            _userManagerMock = UnitTestHelpers.CreateUserManagerMock();
+            _roleManagerMock = UnitTestHelpers.CreateRoleManagerMock();
 
-            _userService = new UserService(_unitOfWorkMock.Object, _mapper, _imageServiceMock.Object);
+            _userService = new UserService(_unitOfWorkMock.Object, _imageServiceMock.Object, _mapper, 
+                _userManagerMock.Object, _roleManagerMock.Object);
         }
 
         #region TestData

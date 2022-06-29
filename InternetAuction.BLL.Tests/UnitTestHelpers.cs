@@ -25,5 +25,13 @@ namespace InternetAuction.BLL.Tests
 
             return userManagerMock;
         }
+
+        public static Mock<RoleManager<UserRole>> CreateRoleManagerMock()
+        {
+            var roleStoreMock = new Mock<IRoleStore<UserRole>>();
+            var roleManagerMock = new Mock<RoleManager<UserRole>>(roleStoreMock.Object, null, null, null, null);
+
+            return roleManagerMock;
+        }
     }
 }

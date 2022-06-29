@@ -157,7 +157,8 @@ namespace InternetAuction.BLL.Tests.Tests
             new AppUser()
             {
                 Id = 1,
-                UserName = "user1"
+                UserName = "user1",
+                Balance = 999
             },
 
             new AppUser()
@@ -261,6 +262,22 @@ namespace InternetAuction.BLL.Tests.Tests
             var lotId = 3;
 
             await Assert.ThrowsAsync<InvalidOperationException>(async () => await _biddingService.AddAsync(createModel, bidderUserName, lotId));
+        }
+
+        [Fact]
+        public async Task Add_ShouldThrowWhenNotEnoughMoney()
+        {
+            _unitOfWorkMock.Setup(x => x.LotRepository.GetByIdWithDetailsAsync(It.IsAny<int>()))
+                           .ReturnsAsync((int lotId) => Lots.FirstOrDefault(l => l.Id == lotId));
+
+            _unitOfWorkMock.Setup(x => x.UserRepository.GetByUserNameAsync(It.IsAny<string>()))
+                           .ReturnsAsync((string userName) => Users.FirstOrDefault(u => u.UserName == userName));
+
+            var createModel = new BidCreateModel() { BidValue = 99999 };
+            var bidderUserName = "user1";
+            var lotId = 4;
+
+            await Assert.ThrowsAsync<ArgumentException>(async () => await _biddingService.AddAsync(createModel, bidderUserName, lotId));
         }
 
         [Fact]

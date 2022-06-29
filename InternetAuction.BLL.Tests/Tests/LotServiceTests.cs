@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using InternetAuction.BLL.Models;
+﻿using AutoMapper;
 using InternetAuction.BLL.Models.Lot;
 using InternetAuction.BLL.Pagination;
 using InternetAuction.BLL.Services;
 using InternetAuction.BLL.Tests.Comparers;
 using InternetAuction.DAL.Entities;
 using InternetAuction.DAL.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Moq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace InternetAuction.BLL.Tests.Tests
@@ -33,160 +33,180 @@ namespace InternetAuction.BLL.Tests.Tests
         #region TestData
 
         private static IEnumerable<Lot> LotEntities => new List<Lot>()
+        {
+            new Lot()
             {
-                new Lot()
-                {
-                    Id = 1,
-                    Name = "Lot1",
-                    Description = "Description",
-                    InitialPrice = 120,
-                    CategoryId = 1,
-                    SaleEndTime = DateTime.Now.AddMinutes(30),
-                    Category = new LotCategory() {Name = "Category1"}
-                },
+                Id = 1,
+                Name = "Lot1",
+                Description = "Description",
+                InitialPrice = 120,
+                CategoryId = 1,
+                SaleEndTime = DateTime.Now.AddMinutes(30),
+                Category = new LotCategory() {Name = "Category1"}
+            },
 
-                new Lot()
-                {
-                    Id = 2,
-                    Name = "Lot1",
-                    Description = "Description",
-                    InitialPrice = 12,
-                    CategoryId = 2,
-                    SaleEndTime = DateTime.Now.AddMinutes(30),
-                    Category = new LotCategory() {Name = "Category1"}
-                },
+            new Lot()
+            {
+                Id = 2,
+                Name = "Lot1",
+                Description = "Description",
+                InitialPrice = 12,
+                CategoryId = 2,
+                SaleEndTime = DateTime.Now.AddMinutes(30),
+                Category = new LotCategory() {Name = "Category1"}
+            },
 
-                new Lot()
-                {
-                    Id = 3,
-                    Name = "Lot1",
-                    Description = "Description",
-                    InitialPrice = 68,
-                    CategoryId = 1,
-                    Category = new LotCategory() {Name = "Category1"},
-                    SaleEndTime = DateTime.Now.AddMinutes(30),
-                    Seller = new AppUser() {UserName = "user3"}
-                },
+            new Lot()
+            {
+                Id = 3,
+                Name = "Lot1",
+                Description = "Description",
+                InitialPrice = 68,
+                CategoryId = 1,
+                Category = new LotCategory() {Name = "Category1"},
+                SaleEndTime = DateTime.Now.AddMinutes(30),
+                Seller = new AppUser() {UserName = "user3"}
+            },
 
-                new Lot()
-                {
-                    Id = 4,
-                    Name = "Lot1",
-                    Description = "Description",
-                    InitialPrice = 14,
-                    CategoryId = 2,
-                    SaleEndTime = DateTime.Now.AddMinutes(30),
-                    Category = new LotCategory() {Name = "Category1"}
-                },
-            };
+            new Lot()
+            {
+                Id = 4,
+                Name = "Lot1",
+                Description = "Description",
+                InitialPrice = 14,
+                CategoryId = 2,
+                SaleEndTime = DateTime.Now.AddMinutes(30),
+                Category = new LotCategory() {Name = "Category1"}
+            },
+
+            new Lot()
+            {
+                Id = 5,
+                Name = "Lot1",
+                Description = "Description",
+                InitialPrice = 99,
+                CategoryId = 2,
+                SaleEndTime = DateTime.Now.AddMinutes(-30),
+                Category = new LotCategory() {Name = "Category1"},
+                Seller = new AppUser() {UserName = "user3"}
+            }
+        };
 
         private static IEnumerable<LotModel> LotModels => new List<LotModel>()
+        {
+            new LotModel()
             {
-                new LotModel()
-                {
-                    Id = 1,
-                    Name = "Lot1",
-                    Description = "Description",
-                    CurrentPrice = 120
-                },
+                Id = 1,
+                Name = "Lot1",
+                Description = "Description",
+                CurrentPrice = 120
+            },
 
-                new LotModel()
-                {
-                    Id = 2,
-                    Name = "Lot1",
-                    Description = "Description",
-                    CurrentPrice = 12
-                },
+            new LotModel()
+            {
+                Id = 2,
+                Name = "Lot1",
+                Description = "Description",
+                CurrentPrice = 12
+            },
 
-                new LotModel()
-                {
-                    Id = 3,
-                    Name = "Lot1",
-                    Description = "Description",
-                    CurrentPrice = 68
-                },
+            new LotModel()
+            {
+                Id = 3,
+                Name = "Lot1",
+                Description = "Description",
+                CurrentPrice = 68
+            },
 
-                new LotModel()
-                {
-                    Id = 4,
-                    Name = "Lot1",
-                    Description = "Description",
-                    CurrentPrice = 14
-                },
-            };
+            new LotModel()
+            {
+                Id = 4,
+                Name = "Lot1",
+                Description = "Description",
+                CurrentPrice = 14
+            },
+
+            new LotModel()
+            {
+                Id = 5,
+                Name = "Lot1",
+                Description = "Description",
+                CurrentPrice = 99,
+            }
+        };
 
         private static IEnumerable<LotPreviewModel> LotPreviewModels => new List<LotPreviewModel>()
+        {
+            new LotPreviewModel()
             {
-                new LotPreviewModel()
-                {
-                    Id = 1,
-                    Name = "Lot1",
-                    CurrentPrice = 120
-                },
+                Id = 1,
+                Name = "Lot1",
+                CurrentPrice = 120
+            },
 
-                new LotPreviewModel()
-                {
-                    Id = 2,
-                    Name = "Lot1",
-                    CurrentPrice = 12
-                },
+            new LotPreviewModel()
+            {
+                Id = 2,
+                Name = "Lot1",
+                CurrentPrice = 12
+            },
 
-                new LotPreviewModel()
-                {
-                    Id = 3,
-                    Name = "Lot1",
-                    CurrentPrice = 68
-                },
+            new LotPreviewModel()
+            {
+                Id = 3,
+                Name = "Lot1",
+                CurrentPrice = 68
+            },
 
-                new LotPreviewModel()
-                {
-                    Id = 4,
-                    Name = "Lot1",
-                    CurrentPrice = 14
-                },
-            };
+            new LotPreviewModel()
+            {
+                Id = 4,
+                Name = "Lot1",
+                CurrentPrice = 14
+            },
+        };
 
         private static IEnumerable<LotCategory> LotCategories => new List<LotCategory>()
+        {
+            new LotCategory()
             {
-                new LotCategory()
-                {
-                    Id = 1,
-                    Name = "Category1"
-                },
+                Id = 1,
+                Name = "Category1"
+            },
 
-                new LotCategory()
-                {
-                    Id = 2,
-                    Name = "Category2"
-                },
+            new LotCategory()
+            {
+                Id = 2,
+                Name = "Category2"
+            },
 
-                new LotCategory()
-                {
-                    Id = 3,
-                    Name = "Category3"
-                },
-            };
+            new LotCategory()
+            {
+                Id = 3,
+                Name = "Category3"
+            },
+        };
 
         private static IEnumerable<LotCategoryModel> LotCategoryModels => new List<LotCategoryModel>()
+        {
+            new LotCategoryModel()
             {
-                new LotCategoryModel()
-                {
-                    Id = 1,
-                    Name = "Category1"
-                },
+                Id = 1,
+                Name = "Category1"
+            },
 
-                new LotCategoryModel()
-                {
-                    Id = 2,
-                    Name = "Category2"
-                },
+            new LotCategoryModel()
+            {
+                Id = 2,
+                Name = "Category2"
+            },
 
-                new LotCategoryModel()
-                {
-                    Id = 3,
-                    Name = "Category3"
-                },
-            };
+            new LotCategoryModel()
+            {
+                Id = 3,
+                Name = "Category3"
+            },
+        };
 
         private static IEnumerable<AppUser> UserEntities => new List<AppUser>()
         {
@@ -195,13 +215,13 @@ namespace InternetAuction.BLL.Tests.Tests
                 Id = 1,
                 UserName = "user1"
             },
-            
+
             new AppUser()
             {
                 Id = 2,
                 UserName = "user2"
             },
-            
+
             new AppUser()
             {
                 Id = 3,
@@ -213,17 +233,17 @@ namespace InternetAuction.BLL.Tests.Tests
         {
             var lots = LotModels.ToList();
 
-            yield return new object[] { 1, lots[0] };
-            yield return new object[] { 2, lots[1] };
-            yield return new object[] { 3, lots[2] };
-            yield return new object[] { -10, null };
-            yield return new object[] { 158, null };
+            yield return new object[] {1, lots[0]};
+            yield return new object[] {2, lots[1]};
+            yield return new object[] {3, lots[2]};
+            yield return new object[] {-10, null};
+            yield return new object[] {158, null};
         }
 
         public static IEnumerable<object[]> GetLotsPreviewsByCategory_TestData()
         {
             int count = 2;
-            var categoriesIds = new List<int>() { 1, 2 };
+            var categoriesIds = new List<int>() {1, 2};
 
             var lotParameters = new LotParameters();
             var mapper = UnitTestHelpers.CreateMapper();
@@ -232,12 +252,14 @@ namespace InternetAuction.BLL.Tests.Tests
 
             for (int i = 0; i < count; i++)
             {
-                var lots = mapper.Map<IEnumerable<LotPreviewModel>>(LotEntities.Where(l => l.CategoryId == categoriesIds[i]));
-                lists.Add(PagedList<LotPreviewModel>.CreateAsync(lots, lotParameters.PageNumber, lotParameters.PageSize));
+                var lots = mapper.Map<IEnumerable<LotPreviewModel>>(LotEntities.Where(l =>
+                    l.CategoryId == categoriesIds[i]));
+                lists.Add(
+                    PagedList<LotPreviewModel>.CreateAsync(lots, lotParameters.PageNumber, lotParameters.PageSize));
             }
 
-            yield return new object[] { categoriesIds[0], lists[0] };
-            yield return new object[] { categoriesIds[1], lists[1] };
+            yield return new object[] {categoriesIds[0], lists[0]};
+            yield return new object[] {categoriesIds[1], lists[1]};
         }
 
         #endregion
@@ -247,7 +269,7 @@ namespace InternetAuction.BLL.Tests.Tests
         {
             // Arrange
             _unitOfWorkMock.Setup(x => x.LotRepository.GetAsync())
-                          .ReturnsAsync(LotEntities);
+                           .ReturnsAsync(LotEntities);
 
             var expected = LotModels;
 
@@ -264,7 +286,7 @@ namespace InternetAuction.BLL.Tests.Tests
         {
             // Arrange
             _unitOfWorkMock.Setup(x => x.LotRepository.GetByIdWithDetailsAsync(It.IsAny<int>()))
-                          .ReturnsAsync((int id) => LotEntities.FirstOrDefault(l => l.Id == id));
+                           .ReturnsAsync((int id) => LotEntities.FirstOrDefault(l => l.Id == id));
 
             // Act
             var actual = await _lotService.GetByIdWithDetailsAsync(lotId);
@@ -278,10 +300,12 @@ namespace InternetAuction.BLL.Tests.Tests
         {
             // Arrange
             _unitOfWorkMock.Setup(x => x.LotRepository.GetPreviewsAsync())
-                          .ReturnsAsync(LotEntities);
+                           .ReturnsAsync(LotEntities.Where(l => l.SaleEndTime >= DateTime.Now));
 
             var lotParameters = new LotParameters();
-            var expected = PagedList<LotPreviewModel>.CreateAsync(LotPreviewModels, lotParameters.PageNumber, lotParameters.PageSize);
+            var expected =
+                PagedList<LotPreviewModel>.CreateAsync(LotPreviewModels, lotParameters.PageNumber,
+                    lotParameters.PageSize);
 
             // Act
             var actual = await _lotService.GetLotsPreviewsAsync(lotParameters);
@@ -292,11 +316,12 @@ namespace InternetAuction.BLL.Tests.Tests
 
         [Theory]
         [MemberData(nameof(GetLotsPreviewsByCategory_TestData))]
-        public async Task GetLotsPreviewsByCategory_ShouldReturnCorrectData(int categoryId, PagedList<LotPreviewModel> expected)
+        public async Task GetLotsPreviewsByCategory_ShouldReturnCorrectData(int categoryId,
+            PagedList<LotPreviewModel> expected)
         {
             // Arrange
             _unitOfWorkMock.Setup(x => x.LotRepository.GetPreviewsByCategoryIdAsync(It.IsAny<int>()))
-                          .ReturnsAsync((int id) => LotEntities.Where(l => l.CategoryId == id));
+                           .ReturnsAsync((int id) => LotEntities.Where(l => l.CategoryId == id));
 
             var lotParameters = new LotParameters();
 
@@ -313,17 +338,43 @@ namespace InternetAuction.BLL.Tests.Tests
             // Arrange
             _unitOfWorkMock.Setup(x => x.LotRepository.Add(It.IsAny<Lot>()));
             _unitOfWorkMock.Setup(x => x.UserRepository.GetByUserNameAsync(It.IsAny<string>()))
-                           .ReturnsAsync( (string userName) => UserEntities.FirstOrDefault(u => u.UserName == userName));
+                           .ReturnsAsync((string userName) => UserEntities.FirstOrDefault(u => u.UserName == userName));
 
-            var lot = new LotCreateModel() { Name = "Lot" };
+            var lot = new LotCreateModel() {Name = "Lot"};
             var sellerUserName = "user1";
 
             // Act
             await _lotService.AddAsync(lot, sellerUserName);
 
             // Assert
-            _unitOfWorkMock.Verify(x => x.LotRepository.Add(It.Is<Lot>(l => l.Name == lot.Name && l.Seller.UserName == sellerUserName)), Times.Once);
+            _unitOfWorkMock.Verify(
+                x => x.LotRepository.Add(It.Is<Lot>(l => l.Name == lot.Name && l.Seller.UserName == sellerUserName)),
+                Times.Once);
             _unitOfWorkMock.Verify(x => x.SaveChangesAsync(), Times.Once);
+        }
+
+        [Fact]
+        public async Task DeleteLotById_ShouldThrowWithInvalidSellerName()
+        {
+            _unitOfWorkMock.Setup(x => x.LotRepository.GetByIdWithDetailsAsync(It.IsAny<int>()))
+                           .ReturnsAsync((int id) => LotEntities.FirstOrDefault(l => l.Id == id));
+
+            var lotId = 3;
+            var userName = "SomeInvalidUserName";
+
+            await Assert.ThrowsAsync<ArgumentException>(() => _lotService.DeleteByIdAsync(userName, lotId));
+        }
+
+        [Fact]
+        public async Task DeleteLotById_ShouldThrowWhenSaleEnded()
+        {
+            _unitOfWorkMock.Setup(x => x.LotRepository.GetByIdWithDetailsAsync(It.IsAny<int>()))
+                           .ReturnsAsync((int id) => LotEntities.FirstOrDefault(l => l.Id == id));
+
+            var lotId = 5;
+            var userName = "user3";
+
+            await Assert.ThrowsAsync<ArgumentException>(() => _lotService.DeleteByIdAsync(userName, lotId));
         }
 
         [Fact]
@@ -332,16 +383,16 @@ namespace InternetAuction.BLL.Tests.Tests
             // Arrange
             _unitOfWorkMock.Setup(x => x.LotRepository.DeleteByIdAsync(It.IsAny<int>()));
             _unitOfWorkMock.Setup(x => x.LotRepository.GetByIdWithDetailsAsync(It.IsAny<int>()))
-                           .ReturnsAsync( (int id) => LotEntities.FirstOrDefault(l => l.Id == id));
+                           .ReturnsAsync((int id) => LotEntities.FirstOrDefault(l => l.Id == id));
 
-            var lotToDelete = new Lot() { Id = 3, Name = "Lot", Seller = new AppUser() {UserName = "user3"}};
+            var lotId = 3;
             var userName = "user3";
 
             // Act
-            await _lotService.DeleteByIdAsync(userName, lotToDelete.Id);
+            await _lotService.DeleteByIdAsync(userName, lotId);
 
             // Assert
-            _unitOfWorkMock.Verify(x => x.LotRepository.DeleteByIdAsync(It.Is<int>(id => id == lotToDelete.Id)), Times.Once);
+            _unitOfWorkMock.Verify(x => x.LotRepository.DeleteByIdAsync(It.Is<int>(id => id == lotId)), Times.Once);
             _unitOfWorkMock.Verify(x => x.SaveChangesAsync(), Times.Once);
         }
 
@@ -349,7 +400,8 @@ namespace InternetAuction.BLL.Tests.Tests
         public async Task GetCategories_ShouldReturnCorrectData()
         {
             // Arrange
-            _unitOfWorkMock.Setup(x => x.LotCategoryRepository.GetAsync()).ReturnsAsync(LotCategories);
+            _unitOfWorkMock.Setup(x => x.LotCategoryRepository.GetAsync())
+                           .ReturnsAsync(LotCategories);
 
             var expected = LotCategoryModels;
 
@@ -366,13 +418,14 @@ namespace InternetAuction.BLL.Tests.Tests
             // Arrange
             _unitOfWorkMock.Setup(x => x.LotCategoryRepository.Add(It.IsAny<LotCategory>()));
 
-            var category = new LotCategoryCreateModel() { Name = "Category" };
+            var category = new LotCategoryCreateModel() {Name = "Category"};
 
             // Act
             await _lotService.AddCategoryAsync(category);
 
             // Assert
-            _unitOfWorkMock.Verify(x => x.LotCategoryRepository.Add(It.Is<LotCategory>(c => c.Name == category.Name)), Times.Once);
+            _unitOfWorkMock.Verify(x => x.LotCategoryRepository.Add(It.Is<LotCategory>(c => c.Name == category.Name)),
+                Times.Once);
             _unitOfWorkMock.Verify(x => x.SaveChangesAsync(), Times.Once);
         }
 
@@ -382,14 +435,36 @@ namespace InternetAuction.BLL.Tests.Tests
             // Arrange
             _unitOfWorkMock.Setup(x => x.LotCategoryRepository.DeleteByIdAsync(It.IsAny<int>()));
 
-            var categoryToDelete = new LotCategory() { Id = 1, Name = "Category" };
+            var categoryToDelete = new LotCategory() {Id = 1, Name = "Category"};
 
             // Act
             await _lotService.DeleteCategoryByIdAsync(categoryToDelete.Id);
 
             // Assert
-            _unitOfWorkMock.Verify(x => x.LotCategoryRepository.DeleteByIdAsync(It.Is<int>(id => id == categoryToDelete.Id)), Times.Once);
+            _unitOfWorkMock.Verify(
+                x => x.LotCategoryRepository.DeleteByIdAsync(It.Is<int>(id => id == categoryToDelete.Id)), Times.Once);
             _unitOfWorkMock.Verify(x => x.SaveChangesAsync(), Times.Once);
+        }
+
+        [Theory]
+        [InlineData("o")]
+        [InlineData("lot")]
+        [InlineData("pla")]
+        public async Task Search_ShouldReturnCorrectData(string searchValue)
+        {
+            _unitOfWorkMock.Setup(x => x.LotRepository.SearchAsync(It.IsAny<string>()))
+                           .ReturnsAsync((string search) => LotEntities.Where(l =>
+                               EF.Functions.Like(l.Name, $"%{search}%")
+                               && l.SaleEndTime >= DateTime.Now));
+
+            var lotParameters = new LotParameters();
+            var expected = PagedList<LotPreviewModel>.CreateAsync(LotPreviewModels.Where(l =>
+                    EF.Functions.Like(l.Name, $"%{searchValue}%")),
+                lotParameters.PageNumber, lotParameters.PageSize);
+
+            var actual = await _lotService.SearchAsync(searchValue, lotParameters);
+
+            Assert.Equal(expected, actual, new LotPreviewModelComparer());
         }
     }
 }
