@@ -10,6 +10,11 @@
     color: #fff;
 }
 
+.nav__logo-small {
+    display: none;
+}
+
+.nav__logo-small,
 .nav__logo {
     font-weight: bold;
     font-size: 35px;
@@ -43,4 +48,18 @@
 
 .nav__auth-button:not(:last-child) {
     margin-right: 15px;
+}
+
+@media screen and (max-width: 768px) {
+    .nav__logo {
+        display: none;
+    }
+
+    .nav__logo-small {
+        display: block;
+    }
+
+    .nav__search-bar {
+        width: 80%;
+    }
 }
