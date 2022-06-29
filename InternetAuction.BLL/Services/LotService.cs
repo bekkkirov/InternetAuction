@@ -135,26 +135,20 @@ namespace InternetAuction.BLL.Services
                 switch (orderOptions)
                 {
                     case OrderOptions.PriceDescending:
-                        result = result.OrderByDescending(l => l.Bids.LastOrDefault()
+                        return result.OrderByDescending(l => l.Bids.LastOrDefault()
                                                                 ?.BidValue ?? l.InitialPrice);
-                        break;
 
                     case OrderOptions.BidsAscending:
-                        result = result.OrderBy(l => l.Bids.Count);
-                        break;
+                        return result.OrderBy(l => l.Bids.Count);
 
                     case OrderOptions.BidsDescending:
-                        result = result.OrderByDescending(l => l.Bids.Count);
-                        break;
+                        return result.OrderByDescending(l => l.Bids.Count);
 
-                    default:
-                        result = result.OrderBy(l => l.Bids.LastOrDefault()
-                                                      ?.BidValue ?? l.InitialPrice);
-                        break;
                 }
             }
 
-            return result;
+            return result.OrderBy(l => l.Bids.LastOrDefault()
+                                        ?.BidValue ?? l.InitialPrice);
         }
     }
 }

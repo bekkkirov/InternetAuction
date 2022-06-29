@@ -305,7 +305,7 @@ namespace InternetAuction.BLL.Tests.Tests
             var lotParameters = new LotParameters();
             var expected =
                 PagedList<LotPreviewModel>.CreateAsync(LotPreviewModels, lotParameters.PageNumber,
-                    lotParameters.PageSize);
+                    lotParameters.PageSize).OrderBy(l => l.CurrentPrice);
 
             // Act
             var actual = await _lotService.GetLotsPreviewsAsync(lotParameters);
@@ -329,7 +329,7 @@ namespace InternetAuction.BLL.Tests.Tests
             var actual = await _lotService.GetLotsPreviewsByCategoryAsync(categoryId, lotParameters);
 
             // Assert
-            Assert.Equal(expected, actual, new LotPreviewModelComparer());
+            Assert.Equal(expected.OrderBy(l => l.CurrentPrice), actual, new LotPreviewModelComparer());
         }
 
         [Fact]
@@ -460,7 +460,7 @@ namespace InternetAuction.BLL.Tests.Tests
             var lotParameters = new LotParameters();
             var expected = PagedList<LotPreviewModel>.CreateAsync(LotPreviewModels.Where(l =>
                     EF.Functions.Like(l.Name, $"%{searchValue}%")),
-                lotParameters.PageNumber, lotParameters.PageSize);
+                lotParameters.PageNumber, lotParameters.PageSize).OrderBy(l => l.CurrentPrice);
 
             var actual = await _lotService.SearchAsync(searchValue, lotParameters);
 
