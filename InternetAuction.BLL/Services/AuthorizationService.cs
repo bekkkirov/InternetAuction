@@ -74,6 +74,8 @@ namespace InternetAuction.BLL.Services
             await _unitOfWork.SaveChangesAsync();
 
             var identityUser = await _userManager.FindByNameAsync(model.UserName);
+            await _userManager.AddToRoleAsync(identityUser, "User");
+
             var user = await _unitOfWork.UserRepository.GetByUserNameWithDetailsAsync(identityUser.UserName);
 
             return new LoggedInUserModel() { UserName = identityUser.UserName, Token = await _tokenService.GenerateTokenAsync(identityUser)};
