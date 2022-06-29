@@ -34,6 +34,7 @@ export class UserDetailComponent implements OnInit {
     }
 
     changeTab(tab: string) {
+        this.pageNumber = 1;
         this.tab = tab;
     }
 

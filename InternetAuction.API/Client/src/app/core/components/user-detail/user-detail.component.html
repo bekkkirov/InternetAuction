@@ -8,13 +8,23 @@
             <div class="profile__col2">
                 <div class="profile__tabs">
                     <a class="profile__tab" [ngClass]="tab === 'boughtLots' ? 'tab-active' : ''"
-                       (click)="tab = 'boughtLots'">Bought lots</a>
-                    <a class="profile__tab" [ngClass]="tab === 'regLots' ? 'tab-active' : ''" (click)="tab = 'regLots'">Registered
+                       (click)="changeTab('boughtLots')">Bought lots</a>
+                    <a class="profile__tab" [ngClass]="tab === 'regLots' ? 'tab-active' : ''" (click)="changeTab('regLots')">Registered
                         lots</a>
                     <a class="profile__tab" [ngClass]="tab === 'bids' ? 'tab-active' : ''"
-                       (click)="tab = 'bids'">Bids</a>
+                       (click)="changeTab('bids')">Bids</a>
                 </div>
                 <div class="profile__content">
+                    <div class="profile__boughtLots" *ngIf="tab === 'boughtLots'">
+                        <div class="profile__container" *ngFor="let lot of user.boughtLots | paginate: {
+                          itemsPerPage: 3,
+                          currentPage: pageNumber,
+                          totalItems: user.boughtLots?.length}">
+                            <a class="profile__name" [routerLink]="'/lots/' + lot.id">{{lot.name}}</a>
+                            <p class="profile__value">{{lot.currentPrice}}$</p>
+                        </div>
+                        <pagination-controls *ngIf="user.boughtLots?.length" (pageChange)="changePage($event)"></pagination-controls>
+                    </div>
                     <div class="profile__registeredLots" *ngIf="tab === 'regLots'">
                         <div class="profile__container" *ngFor="let lot of user.registeredLots | paginate: {
                           itemsPerPage: 3,
@@ -25,9 +35,7 @@
                             <img class="profile__delete" src="assets/images/delete.png"
                                  (click)="deleteLot(lot.id)" *ngIf="lot.sellerUserName === currentUser.userName">
                         </div>
-                        <pagination-controls (pageChange)="changePage($event)"></pagination-controls>
-                    </div>
-                    <div class="profile__boughtLots" *ngIf="tab === 'boughtLots'">
+                        <pagination-controls *ngIf="user.registeredLots?.length" (pageChange)="changePage($event)"></pagination-controls>
                     </div>
                     <div class="profile__bids" *ngIf="tab === 'bids'">
                         <div class="profile__container" *ngFor="let bid of user.bids | paginate: {
@@ -37,7 +45,7 @@
                             <a class="profile__name" [routerLink]="'/lots/' + bid.lotId">{{bid.lotName}}</a>
                             <a class="profile__value">{{bid.bidValue}}$</a>
                         </div>
-                        <pagination-controls (pageChange)="changePage($event)"></pagination-controls>
+                        <pagination-controls *ngIf="user.bids?.length" (pageChange)="changePage($event)"></pagination-controls>
                     </div>
                 </div>
             </div>

@@ -1,6 +1,6 @@
 <div class="sidebar">
     <div class="sidebar__inner">
-    <img class="sidebar__profile-image" [src]="currentUser?.profileImage">
+    <img class="sidebar__profile-image" [src]="currentUser?.profileImage || 'assets/images/user.png'">
     <p class="sidebar__userName">{{currentUser?.userName}}</p>
     <ul class="sidebar__links">
         <li class="sidebar__item">

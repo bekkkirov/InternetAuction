@@ -88,10 +88,51 @@
     width: 25%;
 }
 
+.profile__boughtLots,
+.profile__registeredLots,
 .profile__bids {
     width: 100%;
 }
 
 .tab-active {
     color: #ff6700;
+}
+
+@media screen and (max-width: 1024px) {
+    .profile__img {
+        width: 150px;
+        height: 150px;
+    }
+
+    .profile__tab:not(:last-child) {
+        margin-right: 50px;
+    }
+
+    .profile__col1 {
+        align-self: center;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .profile__inner {
+        flex-direction: column;
+    }
+
+    .profile__col1 {
+        margin-bottom: 30px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .profile__tab {
+        font-size: 16px;
+    }
+
+    .profile__tab:not(:last-child) {
+        margin-right: 20px;
+    }
+
+    pagination-controls {
+        font-size: 12px;
+    }
 }
