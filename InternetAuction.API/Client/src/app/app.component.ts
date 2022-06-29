@@ -10,7 +10,7 @@ import {LoggedInUser} from "./core/models/logged-in-user.model";
     styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
-    title = 'Client';
+    title = 'Auction';
     currentUser: LoggedInUser;
 
     constructor(public accountService: AccountService, public router: Router) {
