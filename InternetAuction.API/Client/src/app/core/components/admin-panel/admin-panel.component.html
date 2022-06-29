@@ -9,7 +9,8 @@
                    placeholder="Category name">
             <input class="submit-orange" type="submit" value="Submit" [disabled]="categoryForm.invalid">
         </form>
-        <form class="panel__roles-form" [formGroup]="rolesForm" (ngSubmit)="assignRole()">
+        <form class="panel__roles-form" [formGroup]="rolesForm" (ngSubmit)="assignRole()"
+              *ngIf="(accountService.currentUser$ | async)?.roles?.includes('Administrator')">
             <p class="form-title">Assign a role to a user</p>
             <input class="form-control"
                    type="text"

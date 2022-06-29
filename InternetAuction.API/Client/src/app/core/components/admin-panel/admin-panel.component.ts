@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AppValidators} from "../../validators/app-validators";
 import {AdminService} from "../../services/admin.service";
 import {ToastrService} from "ngx-toastr";
+import {AccountService} from "../../services/account.service";
 
 @Component({
     selector: 'app-admin-panel',
@@ -19,7 +20,7 @@ export class AdminPanelComponent implements OnInit {
         "roleName": new FormControl(null, [Validators.required])
     });
 
-    constructor(private adminService: AdminService, private toastr: ToastrService) {
+    constructor(public accountService: AccountService, private adminService: AdminService, private toastr: ToastrService) {
     }
 
     ngOnInit(): void {

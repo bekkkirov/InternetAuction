@@ -18,7 +18,7 @@
                 Register new lot
             </a>
         </li>
-        <li class="sidebar__item">
+        <li class="sidebar__item" *ngIf="currentUser.roles?.includes('Moderator')">
             <a class="sidebar__link" routerLink="admin-panel">
                 Admin panel
             </a>

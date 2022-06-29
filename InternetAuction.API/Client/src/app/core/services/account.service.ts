@@ -26,10 +26,13 @@ export class AccountService {
             }
 
             else {
-                user.roles?.push('');
+                console.log(user.roles);
+                console.log(userRoles);
+                user.roles = [];
+                user.roles.push(userRoles)
             }
         }
-        
+
         localStorage.setItem('user', JSON.stringify(user));
         this.currentUserSource.next(user);
     }
