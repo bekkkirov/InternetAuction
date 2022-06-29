@@ -20,6 +20,7 @@ import { LotDetailComponent } from './core/components/lot-detail/lot-detail.comp
 import { PageNotFoundComponent } from './core/components/page-not-found/page-not-found.component';
 import { LotCreateComponent } from './core/components/lot-create/lot-create.component';
 import { SideBarComponent } from './core/components/side-bar/side-bar.component';
+import { AdminPanelComponent } from './core/components/admin-panel/admin-panel.component';
 
 @NgModule({
     declarations: [
@@ -34,6 +35,7 @@ import { SideBarComponent } from './core/components/side-bar/side-bar.component'
         PageNotFoundComponent,
         LotCreateComponent,
         SideBarComponent,
+        AdminPanelComponent,
     ],
     imports: [
         BrowserModule,

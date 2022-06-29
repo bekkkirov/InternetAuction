@@ -1,6 +1,7 @@
 .gridA {
     display: grid;
     grid-template-columns: 10% 90%;
+    grid-template-rows: min-content 1fr;
     grid-template-areas:
        "header header"
        "sidebar content";
@@ -20,6 +21,7 @@ app-side-bar {
 
 app-nav-bar {
     grid-area: header;
+    max-height: 100px;
 }
 
 .wrapper {

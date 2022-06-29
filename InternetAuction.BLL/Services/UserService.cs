@@ -106,6 +106,12 @@ namespace InternetAuction.BLL.Services
             }
 
             var user = await _userManager.FindByNameAsync(userName);
+
+            if (user is null)
+            {
+                throw new ArgumentException("User with specified username doesn't exist.");
+            }
+
             var result = await _userManager.AddToRoleAsync(user, roleName);
 
             if (!result.Succeeded)

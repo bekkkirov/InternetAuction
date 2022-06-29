@@ -1,0 +1,27 @@
+<div class="panel">
+    <div class="panel__inner">
+        <form class="panel__category-form" [formGroup]="categoryForm" (ngSubmit)="createCategory()">
+            <p class="form-title">Create new category</p>
+            <input class="form-control"
+                   type="text"
+                   formControlName="name"
+                   name="name"
+                   placeholder="Category name">
+            <input class="submit-orange" type="submit" value="Submit" [disabled]="categoryForm.invalid">
+        </form>
+        <form class="panel__roles-form" [formGroup]="rolesForm" (ngSubmit)="assignRole()">
+            <p class="form-title">Assign a role to a user</p>
+            <input class="form-control"
+                   type="text"
+                   formControlName="userName"
+                   name="userName"
+                   placeholder="Username">
+            <input class="form-control"
+                   type="text"
+                   formControlName="roleName"
+                   name="roleName"
+                   placeholder="Role name">
+            <input class="submit-orange" type="submit" value="Submit" [disabled]="rolesForm.invalid">
+        </form>
+    </div>
+</div>

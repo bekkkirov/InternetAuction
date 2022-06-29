@@ -24,7 +24,7 @@ export class AppComponent implements OnInit{
     }
 
     toggleGrid() {
-        if(this.currentUser) {
+        if(this.onLotsPage()) {
             return 'gridA';
         }
 
@@ -36,14 +36,16 @@ export class AppComponent implements OnInit{
     }
 
     toggleSideBar() {
-        return this.currentUser &&
-        !this.router.url.includes('/users/profile/') &&
-        this.router.url != '/users/edit' &&
-        this.router.url != '/auth/sign-in' &&
-        this.router.url != '/auth/sign-up'
+        return this.currentUser && this.onLotsPage();
     }
 
     toggleNavBar() {
         return this.router.url != '/auth/sign-in' && this.router.url != '/auth/sign-up'
+    }
+
+    onLotsPage() {
+        return this.router.url === '/' ||
+            this.router.url.includes('categories/') ||
+            this.router.url.includes('lots/search/');
     }
 }

@@ -10,6 +10,7 @@ import {LoggedInGuard} from "../guards/logged-in.guard";
 import {LotDetailComponent} from "../components/lot-detail/lot-detail.component";
 import {PageNotFoundComponent} from "../components/page-not-found/page-not-found.component";
 import {LotCreateComponent} from "../components/lot-create/lot-create.component";
+import {AdminPanelComponent} from "../components/admin-panel/admin-panel.component";
 
 const routes: Routes = [
     {path: '', component: LotsListComponent},
@@ -24,6 +25,7 @@ const routes: Routes = [
             {path: 'lots/:lotId', component: LotDetailComponent},
             {path: 'lots/search/:searchValue', component: LotsListComponent},
             {path: 'lot/create', component: LotCreateComponent},
+            {path: 'admin-panel', component: AdminPanelComponent},
             {path: 'not-found', component: PageNotFoundComponent},
         ]
     },
