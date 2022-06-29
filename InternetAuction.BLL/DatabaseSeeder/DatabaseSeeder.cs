@@ -15,8 +15,14 @@ using InternetAuction.BLL.Models.User;
 
 namespace InternetAuction.BLL.DatabaseSeeder
 {
+    /// <summary>
+    /// Represents a database seeder.
+    /// </summary>
     public class DatabaseSeeder
     {
+        /// <summary>
+        /// Seeds the database.
+        /// </summary>
         public static async Task SeedDatabase(UserManager<User> userManager, RoleManager<UserRole> roleManager,
             IAuthorizationService authorizationService, IUnitOfWork unitOfWork)
         {

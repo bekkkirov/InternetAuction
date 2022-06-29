@@ -5,6 +5,9 @@ using InternetAuction.BLL.Models.Lot;
 
 namespace InternetAuction.BLL.Models.User
 {
+    /// <summary>
+    /// Represents a user DTO.
+    /// </summary>
     public class UserModel
     {
         public int Id { get; set; }

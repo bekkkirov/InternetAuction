@@ -2,6 +2,9 @@
 
 namespace InternetAuction.BLL.Models.Lot
 {
+    /// <summary>
+    /// Represents a lot create DTO.
+    /// </summary>
     public class LotCreateModel
     {
         public string Name { get; set; }

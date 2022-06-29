@@ -66,14 +66,6 @@ namespace InternetAuction.BLL.Interfaces
         /// Creates new category.
         /// </summary>
         /// <param name="model">Create data.</param>
-        /// <returns></returns>
         Task AddCategoryAsync(LotCategoryCreateModel model);
-
-        /// <summary>
-        /// Deletes category with specified id.
-        /// </summary>
-        /// <param name="categoryId">Category id.</param>
-        /// <returns></returns>
-        Task DeleteCategoryByIdAsync(int categoryId);
     }
 }

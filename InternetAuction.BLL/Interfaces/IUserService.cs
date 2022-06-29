@@ -52,8 +52,19 @@ namespace InternetAuction.BLL.Interfaces
         /// <returns>A user with specified username.</returns>
         Task<UserModel> GetByUserNameWithDetailsAsync(string userName);
 
+        /// <summary>
+        /// Sets profile image for the specified user.
+        /// </summary>
+        /// <param name="userName">Username.</param>
+        /// <param name="image">Image.</param>
+        /// <returns>A newly created image.</returns>
         Task<ImageModel> SetProfileImage(string userName, IFormFile image);
 
+        /// <summary>
+        /// Adds specified role to the specified user.
+        /// </summary>
+        /// <param name="userName">Username.</param>
+        /// <param name="roleName">Role name.</param>
         Task AddToRoleAsync(string userName, string roleName);
     }
 }

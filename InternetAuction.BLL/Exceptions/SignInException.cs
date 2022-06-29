@@ -3,6 +3,9 @@ using System.Runtime.Serialization;
 
 namespace InternetAuction.BLL.Exceptions
 {
+    /// <summary>
+    /// Represents a sign-in exception
+    /// </summary>
     [Serializable]
     public class SignInException : Exception
     {

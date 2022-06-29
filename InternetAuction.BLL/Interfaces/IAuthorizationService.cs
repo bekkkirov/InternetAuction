@@ -10,7 +10,7 @@ namespace InternetAuction.BLL.Interfaces
     public interface IAuthorizationService
     {
         /// <summary>
-        /// authorizes the user in the application.
+        /// Authorizes the user in the application.
         /// </summary>
         /// <param name="model">Login data.</param>
         /// <returns>Data of the authorized user.</returns>

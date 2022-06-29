@@ -5,6 +5,10 @@ using System.Threading.Tasks;
 
 namespace InternetAuction.BLL.Pagination
 {
+    /// <summary>
+    /// Represents a paged list.
+    /// </summary>
+    /// <typeparam name="T">List entity type.</typeparam>
     public class PagedList<T> : List<T>
     {
         public int PageSize { get; set; }
@@ -15,6 +19,13 @@ namespace InternetAuction.BLL.Pagination
 
         public int ItemsCount { get; set; }
 
+        /// <summary>
+        /// Creates a new instance of the paged list.
+        /// </summary>
+        /// <param name="items">Source from which paged list is created.</param>
+        /// <param name="pageSize">Size of the page.</param>
+        /// <param name="currentPage">Current page.</param>
+        /// <param name="itemsCount">Total count of the items.</param>
         public PagedList(IEnumerable<T> items, int pageSize, int currentPage, int itemsCount)
         {
             this.AddRange(items);
@@ -25,6 +36,13 @@ namespace InternetAuction.BLL.Pagination
             ItemsCount = itemsCount;
         }
 
+        /// <summary>
+        /// Creates a new instance of the paged list.
+        /// </summary>
+        /// <param name="source">Source from which paged list is created.</param>
+        /// <param name="pageNumber">Current page.</param>
+        /// <param name="pageSize">Size of the page.</param>
+        /// <returns></returns>
         public static PagedList<T> CreateAsync(IEnumerable<T> source, int pageNumber, int pageSize)
         {
             var count = source.Count();

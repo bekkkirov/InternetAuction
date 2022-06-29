@@ -9,6 +9,9 @@ using InternetAuction.DAL.Entities;
 
 namespace InternetAuction.BLL.MapperConfigurations
 {
+    /// <summary>
+    /// Mapper configuration.
+    /// </summary>
     public class MapperProfile : Profile
     {
         public MapperProfile()

@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace InternetAuction.API.Controllers
 {
+    /// <summary>
+    /// Represents an admin controller.
+    /// </summary>
     [ApiController]
     [Route("api/[controller]")]
     public class AdminController : ControllerBase
@@ -21,6 +24,12 @@ namespace InternetAuction.API.Controllers
             _userService = userService;
         }
 
+        #region Post
+
+        /// <summary>
+        /// Creates new category.
+        /// </summary>
+        /// <param name="model">Create data.</param>
         [Authorize(Policy = "RequireModeratorRole")]
         [HttpPost]
         [Route("categories/create")]
@@ -31,6 +40,15 @@ namespace InternetAuction.API.Controllers
             return NoContent();
         }
 
+        #endregion
+
+        #region Put
+
+        /// <summary>
+        /// Assigns new role to the specified user.
+        /// </summary>
+        /// <param name="userName">Username.</param>
+        /// <param name="roleName">Role name.</param>
         [Authorize(Policy = "RequireAdministratorRole")]
         [HttpPut]
         [Route("users/assign-role")]
@@ -40,5 +58,7 @@ namespace InternetAuction.API.Controllers
 
             return NoContent();
         }
+
+        #endregion
     }
 }

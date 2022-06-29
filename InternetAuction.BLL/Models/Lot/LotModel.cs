@@ -4,6 +4,9 @@ using InternetAuction.BLL.Models.Image;
 
 namespace InternetAuction.BLL.Models.Lot
 {
+    /// <summary>
+    /// Represents a lot DTO.
+    /// </summary>
     public class LotModel
     {
         public int Id { get; set; }

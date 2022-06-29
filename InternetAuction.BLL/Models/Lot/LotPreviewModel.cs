@@ -3,6 +3,9 @@ using InternetAuction.BLL.Models.Image;
 
 namespace InternetAuction.BLL.Models.Lot
 {
+    /// <summary>
+    /// Lot preview DTO.
+    /// </summary>
     public class LotPreviewModel
     {
         public int Id { get; set; }

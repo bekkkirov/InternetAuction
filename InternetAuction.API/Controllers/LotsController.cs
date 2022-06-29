@@ -15,6 +15,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace InternetAuction.API.Controllers
 {
+    /// <summary>
+    /// Represents a lots controller.
+    /// </summary>
     [ApiController]
     [Route("api/[controller]")]
     public class LotsController : ControllerBase
@@ -30,6 +33,12 @@ namespace InternetAuction.API.Controllers
             _bidService = bidService;
         }
 
+        #region Get
+
+        /// <summary>
+        /// Gets all categories.
+        /// </summary>
+        /// <returns>All categories.</returns>
         [HttpGet]
         [Route("categories")]
         public async Task<ActionResult<IEnumerable<LotCategoryModel>>> GetCategories()
@@ -37,10 +46,16 @@ namespace InternetAuction.API.Controllers
             return Ok(await _lotService.GetAllCategoriesAsync());
         }
 
+        /// <summary>
+        /// Gets lots with specified category.
+        /// </summary>
+        /// <param name="categoryId">Category id.</param>
+        /// <param name="lotParams">Lot parameters.</param>
+        /// <returns>Lot previews.</returns>
         [Authorize]
         [HttpGet]
         [Route("categories/{categoryId}")]
-        public async Task<ActionResult<PagedList<LotPreviewModel>>> GetLotsByCategory(int categoryId, [FromQuery] LotParameters lotParams)
+        public async Task<ActionResult<PagedList<LotPreviewModel>>> GetByCategory(int categoryId, [FromQuery] LotParameters lotParams)
         {
             var lots = await _lotService.GetLotsPreviewsByCategoryAsync(categoryId, lotParams);
 
@@ -49,9 +64,14 @@ namespace InternetAuction.API.Controllers
             return Ok(lots);
         }
 
+        /// <summary>
+        /// Gets all lots.
+        /// </summary>
+        /// <param name="lotParams">Lot parameters</param>
+        /// <returns>All lots.</returns>
         [HttpGet]
         [Route("previews")]
-        public async Task<ActionResult<PagedList<LotPreviewModel>>> GetLotsPreviews([FromQuery] LotParameters lotParams)
+        public async Task<ActionResult<PagedList<LotPreviewModel>>> GetPreviews([FromQuery] LotParameters lotParams)
         {
             var lots = await _lotService.GetLotsPreviewsAsync(lotParams);
 
@@ -60,10 +80,15 @@ namespace InternetAuction.API.Controllers
             return Ok(lots);
         }
 
+        /// <summary>
+        /// Gets lot by with specified id.
+        /// </summary>
+        /// <param name="lotId">Lot id.</param>
+        /// <returns>Lot with specified id.</returns>
         [Authorize]
         [HttpGet(Name = "GetById")]
         [Route("{lotId}")]
-        public async Task<ActionResult<LotModel>> GetLotById(int lotId)
+        public async Task<ActionResult<LotModel>> GetById(int lotId)
         {
             var lot = await _lotService.GetByIdWithDetailsAsync(lotId);
 
@@ -75,6 +100,12 @@ namespace InternetAuction.API.Controllers
             return Ok(lot);
         }
 
+        /// <summary>
+        /// Returns lots which names contain specified search value.
+        /// </summary>
+        /// <param name="searchValue">Search value.</param>
+        /// <param name="lotParams">Lot parameters.</param>
+        /// <returns>Lots that match specified search value.</returns>
         [Authorize]
         [HttpGet]
         [Route("search/{searchValue}")]
@@ -87,9 +118,18 @@ namespace InternetAuction.API.Controllers
             return Ok(lots);
         }
 
+        #endregion
+
+        #region Post
+
+        /// <summary>
+        /// Creates new lot.
+        /// </summary>
+        /// <param name="model">Create data.</param>
+        /// <returns>Created lot.</returns>
         [Authorize]
         [HttpPost]
-        public async Task<ActionResult<LotModel>> AddLot(LotCreateModel model)
+        public async Task<ActionResult<LotModel>> Add(LotCreateModel model)
         {
             var userName = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var created = await _lotService.AddAsync(model, userName);
@@ -97,6 +137,12 @@ namespace InternetAuction.API.Controllers
             return CreatedAtRoute("GetById", new { id = created.Id }, created);
         }
 
+        /// <summary>
+        /// Adds image to the specified lot.
+        /// </summary>
+        /// <param name="lotId">Lot id.</param>
+        /// <param name="image">Image.</param>
+        /// <returns>Created image.</returns>
         [Authorize]
         [HttpPost]
         [Route("{lotId}/image")]
@@ -107,18 +153,32 @@ namespace InternetAuction.API.Controllers
             return CreatedAtRoute("GetById", new { Id = lotId }, created);
         }
 
+        /// <summary>
+        /// Places new bid for the specified lot.
+        /// </summary>
+        /// <param name="model">Create data.</param>
+        /// <param name="lotId">Lot id.</param>
+        /// <returns>Created bid.</returns>
         [Authorize]
         [HttpPost]
         [Route("{lotId}/bids")]
-        public async Task<ActionResult<Bid>> PlaceBid(BidCreateModel model, int lotId)
+        public async Task<ActionResult<BidModel>> PlaceBid(BidCreateModel model, int lotId)
         {
             var userName = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             var created = await _bidService.AddAsync(model, userName, lotId);
 
-            return CreatedAtRoute("GetById", new {Id = lotId }, created);
+            return CreatedAtRoute("GetById", new { Id = lotId }, created);
         }
 
+        #endregion
+
+        #region Delete
+
+        /// <summary>
+        /// Deletes lot with specified id.
+        /// </summary>
+        /// <param name="lotId">Lot id.</param>
         [Authorize]
         [HttpDelete]
         [Route("{lotId}")]
@@ -130,5 +190,7 @@ namespace InternetAuction.API.Controllers
 
             return NoContent();
         }
+
+        #endregion
     }
 }

@@ -2,6 +2,9 @@
 
 namespace InternetAuction.BLL.Models.Bid
 {
+    /// <summary>
+    /// Represents a bid DTO.
+    /// </summary>
     public class BidModel
     {
         public int Id { get; set; }

@@ -1,5 +1,8 @@
 ﻿namespace InternetAuction.BLL.Models.User
 {
+    /// <summary>
+    /// Represents a register DTO.
+    /// </summary>
     public class RegisterModel
     {
         public string UserName { get; set; }

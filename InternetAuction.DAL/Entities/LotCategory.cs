@@ -4,7 +4,7 @@ using InternetAuction.DAL.Interfaces;
 namespace InternetAuction.DAL.Entities
 {
     /// <summary>
-    /// Represents lot category.
+    /// Represents a lot category.
     /// </summary>
     public class LotCategory : IEntity
     {

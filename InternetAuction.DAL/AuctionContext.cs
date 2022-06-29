@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 namespace InternetAuction.DAL
 {
     /// <summary>
-    /// Application main context
+    /// Application main context.
     /// </summary>
     public class AuctionContext : DbContext
     {
