@@ -156,11 +156,6 @@ namespace InternetAuction.BLL.DatabaseSeeder
                 await unitOfWork.SaveChangesAsync();
             }
 
-            if (!userManager.Users.Any())
-            {
-
-            }
-
             if (!(await unitOfWork.LotRepository.GetAsync()).Any())
             {
                 var lotFaker = new Faker<Lot>().RuleFor(l => l.Name, f => f.Commerce.ProductName().ClampLength(1, 30))
