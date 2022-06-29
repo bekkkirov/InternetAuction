@@ -39,7 +39,7 @@ export class UserDetailComponent implements OnInit {
     }
 
     deleteLot(lotId: number) {
-        this.lotService.deleteLot(lotId).subscribe( {
+        this.lotService.deleteLot(lotId).pipe(take(1)).subscribe( {
             next: () => this.loadUser(),
             complete: () => this.toastr.success("Lot is successfully deleted")
         });
@@ -47,6 +47,7 @@ export class UserDetailComponent implements OnInit {
 
     loadUser() {
         this.userService.getByUserName(this.route.snapshot.paramMap.get('userName'))
-            .subscribe(result => this.user = result);
+                        .pipe(take(1))
+                        .subscribe(result => this.user = result);
     }
 }

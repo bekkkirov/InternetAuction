@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AccountService} from "../../services/account.service";
 import {LoggedInUser} from "../../models/logged-in-user.model";
 import {Router} from "@angular/router";
+import {take} from "rxjs";
 
 @Component({
     selector: 'app-side-bar',
@@ -15,7 +16,8 @@ export class SideBarComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.accountService.currentUser$.subscribe(result => this.currentUser = result);
+        this.accountService.currentUser$.pipe(take(1))
+                                        .subscribe(result => this.currentUser = result);
     }
 
     logout() {

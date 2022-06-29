@@ -5,7 +5,7 @@
                 <img class="edit__profile-image" [src]="user.profileImage || '/assets/images/user.png'">
                 <p class="edit__userName">{{user.userName}}</p>
                 <label class="edit__image-upload">
-                    <input #fileInput name="file" type="file"
+                    <input name="file" type="file"
                            accept="image/png, image/jpeg"
                            (change)="onFileInput($event)">
                     Upload new image

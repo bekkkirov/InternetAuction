@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AccountService} from "../../services/account.service";
 import {LoggedInUser} from "../../models/logged-in-user.model";
-import {Observable, take} from "rxjs";
-import {User} from "../../models/user.model";
+import {take} from "rxjs";
 import {UserService} from "../../services/user.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AppValidators} from "../../validators/app-validators";
@@ -15,7 +14,6 @@ import {ToastrService} from "ngx-toastr";
 })
 export class UserEditComponent implements OnInit {
     user: LoggedInUser;
-
     form = new FormGroup({
         "profileImage": new FormControl(null),
         "firstName": new FormControl("", [AppValidators.validateLength(2, 30)]),
@@ -29,6 +27,7 @@ export class UserEditComponent implements OnInit {
 
     ngOnInit(): void {
         this.accountService.currentUser$.pipe(take(1)).subscribe(currentUser => this.user = currentUser);
+
         this.userService.getByUserName(this.user.userName).pipe(take(1)).subscribe(user => {
             this.form.patchValue({
                 "firstName": user.firstName,

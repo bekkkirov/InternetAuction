@@ -3,6 +3,7 @@ import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/form
 import {AccountService} from "../../services/account.service";
 import {Router} from "@angular/router";
 import {AppValidators} from "../../validators/app-validators";
+import {take} from "rxjs";
 
 @Component({
     selector: 'app-sign-up',
@@ -40,7 +41,7 @@ export class SignUpComponent {
             lastName: this.form.get('lastName')?.value.trim(),
             email: this.form.get('email')?.value.trim(),
             password: this.form.get('passwords.password')?.value.trim(),
-        }).subscribe(
+        }).pipe(take(1)).subscribe(
             {
                 complete: () => this.router.navigateByUrl("users/edit")
             });

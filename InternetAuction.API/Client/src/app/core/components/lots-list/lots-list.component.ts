@@ -63,7 +63,6 @@ export class LotsListComponent implements OnInit {
             case LotsListMode.SearchMode:
                 this.searchForLots(this.searchValue)
                 break;
-
         }
     }
 
