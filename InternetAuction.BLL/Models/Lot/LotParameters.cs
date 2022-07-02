@@ -9,6 +9,8 @@
 
         public int PageSize { get; } = 10;
 
+        public string SearchValue { get; set; }
+
         public decimal MinPrice { get; set; } = 0;
 
         public decimal? MaxPrice { get; set; }

@@ -100,24 +100,6 @@ namespace InternetAuction.API.Controllers
             return Ok(lot);
         }
 
-        /// <summary>
-        /// Returns lots which names contain specified search value.
-        /// </summary>
-        /// <param name="searchValue">Search value.</param>
-        /// <param name="lotParams">Lot parameters.</param>
-        /// <returns>Lots that match specified search value.</returns>
-        [Authorize]
-        [HttpGet]
-        [Route("search/{searchValue}")]
-        public async Task<ActionResult<PagedList<LotPreviewModel>>> Search(string searchValue, [FromQuery] LotParameters lotParams)
-        {
-            var lots = await _lotService.SearchAsync(searchValue, lotParams);
-
-            Response.AddPaginationHeader(lots.CurrentPage, lots.PageSize, lots.ItemsCount, lots.TotalPages);
-
-            return Ok(lots);
-        }
-
         #endregion
 
         #region Post

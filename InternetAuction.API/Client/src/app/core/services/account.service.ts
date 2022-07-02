@@ -26,8 +26,6 @@ export class AccountService {
             }
 
             else {
-                console.log(user.roles);
-                console.log(userRoles);
                 user.roles = [];
                 user.roles.push(userRoles)
             }

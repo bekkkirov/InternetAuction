@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {LotService} from "../../services/lot.service";
 import {LotCategory} from "../../models/lot-category.model";
 import {take} from "rxjs";
@@ -20,7 +20,6 @@ export class LotsListComponent implements OnInit {
     lots: PaginatedResult<LotPreview[]> = new PaginatedResult<LotPreview[]>();
     lotParams: LotParameters = new LotParameters();
     mode: LotsListMode = LotsListMode.BaseMode;
-    searchValue: string;
     categoryId: number = 1;
     moment = moment;
 
@@ -30,26 +29,27 @@ export class LotsListComponent implements OnInit {
         "order": new FormControl("PriceAscending"),
     })
 
-    constructor(private lotService: LotService, private router: Router,
-                private route: ActivatedRoute) {
-        if(this.router.url.includes("categories") ) {
-            this.categoryId = +this.route.snapshot.paramMap.get('categoryId');
-            this.mode = LotsListMode.CategoryMode;
-        }
-
-        else if(this.route.snapshot.paramMap.get('searchValue')) {
-            this.mode = LotsListMode.SearchMode;
-        }
-
-        this.get();
+    constructor(private lotService: LotService, private router: Router, private route: ActivatedRoute) {
     }
 
     ngOnInit(): void {
-        this.route.params.subscribe(result => {
-            this.searchValue = result['searchValue']
-            this.get()
-        })
         this.getCategories();
+
+        if(this.router.url.includes("categories")) {
+            let categoryId = Number(this.route.snapshot.paramMap.get('categoryId'));
+
+            if(!isNaN(categoryId)) {
+                this.categoryId = categoryId;
+                this.mode = LotsListMode.CategoryMode;
+            }
+        }
+
+        this.lotService.searchValue$.subscribe(result => {
+            this.lotParams.searchValue = result;
+            this.get();
+        });
+
+        this.get();
     }
 
     get() {
@@ -59,9 +59,6 @@ export class LotsListComponent implements OnInit {
                 break;
             case LotsListMode.CategoryMode:
                 this.getLotsByCategory(this.categoryId);
-                break;
-            case LotsListMode.SearchMode:
-                this.searchForLots(this.searchValue)
                 break;
         }
     }
@@ -78,12 +75,6 @@ export class LotsListComponent implements OnInit {
 
     getLotsByCategory(categoryId: number) {
         this.lotService.getLotsByCategory(categoryId, this.lotParams).pipe(take(1)).subscribe(response => {
-            this.lots = response;
-        });
-    }
-
-    searchForLots(searchValue: string) {
-        this.lotService.search(searchValue, this.lotParams).pipe(take(1)).subscribe(response => {
             this.lots = response;
         });
     }

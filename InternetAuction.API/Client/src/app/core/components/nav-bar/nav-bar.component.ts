@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AccountService} from "../../services/account.service";
 import {Router} from "@angular/router";
 import {LoggedInUser} from "../../models/logged-in-user.model";
+import {LotService} from "../../services/lot.service";
 
 @Component({
     selector: 'app-nav-bar',
@@ -13,7 +14,7 @@ export class NavBarComponent implements OnInit {
     currentUser: LoggedInUser;
 
     constructor(public accountService: AccountService,
-                private router: Router) {
+                private lotService: LotService) {
     }
 
     ngOnInit(): void {
@@ -21,9 +22,7 @@ export class NavBarComponent implements OnInit {
     }
 
     searchForLots() {
-        if(this.searchValue) {
-            this.router.navigateByUrl('lots/search/' + this.searchValue);
-        }
-
+        debugger;
+        this.lotService.setSearchValue(this.searchValue);
     }
 }

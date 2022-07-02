@@ -42,6 +42,18 @@ namespace InternetAuction.DAL.Interfaces
         /// <returns>Lot previews that belong to specified category.</returns>
         Task<IEnumerable<Lot>> GetPreviewsByCategoryIdAsync(int categoryId);
 
+        /// <summary>
+        /// Gets lot previews with specified category id and search value.
+        /// </summary>
+        /// <param name="categoryId"></param>
+        /// <param name="searchValue"></param>
+        /// <returns></returns>
+        Task<IEnumerable<Lot>> SearchWithCategoryAsync(int categoryId, string searchValue);
+
+        /// <summary>
+        /// Sets winners for all passed auctions.
+        /// </summary>
+        /// <returns></returns>
         Task SetWinners();
     }
 }

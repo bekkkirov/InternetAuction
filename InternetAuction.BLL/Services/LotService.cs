@@ -38,7 +38,18 @@ namespace InternetAuction.BLL.Services
 
         public async Task<PagedList<LotPreviewModel>> GetLotsPreviewsByCategoryAsync(int categoryId, LotParameters lotParams)
         {
-            var lots = await _unitOfWork.LotRepository.GetPreviewsByCategoryIdAsync(categoryId);
+            IEnumerable<Lot> lots;
+
+            if (lotParams.SearchValue != null && !string.IsNullOrWhiteSpace(lotParams.SearchValue))
+            {
+                lots = await _unitOfWork.LotRepository.SearchWithCategoryAsync(categoryId, lotParams.SearchValue);
+            }
+
+            else
+            {
+                lots = await _unitOfWork.LotRepository.GetPreviewsByCategoryIdAsync(categoryId);
+            }
+
             var filteredLots = FilterLotsByParams(lots, lotParams);
             var mappedLots = _mapper.Map<IEnumerable<LotPreviewModel>>(filteredLots);
 
@@ -80,9 +91,19 @@ namespace InternetAuction.BLL.Services
             await _unitOfWork.LotRepository.SetWinners();
             await _unitOfWork.SaveChangesAsync();
 
-            var lots = await _unitOfWork.LotRepository.GetPreviewsAsync();
-            var filteredLots = FilterLotsByParams(lots, lotParams);
+            IEnumerable<Lot> lots;
 
+            if (lotParams.SearchValue != null && !string.IsNullOrWhiteSpace(lotParams.SearchValue))
+            {
+                lots = await _unitOfWork.LotRepository.SearchAsync(lotParams.SearchValue);
+            }
+
+            else
+            {
+                lots = await _unitOfWork.LotRepository.GetPreviewsAsync();
+            }
+
+            var filteredLots = FilterLotsByParams(lots, lotParams);
             var mappedLots = _mapper.Map<IEnumerable<LotPreviewModel>>(filteredLots);
 
             return PagedList<LotPreviewModel>.CreateAsync(mappedLots, lotParams.PageNumber, lotParams.PageSize);
@@ -91,15 +112,6 @@ namespace InternetAuction.BLL.Services
         public async Task<LotModel> GetByIdWithDetailsAsync(int lotId)
         {
             return _mapper.Map<LotModel>(await _unitOfWork.LotRepository.GetByIdWithDetailsAsync(lotId));
-        }
-
-        public async Task<PagedList<LotPreviewModel>> SearchAsync(string searchValue, LotParameters lotParams)
-        {
-            var lots = await _unitOfWork.LotRepository.SearchAsync(searchValue);
-            var filteredLots = FilterLotsByParams(lots, lotParams);
-            var mappedLots = _mapper.Map<IEnumerable<LotPreviewModel>>(filteredLots);
-
-            return PagedList<LotPreviewModel>.CreateAsync(mappedLots, lotParams.PageNumber, lotParams.PageSize);
         }
 
         public async Task<IEnumerable<LotCategoryModel>> GetAllCategoriesAsync()
@@ -115,13 +127,7 @@ namespace InternetAuction.BLL.Services
             await _unitOfWork.SaveChangesAsync();
         }
 
-        public async Task DeleteCategoryByIdAsync(int categoryId)
-        {
-            await _unitOfWork.LotCategoryRepository.DeleteByIdAsync(categoryId);
-            await _unitOfWork.SaveChangesAsync();
-        }
-
-        public IEnumerable<Lot> FilterLotsByParams(IEnumerable<Lot> lots, LotParameters lotParams)
+        private IEnumerable<Lot> FilterLotsByParams(IEnumerable<Lot> lots, LotParameters lotParams)
         {
             var result = lots.Where(l => (l.Bids.LastOrDefault()?.BidValue ?? l.InitialPrice) >= lotParams.MinPrice);
 
@@ -143,7 +149,6 @@ namespace InternetAuction.BLL.Services
 
                     case OrderOptions.BidsDescending:
                         return result.OrderByDescending(l => l.Bids.Count);
-
                 }
             }
 

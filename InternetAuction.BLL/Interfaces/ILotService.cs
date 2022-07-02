@@ -50,13 +50,6 @@ namespace InternetAuction.BLL.Interfaces
         Task DeleteByIdAsync(string userName, int modelId);
 
         /// <summary>
-        /// Searches for lots.
-        /// </summary>
-        /// <param name="searchValue">Search value</param>
-        /// <returns>Lot previews.</returns>
-        Task<PagedList<LotPreviewModel>> SearchAsync(string searchValue, LotParameters lotParams);
-
-        /// <summary>
         /// Gets all categories.
         /// </summary>
         /// <returns>All categories.</returns>

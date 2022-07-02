@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {LotCategory} from "../models/lot-category.model";
 import {environment} from "../../../environments/environment.prod";
 import {LotPreview} from "../models/lot-preview-model";
-import {map} from "rxjs";
+import {map, ReplaySubject, take} from "rxjs";
 import {PaginatedResult} from "../models/paginated-result.model";
 import {Lot} from "../models/lot.model";
 import {LotParameters} from "../models/lot-parameters.model";
@@ -17,7 +17,14 @@ import {BidCreate} from "../models/bid-create.model";
 export class LotService {
     apiUrl = environment.apiUrl + "lots/"
 
+    private searchValueSource = new ReplaySubject<string>(1);
+    public searchValue$ = this.searchValueSource.asObservable();
+
     constructor(private http: HttpClient) {
+    }
+
+    setSearchValue(value: string) {
+        this.searchValueSource.next(value);
     }
 
     getLot(lotId: number) {
@@ -59,6 +66,10 @@ export class LotService {
         params = params.append('minPrice', lotParams.minPrice);
         params = params.append('orderOptions', lotParams.orderOptions);
 
+        if(lotParams.searchValue) {
+            params = params.append('searchValue', lotParams.searchValue);
+        }
+
         if(lotParams.maxPrice != null) {
             params = params.append('maxPrice', lotParams.maxPrice);
         }
@@ -82,15 +93,5 @@ export class LotService {
 
     placeBid(lotId: number, bid: BidCreate) {
         return this.http.post(this.apiUrl + `${lotId}/bids`, bid);
-    }
-
-    search(searchValue: string, lotParams: LotParameters) {
-        let params: HttpParams = this.addParams(lotParams);
-
-        return this.http.get<LotPreview[]>(this.apiUrl + `search/${searchValue}`, {observe: 'response', params: params}).pipe(
-            map(response => {
-                return new PaginatedResult<LotPreview[]>(response.body, JSON.parse(response.headers.get('pagination')));
-            })
-        );
     }
 }
