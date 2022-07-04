@@ -44,12 +44,16 @@ export class LotsListComponent implements OnInit {
             }
         }
 
+        this.get();
+        this.lotService.setSearchValue(null);
+
         this.lotService.searchValue$.subscribe(result => {
             this.lotParams.searchValue = result;
-            this.get();
-        });
 
-        this.get();
+            if(this.lotParams.searchValue) {
+                this.get();
+            }
+        });
     }
 
     get() {
