@@ -428,43 +428,5 @@ namespace InternetAuction.BLL.Tests.Tests
                 Times.Once);
             _unitOfWorkMock.Verify(x => x.SaveChangesAsync(), Times.Once);
         }
-
-        [Fact]
-        public async Task DeleteCategoryById_ShouldDeleteCategory()
-        {
-            // Arrange
-            _unitOfWorkMock.Setup(x => x.LotCategoryRepository.DeleteByIdAsync(It.IsAny<int>()));
-
-            var categoryToDelete = new LotCategory() {Id = 1, Name = "Category"};
-
-            // Act
-            await _lotService.DeleteCategoryByIdAsync(categoryToDelete.Id);
-
-            // Assert
-            _unitOfWorkMock.Verify(
-                x => x.LotCategoryRepository.DeleteByIdAsync(It.Is<int>(id => id == categoryToDelete.Id)), Times.Once);
-            _unitOfWorkMock.Verify(x => x.SaveChangesAsync(), Times.Once);
-        }
-
-        [Theory]
-        [InlineData("o")]
-        [InlineData("lot")]
-        [InlineData("pla")]
-        public async Task Search_ShouldReturnCorrectData(string searchValue)
-        {
-            _unitOfWorkMock.Setup(x => x.LotRepository.SearchAsync(It.IsAny<string>()))
-                           .ReturnsAsync((string search) => LotEntities.Where(l =>
-                               EF.Functions.Like(l.Name, $"%{search}%")
-                               && l.SaleEndTime >= DateTime.Now));
-
-            var lotParameters = new LotParameters();
-            var expected = PagedList<LotPreviewModel>.CreateAsync(LotPreviewModels.Where(l =>
-                    EF.Functions.Like(l.Name, $"%{searchValue}%")),
-                lotParameters.PageNumber, lotParameters.PageSize).OrderBy(l => l.CurrentPrice);
-
-            var actual = await _lotService.SearchAsync(searchValue, lotParameters);
-
-            Assert.Equal(expected, actual, new LotPreviewModelComparer());
-        }
     }
 }
