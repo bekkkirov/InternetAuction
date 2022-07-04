@@ -87,14 +87,6 @@ namespace InternetAuction.BLL.DatabaseSeeder
                     await authorizationService.SignUpAsync(users[i]);
                 }
 
-                //Adds roles to ordinary users
-                var identityUsers = await userManager.Users.ToListAsync();
-
-                for (int i = 2; i < identityUsers.Count; i++)
-                {
-                    await userManager.AddToRoleAsync(identityUsers[i], "User");
-                }
-
                 //List of profile images.
                 var images = new List<Image>()
                 {
