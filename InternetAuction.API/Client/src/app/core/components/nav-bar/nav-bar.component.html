@@ -1,8 +1,13 @@
 <div class="nav-wrapper">
     <div class="container">
         <nav class="nav">
-            <a class="nav__logo-small" routerLink="/">A</a>
-            <a class="nav__logo" routerLink="/">Auction</a>
+            <div class="nav__main">
+                <i class="nav__toggle fa fa-align-justify"
+                   (click)="toggleSideBar()"
+                    *ngIf="currentUser && onLotsPage()"></i>
+                <a class="nav__logo-small" routerLink="/">A</a>
+                <a class="nav__logo" routerLink="/">Auction</a>
+            </div>
             <input type="text" class="nav__search-bar"
                    [(ngModel)]="searchValue"
                    placeholder="I'm searching for..."

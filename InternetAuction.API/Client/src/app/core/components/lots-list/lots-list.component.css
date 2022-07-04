@@ -149,6 +149,7 @@ pagination-controls {
 
 .not-found__text {
     font-size: 30px;
+    text-align: center;
 }
 
 @media screen and (max-width: 1280px) {
@@ -165,7 +166,7 @@ pagination-controls {
     }
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 768px) {
     .categories__inner {
         flex-wrap: wrap;
     }
@@ -178,6 +179,7 @@ pagination-controls {
 
     .filters__form {
         flex-direction: column;
+        padding: 0;
     }
 
     .filters__label {
@@ -206,4 +208,50 @@ pagination-controls {
     .lot__col2 {
         font-size: 14px;
     }
+
+    .not-found__text {
+        font-size: 22px;
+    }
 }
+
+@media screen and (max-width: 500px) {
+    .lot {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .lot__name {
+        font-size: 14px;
+    }
+
+    .lot__saleTime {
+        font-size: 14px;
+    }
+
+    .lot__image {
+        width: 50px;
+        height: 50px;
+        margin: 0 0 10px 0;
+    }
+
+    .lot__line {
+        display: none;
+    }
+
+    pagination-controls {
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 414px) {
+    .categories__link {
+        padding: 10px;
+    }
+
+    .not-found__text {
+        font-size: 20px;
+    }
+}
+
+

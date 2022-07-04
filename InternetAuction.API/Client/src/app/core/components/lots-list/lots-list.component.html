@@ -46,6 +46,9 @@
                 </div>
             </div>
             <pagination-controls
+                    [maxSize]="5"
+                    previousLabel=""
+                    nextLabel=""
                     (pageChange)="changePage($event)"
             >
             </pagination-controls>

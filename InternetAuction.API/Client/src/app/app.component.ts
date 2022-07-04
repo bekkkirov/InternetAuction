@@ -12,6 +12,7 @@ import {LoggedInUser} from "./core/models/logged-in-user.model";
 export class AppComponent implements OnInit{
     title = 'Auction';
     currentUser: LoggedInUser;
+    sideBarOpen: boolean;
 
     constructor(public accountService: AccountService, public router: Router) {
     }

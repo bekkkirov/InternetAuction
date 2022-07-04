@@ -1,33 +1,34 @@
-<div class="sidebar">
+<div class="sidebar" [ngClass]="sideBarOpen ? 'sidebar-opened' : ''">
     <div class="sidebar__inner">
-    <img class="sidebar__profile-image" [src]="currentUser?.profileImage || 'assets/images/user.png'">
-    <p class="sidebar__userName">{{currentUser?.userName}}</p>
-    <ul class="sidebar__links">
-        <li class="sidebar__item">
-            <a [routerLink]="'users/profile/' + currentUser?.userName" class="sidebar__link">
-                My profile
-            </a>
-        </li>
-        <li class="sidebar__item">
-            <a routerLink="users/edit" class="sidebar__link">
-                Edit profile
-            </a>
-        </li>
-        <li class="sidebar__item">
-            <a routerLink="lot/create" class="sidebar__link">
-                Register new lot
-            </a>
-        </li>
-        <li class="sidebar__item" *ngIf="currentUser.roles?.includes('Moderator')">
-            <a class="sidebar__link" routerLink="admin-panel">
-                Admin panel
-            </a>
-        </li>
-        <li class="sidebar__item">
-            <a class="sidebar__link" (click)="logout()">
-                Logout
-            </a>
-        </li>
-    </ul>
+        <button class="sidebar__close" (click)="closeSideBar()"><img src="assets/images/cross.png"></button>
+        <img class="sidebar__profile-image" [src]="currentUser?.profileImage || 'assets/images/user.png'">
+        <p class="sidebar__userName">{{currentUser?.userName}}</p>
+        <ul class="sidebar__links">
+            <li class="sidebar__item">
+                <a [routerLink]="'users/profile/' + currentUser?.userName" class="sidebar__link">
+                    My profile
+                </a>
+            </li>
+            <li class="sidebar__item">
+                <a routerLink="users/edit" class="sidebar__link">
+                    Edit profile
+                </a>
+            </li>
+            <li class="sidebar__item">
+                <a routerLink="lot/create" class="sidebar__link">
+                    Register new lot
+                </a>
+            </li>
+            <li class="sidebar__item" *ngIf="currentUser?.roles?.includes('Moderator')">
+                <a class="sidebar__link" routerLink="admin-panel">
+                    Admin panel
+                </a>
+            </li>
+            <li class="sidebar__item">
+                <a class="sidebar__link" (click)="logout()">
+                    Logout
+                </a>
+            </li>
+        </ul>
     </div>
 </div>

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {AccountService} from "../../services/account.service";
 import {Router} from "@angular/router";
 import {LoggedInUser} from "../../models/logged-in-user.model";
@@ -13,8 +13,11 @@ export class NavBarComponent implements OnInit {
     searchValue: string;
     currentUser: LoggedInUser;
 
+    @Output() sideBarOpen = new EventEmitter<boolean>();
+
     constructor(public accountService: AccountService,
-                private lotService: LotService) {
+                private lotService: LotService,
+                private router: Router) {
     }
 
     ngOnInit(): void {
@@ -22,7 +25,16 @@ export class NavBarComponent implements OnInit {
     }
 
     searchForLots() {
-        debugger;
         this.lotService.setSearchValue(this.searchValue);
+    }
+
+    toggleSideBar() {
+        this.sideBarOpen.emit(true);
+    }
+
+    onLotsPage() {
+        return this.router.url === '/' ||
+            this.router.url.includes('categories/') ||
+            this.router.url.includes('lots/search/');
     }
 }

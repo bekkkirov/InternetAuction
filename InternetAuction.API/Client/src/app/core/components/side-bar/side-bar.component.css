@@ -1,6 +1,23 @@
 .sidebar {
     background-color: #e5e5e5;
-    height: 100%;
+    min-height: 100vh;
+    position: fixed;
+    width: 250px;
+    left: -250px;
+}
+
+.sidebar__close {
+    background-color: inherit;
+    align-self: flex-start;
+}
+
+.sidebar__close img {
+    width: 30px;
+    height: 30px;
+}
+
+.sidebar-opened {
+    left: 0;
 }
 
 .sidebar__inner {
@@ -52,20 +69,5 @@
 
     .sidebar__link {
         font-size: 16px;
-    }
-}
-
-@media screen and (max-width: 1280px) {
-    .sidebar__profile-image {
-        width: 50px;
-        height: 50px;
-    }
-
-    .sidebar__userName {
-        font-size: 16px;
-    }
-
-    .sidebar__link {
-        font-size: 14px;
     }
 }

@@ -10,6 +10,17 @@
     color: #fff;
 }
 
+.nav__main {
+    display: flex;
+    align-items: center;
+}
+
+.nav__toggle {
+    font-size: 28px;
+    margin-right: 15px;
+    color: #ff8229;
+}
+
 .nav__logo-small {
     display: none;
 }
@@ -51,15 +62,24 @@
 }
 
 @media screen and (max-width: 768px) {
+    .nav {
+        flex-wrap: wrap;
+    }
+
+    .nav__auth {
+        margin-top: 30px;
+    }
+
     .nav__logo {
         display: none;
     }
 
     .nav__logo-small {
         display: block;
+        margin-right: 5px;
     }
 
     .nav__search-bar {
-        width: 80%;
+        width: 70%;
     }
 }
