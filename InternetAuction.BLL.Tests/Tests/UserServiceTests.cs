@@ -1,4 +1,5 @@
-﻿using InternetAuction.BLL.Models;
+﻿using System;
+using InternetAuction.BLL.Models;
 using InternetAuction.BLL.Services;
 using InternetAuction.BLL.Tests.Comparers;
 using InternetAuction.DAL.Entities;
@@ -179,6 +180,39 @@ namespace InternetAuction.BLL.Tests.Tests
                 },
             };
 
+        private static IEnumerable<User> UserIdentities => new List<User>()
+        {
+            new User()
+            {
+                UserName = "user1",
+            },
+
+            new User()
+            {
+                UserName = "user2",
+            },
+
+            new User()
+            {
+                UserName = "user3",
+            },
+
+            new User()
+            {
+                UserName = "user4",
+            },
+
+            new User()
+            {
+                UserName = "user5",
+            },
+
+            new User()
+            {
+                UserName = "user6",
+            },
+        };
+
         public static IEnumerable<object[]> GetById_TestData()
         {
             var users = UserModels.ToList();
@@ -302,6 +336,73 @@ namespace InternetAuction.BLL.Tests.Tests
 
             // Assert
             Assert.Equal(expected, actual, new UserModelComparer());
+        }
+
+        [Fact]
+        public async Task AddToRoleAsync_ShouldThrowWithInvalidRoleName()
+        {
+            _roleManagerMock.Setup(x => x.RoleExistsAsync(It.IsAny<string>()))
+                            .ReturnsAsync(false);
+
+            var userName = "user1";
+            var roleName = "someRole";
+
+            await Assert.ThrowsAsync<ArgumentException>(async () => await _userService.AddToRoleAsync(userName, roleName));
+        }
+        
+        [Fact]
+        public async Task AddToRoleAsync_ShouldThrowWithInvalidUserName()
+        {
+            _roleManagerMock.Setup(x => x.RoleExistsAsync(It.IsAny<string>()))
+                            .ReturnsAsync(true);
+
+            _userManagerMock.Setup(x => x.FindByNameAsync(It.IsAny<string>()))
+                            .ReturnsAsync((string userName) => UserIdentities.FirstOrDefault(u => u.UserName == userName));
+
+            var userName = "invalidUserName";
+            var roleName = "someRole";
+
+            await Assert.ThrowsAsync<ArgumentException>(async () => await _userService.AddToRoleAsync(userName, roleName));
+        }
+        
+        [Fact]
+        public async Task AddToRoleAsync_ShouldWorkWithValidData()
+        {
+            // Arrange
+            _roleManagerMock.Setup(x => x.RoleExistsAsync(It.IsAny<string>()))
+                            .ReturnsAsync(true);
+
+            _userManagerMock.Setup(x => x.FindByNameAsync(It.IsAny<string>()))
+                            .ReturnsAsync((string userName) => UserIdentities.FirstOrDefault(u => u.UserName == userName));
+
+            _userManagerMock.Setup(x => x.AddToRoleAsync(It.IsAny<User>(), It.IsAny<string>())).ReturnsAsync(IdentityResult.Success);
+
+            var userName = "user1";
+            var roleName = "Moderator";
+
+            // Act
+            await _userService.AddToRoleAsync(userName, roleName);
+
+            // Assert
+           _userManagerMock.Verify(x => x.AddToRoleAsync(It.Is<User>(u => u.UserName == userName), It.Is<string>(r => r == roleName)), Times.Once);
+        }
+
+        [Fact]
+        public async Task AddToRoleAsync_ShouldThrowWhenOperationFailed()
+        {
+            _roleManagerMock.Setup(x => x.RoleExistsAsync(It.IsAny<string>()))
+                            .ReturnsAsync(true);
+
+            _userManagerMock.Setup(x => x.FindByNameAsync(It.IsAny<string>()))
+                            .ReturnsAsync((string userName) => UserIdentities.FirstOrDefault(u => u.UserName == userName));
+
+            _userManagerMock.Setup(x => x.AddToRoleAsync(It.IsAny<User>(), It.IsAny<string>()))
+                            .ReturnsAsync(IdentityResult.Failed());
+
+            var userName = "user1";
+            var roleName = "Moderator";
+
+            await Assert.ThrowsAsync<ArgumentException>(async () => await _userService.AddToRoleAsync(userName, roleName));
         }
     }
 }
