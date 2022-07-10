@@ -75,11 +75,11 @@ namespace InternetAuction.BLL.DatabaseSeeder
 
                 //Registers administrator.
                 await authorizationService.SignUpAsync(users[0]);
-                await userManager.AddToRolesAsync(userManager.Users.First(), new[] { "User", "Moderator", "Administrator" });
+                await userManager.AddToRolesAsync(userManager.Users.First(), new[] { "Moderator", "Administrator" });
 
                 //Registers moderator.
                 await authorizationService.SignUpAsync(users[1]);
-                await userManager.AddToRolesAsync(userManager.Users.OrderBy(u => u.Id).Last(), new[] { "User", "Moderator" });
+                await userManager.AddToRolesAsync(userManager.Users.OrderBy(u => u.Id).Last(), new[] { "Moderator" });
 
                 //Registers ordinary users.
                 for (int i = 2; i < users.Count; i++)

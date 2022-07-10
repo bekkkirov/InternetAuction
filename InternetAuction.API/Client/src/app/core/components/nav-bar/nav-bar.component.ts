@@ -26,6 +26,10 @@ export class NavBarComponent implements OnInit {
 
     searchForLots() {
         this.lotService.setSearchValue(this.searchValue);
+
+        if( !(this.router.url === '/') || !this.router.url.includes('categories/')) {
+            this.router.navigateByUrl('/');
+        }
     }
 
     toggleSideBar() {
