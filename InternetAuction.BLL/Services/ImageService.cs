@@ -95,7 +95,7 @@ namespace InternetAuction.BLL.Services
 
             if (deletionResult.Error != null)
             {
-                throw new ArgumentException($"An error occurred while uploading an image: {deletionResult.Error.Message}");
+                throw new ArgumentException($"An error occurred while deleting an image: {deletionResult.Error.Message}");
             }
 
             var image = (await _unitOfWork.ImageRepository.GetAllWithDetailsAsync()).FirstOrDefault(i => i.PublicId.Equals(publicId));
